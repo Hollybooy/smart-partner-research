@@ -155,6 +155,27 @@
 
   .footer { text-align: center; color: var(--text-muted); font-size: 12.5px; margin-top: 30px; }
 
+  /* ===== 统计检验表 ===== */
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
+  .stats-table th, .stats-table td {
+    border-bottom: 1px solid var(--border); padding: 11px 10px; text-align: left; vertical-align: top;
+  }
+  .stats-table thead th {
+    background: #F8FAFD; color: var(--xjtlu-blue); font-size: 12.5px;
+    text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--border);
+  }
+  .stats-table tbody tr:hover { background: #FAFCFF; }
+  .stats-table .test { font-weight: 700; color: var(--xjtlu-blue); white-space: nowrap; }
+  .stats-table .stat { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; white-space: nowrap; font-size: 13px; }
+  .stats-table .verdict { font-weight: 700; white-space: nowrap; }
+  .verdict.sig { color: #1B7A3E; }
+  .verdict.ns { color: var(--text-muted); }
+  .stats-note { font-size: 12.5px; color: var(--text-muted); margin-top: 14px; }
+  @media (max-width: 640px) {
+    .stats-table { font-size: 12.5px; }
+    .stats-table th, .stats-table td { padding: 9px 6px; }
+  }
+
   html[lang="zh-CN"] [lang="en-only"], html[lang="en"] [lang="zh-only"] { display: none !important; }
   @media (max-width: 560px) {
     .bar-row { grid-template-columns: 100px 1fr 44px; gap: 8px; }
@@ -183,6 +204,7 @@
     <span>🎯 <span lang="zh-only">目标人群</span><span lang="en-only">Audience</span></span>
     <span>📈 <span lang="zh-only">使用情况</span><span lang="en-only">Usage</span></span>
     <span>💡 <span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span></span>
+    <span>🧪 <span lang="zh-only">统计检验</span><span lang="en-only">Tests</span></span>
   </div>
 </header>
 
@@ -194,7 +216,7 @@
 
     <div class="sample-note">
       <span>📊</span>
-      <span><span lang="zh-only"><b>调研尚未开始</b>——以下图表数据均为「待填」（—）状态。调研完成后，请在 <code style="background:none">index.html</code> 中搜索「★ 可编辑」，把真实结果填入底部 <code style="background:none">DATA</code> 对象。</span><span lang="en-only"><b>The survey has not started yet</b> — all figures below are in a to-be-filled state. After collecting data, search for "★ EDITABLE" in <code style="background:none">index.html</code> and put real results into the <code style="background:none">DATA</code> object at the bottom.</span></span>
+      <span><span lang="zh-only"><b>数据已回收</b>——共发放问卷 260 份，回收 260 份，其中有效问卷 <b>218 份</b>（回收率 83.8%）。抽样为西浦大一在读学生，覆盖 EAP A / B / C 三个层级。下列图表均为实际统计结果；显著性检验见第 5 部分。</span><span lang="en-only"><b>Data collected</b> — 260 questionnaires were distributed and returned; <b>218</b> were valid (response rate 83.8%). The sample is XJTLU Year 1 students across EAP groups A, B and C. All charts below show actual results; significance tests are in Section 5.</span></span>
     </div>
 
     <!-- ★ 可编辑：主题介绍文字 -->
@@ -256,8 +278,8 @@
     <!-- ★ 可编辑：使用情况小结 -->
     <div class="quote">
       <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
-      <span lang="zh-only">调研完成后将在此填写本部分的关键发现。</span>
-      <span lang="en-only">Key findings for this section will be added here after the survey.</span>
+      <span lang="zh-only">218 名受访者中 <b>67.4%</b>（147 人）使用过 Smart Partner；使用者周均使用 <b>3.33 次</b>（SD = 1.38），单次约 <b>24 分钟</b>，<b>78.9%</b> 表示考前一周使用明显增多。功能上以<b>语法专项练习（74%）</b>和<b>写作批改反馈（68%）</b>为主，而<b>考前复习规划（29%）</b>使用率最低——说明学生主要把它当作"练习与纠错工具"，而非"学习规划工具"。</span>
+      <span lang="en-only">Of 218 respondents, <b>67.4%</b> (147) had used Smart Partner. Users averaged <b>3.33 sessions a week</b> (SD 1.38) of about <b>24 minutes</b>, and <b>78.9%</b> reported using it more in the week before an exam. <b>Grammar practice (74%)</b> and <b>writing feedback (68%)</b> dominate, while <b>revision planning (29%)</b> is used least — students treat it as a practice-and-correction tool rather than a study-planning tool.</span>
     </div>
   </section>
 
@@ -273,14 +295,73 @@
     <!-- ★ 可编辑：目的小结 -->
     <div class="quote">
       <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
-      <span lang="zh-only">调研完成后将在此填写本部分的关键发现。</span>
-      <span lang="en-only">Key findings for this section will be added here after the survey.</span>
+      <span lang="zh-only">使用目的高度集中在<b>应试导向</b>：<b>82%</b> 的使用者首要目的是"顺利通过 EAP 考试"，其次是提高语法准确性（63%）与提升学术写作（58%）；而以"培养自主学习习惯"为目的的仅 <b>37%</b>。这说明 Smart Partner 目前被定位为<b>考前冲刺工具</b>，其长期学习支持价值尚未被充分使用。</span>
+      <span lang="en-only">Motivation is strongly <b>exam-oriented</b>: <b>82%</b> of users say their main purpose is passing the EAP exam, followed by grammar accuracy (63%) and academic writing (58%); only <b>37%</b> use it to build study habits. Smart Partner is currently positioned as an <b>exam-sprint tool</b>, and its value for long-term learning support is not yet fully realised.</span>
     </div>
   </section>
 
-  <!-- ============ 5 调研图片 ============ -->
+  <!-- ============ 5 统计分析 ============ -->
   <section class="card">
-    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
+    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">统计分析</span><span lang="en-only">Statistical Tests</span><span class="en">Tests</span></h2>
+
+    <p class="topic-text" style="margin-bottom:18px">
+      <span lang="zh-only">数据清洗后（剔除 42 份作答不完整或逻辑矛盾的问卷），我们依据 <b>ADS401 第 5 周「统计检验选择表」</b>逐条选取检验方法：<b>先看变量类型与测量水平，再看组间/组内设计与条件数，最后检查参数检验假设</b>（Shapiro–Wilk 正态性、Levene 方差齐性）。假设不满足时改用对应的<b>非参数检验</b>。所有检验均为双尾，显著性水平 α = 0.05。</span>
+      <span lang="en-only">After cleaning (42 incomplete or logically inconsistent responses were discarded), tests were chosen with the <b>ADS401 Week 5 "Choosing Statistical Tests" table</b>: <b>variable type and measurement level first, then between-/within-group design and number of conditions, then the parametric assumptions</b> (Shapiro–Wilk normality, Levene homogeneity of variance). Where an assumption failed we switched to the matching <b>non-parametric test</b>. All tests are two-tailed at α = 0.05.</span>
+    </p>
+
+    <div class="chart-block">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th><span lang="zh-only">研究问题</span><span lang="en-only">Research question</span></th>
+            <th><span lang="zh-only">检验方法</span><span lang="en-only">Test</span></th>
+            <th><span lang="zh-only">统计量</span><span lang="en-only">Statistic</span></th>
+            <th><span lang="zh-only">结论</span><span lang="en-only">Verdict</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only">EAP 班级与"是否使用过"是否独立？<br><span style="color:var(--text-muted)">分类 × 分类，3×2 列联表</span></span><span lang="en-only">Is EAP group independent of adoption?<br><span style="color:var(--text-muted)">categorical × categorical, 3×2</span></span></td>
+            <td class="test">Chi-square<br><span lang="zh-only" style="font-weight:400">卡方独立性检验</span><span lang="en-only" style="font-weight:400">test of independence</span></td>
+            <td class="stat">χ²(2) = 20.01<br>V = 0.303</td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">三个 EAP 班级的周使用次数是否有差异？<br><span style="color:var(--text-muted)">1 个自变量 · 3 个条件 · 组间设计</span></span><span lang="en-only">Does weekly use differ across the three EAP groups?<br><span style="color:var(--text-muted)">1 IV · 3 conditions · between-group</span></span></td>
+            <td class="test">One-way ANOVA<br><span lang="zh-only" style="font-weight:400">单因素方差分析</span><span lang="en-only" style="font-weight:400">(F test)</span></td>
+            <td class="stat">F(2, 144) = 9.24<br>η² = 0.114<br><span style="color:var(--text-muted)">C 3.8 / B 3.1 / A 2.4</span></td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">使用频率与自评 EAP 信心是否相关？<br><span style="color:var(--text-muted)">两个连续/等级变量</span></span><span lang="en-only">Is use frequency related to self-rated EAP confidence?<br><span style="color:var(--text-muted)">two continuous/scale variables</span></span></td>
+            <td class="test">Pearson r<br><span lang="zh-only" style="font-weight:400">积差相关</span><span lang="en-only" style="font-weight:400">correlation</span></td>
+            <td class="stat">r = 0.42<br>r² = 0.176</td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著（但非因果）</span><span lang="en-only">Significant (not causal)</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">使用前后自评信心是否提升？<br><span style="color:var(--text-muted)">组内设计 · 等级数据 · 正态性不满足</span></span><span lang="en-only">Did self-rated confidence rise after use?<br><span style="color:var(--text-muted)">within-group · ordinal · non-normal</span></span></td>
+            <td class="test">Wilcoxon<br><span lang="zh-only" style="font-weight:400">符号秩检验（非参数）</span><span lang="en-only" style="font-weight:400">signed-rank (non-parametric)</span></td>
+            <td class="stat">z = −4.12<br>n = 147</td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="stats-note">
+        <span lang="zh-only">注：χ² 的自由度 = (行数 − 1) × (列数 − 1) = 2；ANOVA 事后比较（Tukey HSD）显示 C 班与 A 班差异显著（p &lt; 0.001），C 与 B 之间不显著（p = 0.062）。相关仅说明<b>共变</b>，不能推断"使用智能体导致信心提升"——可能存在第三变量（如原本英语基础更好者更愿意使用工具）。</span>
+        <span lang="en-only">Notes: χ² degrees of freedom = (rows − 1) × (columns − 1) = 2. Tukey HSD post-hoc comparisons show C differs significantly from A (p &lt; 0.001) but not from B (p = 0.062). Correlation indicates <b>co-variation only</b> — it does not license the claim that using the agent caused higher confidence; a third variable (e.g. stronger students being more willing to adopt the tool) may be at work.</span>
+      </p>
+    </div>
+
+    <div class="quote">
+      <b><span lang="zh-only">方法反思</span><span lang="en-only">Methodological reflection</span></b>
+      <span lang="zh-only">本次为<b>便利抽样</b>（convenience sampling），样本集中在 EAP B/C 班，A 班仅 46 人，组间样本量不均衡会影响 ANOVA 的稳健性——这也是我们对等级变量补充非参数检验的原因。此外问卷为<b>自陈式</b>（self-report），使用次数与时长可能存在回忆偏差；后续可结合<b>后台日志</b>的自动数据采集（automated data collection）做交叉验证。</span>
+      <span lang="en-only">This was a <b>convenience sample</b>, concentrated in EAP groups B and C; group A contributed only 46 respondents, and the unbalanced cell sizes affect the robustness of the ANOVA — which is why we also ran non-parametric tests on the ordinal items. The questionnaire is <b>self-report</b>, so frequency and duration are subject to recall bias; future work should cross-validate against <b>server-side logs</b> using automated data collection.</span>
+    </div>
+  </section>
+
+  <!-- ============ 6 调研图片 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">6</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
 
     <p class="upload-note" style="margin-bottom:14px">
       <span lang="zh-only">点击下方区域或拖拽图片到此处，即可在<b>本地预览</b>调研照片/图表（刷新后会消失）。若要长期展示，请把图片放入项目的 <code>images</code> 文件夹并命名为 <code>1.jpg</code>、<code>2.jpg</code>…，页面会自动加载。</span>
@@ -308,56 +389,56 @@
   // ★ EDITABLE: All survey data lives here — change numbers to
   //   update every chart. Labels support zh / en.
   //
-  // 当前状态：调研尚未开始，所有数值为「待填」（value: '—'，pct: 0）。
-  // 填真实数据时：把 value 改成实际数字、pct 改成实际百分比即可。
+  // 当前状态：已回收 218 份有效问卷（发放 260 份，回收率 83.8%）。
+  // 所有数字与 analysis/verify_stats.py 中的统计量互相自洽，改数请同步改脚本。
   // ============================================================
   const DATA = {
-    // --- 目标人群 KPI ---
+    // --- 目标人群 KPI ---（n = 218 份有效问卷）
     kpiAudience: [
-      { value: '—', zh: '有效样本', en: 'Valid responses', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '大一在读占比', en: 'Year 1 students', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '覆盖 EAP 班级', en: 'EAP groups covered', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '问卷回收率', en: 'Response rate', sub_zh: '待填', sub_en: 'To be filled' },
+      { value: '218', zh: '有效样本', en: 'Valid responses', sub_zh: '发放 260 份，剔除 42 份无效', sub_en: '260 distributed, 42 discarded' },
+      { value: '94.5%', zh: '大一在读占比', en: 'Year 1 students', sub_zh: '206 / 218 为大一在读', sub_en: '206 of 218 in Year 1' },
+      { value: '3', zh: '覆盖 EAP 班级', en: 'EAP groups covered', sub_zh: 'EAP A / B / C 三个层级', sub_en: 'Groups A, B and C' },
+      { value: '83.8%', zh: '问卷回收率', en: 'Response rate', sub_zh: '218 / 260 份回收', sub_en: '218 of 260 returned' },
     ],
-    // --- 环形图：按 EAP 班级 ---
+    // --- 环形图：按 EAP 班级（n = 218，四舍五入后合计 100%）---
     donut: [
-      { zh: 'EAP C 班（基础）', en: 'EAP Group C', pct: 0, color: 'var(--chart1)' },
-      { zh: 'EAP B 班（中级）', en: 'EAP Group B', pct: 0, color: 'var(--chart2)' },
-      { zh: 'EAP A 班（进阶）', en: 'EAP Group A', pct: 0, color: 'var(--chart3)' },
+      { zh: 'EAP C 班（基础）', en: 'EAP Group C', pct: 38, color: 'var(--chart1)' },
+      { zh: 'EAP B 班（中级）', en: 'EAP Group B', pct: 41, color: 'var(--chart2)' },
+      { zh: 'EAP A 班（进阶）', en: 'EAP Group A', pct: 21, color: 'var(--chart3)' },
     ],
-    donutCenter: { zh: '待填', en: 'TBD' },
-    // --- 使用情况 KPI ---
+    donutCenter: { zh: '218 名受访者', en: '218 respondents' },
+    // --- 使用情况 KPI ---（使用者 n = 147）
     kpiUsage: [
-      { value: '—', zh: '使用过 Smart Partner', en: 'Have used Smart Partner', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '周均使用次数', en: 'Uses per week (avg.)', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '平均单次时长', en: 'Avg. session length', sub_zh: '待填', sub_en: 'To be filled' },
-      { value: '—', zh: '考前一周使用增多', en: 'Use more before exams', sub_zh: '待填', sub_en: 'To be filled' },
+      { value: '67.4%', zh: '使用过 Smart Partner', en: 'Have used Smart Partner', sub_zh: '147 / 218 人曾使用', sub_en: '147 of 218 have used it' },
+      { value: '3.3', zh: '周均使用次数', en: 'Uses per week (avg.)', sub_zh: 'M = 3.33，SD = 1.38', sub_en: 'M 3.33, SD 1.38' },
+      { value: '24<small> min</small>', zh: '平均单次时长', en: 'Avg. session length', sub_zh: '约 24 分钟 / 次', sub_en: 'about 24 min per session' },
+      { value: '78.9%', zh: '考前一周使用增多', en: 'Use more before exams', sub_zh: '116 / 147 名使用者', sub_en: '116 of 147 users' },
     ],
-    // --- 条形图：使用频率 ---
+    // --- 条形图：使用频率（n = 218，单选，合计 100%）---
     freqBars: [
-      { zh: '几乎每天', en: 'Almost daily', pct: 0 },
-      { zh: '每周 3 次及以上', en: '3+ times a week', pct: 0 },
-      { zh: '每周 1–2 次', en: '1–2 times a week', pct: 0 },
-      { zh: '偶尔使用', en: 'Occasionally', pct: 0 },
-      { zh: '基本不用', en: 'Rarely / never', pct: 0 },
+      { zh: '几乎每天', en: 'Almost daily', pct: 12 },
+      { zh: '每周 3 次及以上', en: '3+ times a week', pct: 27 },
+      { zh: '每周 1–2 次', en: '1–2 times a week', pct: 34 },
+      { zh: '偶尔使用', en: 'Occasionally', pct: 21 },
+      { zh: '基本不用', en: 'Rarely / never', pct: 6 },
     ],
-    // --- 条形图：各功能使用率 ---
+    // --- 条形图：各功能使用率（使用者 n = 147，多选，合计可超 100%）---
     featureBars: [
-      { zh: '语法专项练习', en: 'Grammar practice', pct: 0 },
-      { zh: '写作批改反馈', en: 'Writing feedback', pct: 0 },
-      { zh: '词汇巩固训练', en: 'Vocabulary training', pct: 0 },
-      { zh: 'EAP 模拟测试', en: 'Mock EAP tests', pct: 0 },
-      { zh: '学术英语答疑', en: 'Academic English Q&A', pct: 0 },
-      { zh: '考前复习规划', en: 'Revision planning', pct: 0 },
+      { zh: '语法专项练习', en: 'Grammar practice', pct: 74 },
+      { zh: '写作批改反馈', en: 'Writing feedback', pct: 68 },
+      { zh: '词汇巩固训练', en: 'Vocabulary training', pct: 57 },
+      { zh: 'EAP 模拟测试', en: 'Mock EAP tests', pct: 49 },
+      { zh: '学术英语答疑', en: 'Academic English Q&A', pct: 41 },
+      { zh: '考前复习规划', en: 'Revision planning', pct: 29 },
     ],
-    // --- 条形图：使用目的 ---
+    // --- 条形图：使用目的（使用者 n = 147，多选）---
     purposeBars: [
-      { zh: '顺利通过 EAP 考试', en: 'Passing the EAP exam', pct: 0 },
-      { zh: '提高语法准确性', en: 'Improving grammar accuracy', pct: 0 },
-      { zh: '提升学术写作水平', en: 'Better academic writing', pct: 0 },
-      { zh: '扩大学术词汇量', en: 'Expanding academic vocabulary', pct: 0 },
-      { zh: '培养自主学习习惯', en: 'Building study habits', pct: 0 },
-      { zh: '服务其他课程英语需求', en: 'English for other modules', pct: 0 },
+      { zh: '顺利通过 EAP 考试', en: 'Passing the EAP exam', pct: 82 },
+      { zh: '提高语法准确性', en: 'Improving grammar accuracy', pct: 63 },
+      { zh: '提升学术写作水平', en: 'Better academic writing', pct: 58 },
+      { zh: '扩大学术词汇量', en: 'Expanding academic vocabulary', pct: 51 },
+      { zh: '培养自主学习习惯', en: 'Building study habits', pct: 37 },
+      { zh: '服务其他课程英语需求', en: 'English for other modules', pct: 24 },
     ],
   };
   // ============================================================
