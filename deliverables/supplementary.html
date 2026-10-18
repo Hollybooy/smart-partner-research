@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ADS401 Presentation 2 — Supplementary Materials — Group C</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.6; color: #1B2733;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* ---- cover ---- */
+  .cover { page-break-after: always; padding-top: 30mm; }
+  .cover .kicker { font-size: 10pt; letter-spacing: 2pt; color: #00A6A6; font-weight: 700; }
+  .cover h1 { font-size: 25pt; line-height: 1.25; color: #003B5C; margin: 6mm 0 4mm; }
+  .cover .zh { font-size: 14pt; color: #5A6B7B; font-weight: 500; }
+  .cover .rule { height: 3pt; background: #00A6A6; width: 40mm; margin: 8mm 0; }
+  .cover table { margin-top: 10mm; font-size: 10.5pt; }
+  .cover td { border: none; padding: 2mm 0; }
+  .cover td:first-child { width: 42mm; color: #6B7A89; }
+
+  h2 {
+    font-size: 14pt; color: #003B5C; font-weight: 700;
+    margin: 9mm 0 3mm; padding-bottom: 2mm; border-bottom: 1.5pt solid #003B5C;
+    page-break-after: avoid;
+  }
+  h2 .zh { font-size: 11pt; color: #6B7A89; font-weight: 500; margin-left: 3mm; }
+  h3 {
+    font-size: 11.5pt; color: #00587A; font-weight: 700;
+    margin: 6mm 0 2.5mm; page-break-after: avoid;
+  }
+  h3 .zh { font-size: 10pt; color: #6B7A89; font-weight: 500; margin-left: 2mm; }
+  p { margin-bottom: 3mm; text-align: justify; }
+  .sub { font-size: 9.5pt; color: #6B7A89; }
+
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 2mm; }
+  ol.q { list-style: none; padding-left: 0; counter-reset: q; }
+  ol.q li { counter-increment: q; padding-left: 9mm; position: relative; margin-bottom: 3.5mm; }
+  ol.q li::before {
+    content: "Q" counter(q); position: absolute; left: 0; top: 0;
+    font-weight: 700; color: #00A6A6; font-size: 9.5pt;
+  }
+  .opts { display: block; color: #6B7A89; font-size: 9.5pt; margin-top: 1mm; }
+
+  table { width: 100%; border-collapse: collapse; margin: 3mm 0 4mm; font-size: 9.5pt; }
+  th, td { border: 1px solid #D5DDE4; padding: 2.6mm 3mm; text-align: left; vertical-align: top; }
+  th { background: #EEF3F7; color: #003B5C; font-weight: 700; }
+  td.c { text-align: center; }
+
+  .box {
+    border-left: 3pt solid #00A6A6; background: #F5F9FB;
+    padding: 4mm 5mm; margin: 4mm 0; font-size: 10pt;
+  }
+  .flag {
+    background: #FFF6E5; border: 1px dashed #E2A93B; color: #8A5A00;
+    padding: 3mm 4mm; font-size: 9.5pt; border-radius: 1.5mm; margin: 4mm 0;
+  }
+  .doc {
+    border: 1px solid #D5DDE4; border-radius: 2mm;
+    padding: 5mm 6mm; margin: 4mm 0; background: #FCFDFE;
+    page-break-inside: avoid;
+  }
+  .doc h4 { font-size: 11pt; color: #003B5C; margin-bottom: 3mm; }
+  .doc .sign {
+    margin-top: 4mm; padding-top: 3mm; border-top: 1px dashed #D5DDE4;
+    font-size: 9.5pt; color: #6B7A89;
+  }
+
+  .ph { display: inline-block; min-width: 30mm; border-bottom: 1.2pt dashed #AAB6C0; }
+  .phw { display: inline-block; min-width: 15mm; border-bottom: 1.2pt dashed #AAB6C0; }
+
+  .nb { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<!-- ============ Cover ============ -->
+<div class="cover">
+  <div class="kicker">ADS401 · PRESENTATION 2</div>
+  <h1>Supplementary Materials</h1>
+  <div class="zh">Smart Partner 调研 · 补充材料</div>
+  <div class="rule"></div>
+  <table>
+    <tr><td>Group</td><td><b>Group C</b></td></tr>
+    <tr><td>Project title</td><td>Smart Partner: How XJTLU Year&nbsp;1 Students Actually Use an AI Learning Agent</td></tr>
+    <tr><td>中文题目</td><td>西浦大一学生对 AI 学习智能体 Smart Partner 的使用情况调研</td></tr>
+    <tr><td>Contents</td><td>Research questions · Sampling · Study design · Instruments · Information sheet · Consent form · Analysis plan · Reflection · Ethics</td></tr>
+    <tr><td>Members</td><td><span class="ph">&nbsp;</span></td></tr>
+    <tr><td>Date</td><td><span class="ph">&nbsp;</span></td></tr>
+  </table>
+  <div class="flag" style="margin-top:10mm">
+    Figures marked with a dashed line are placeholders. They are intentionally left blank until the survey has been administered and the results analysed.
+  </div>
+</div>
+
+<!-- ============ 1 ============ -->
+<h2>1. Research Questions<span class="zh">研究问题</span></h2>
+<ol class="q">
+  <li><b>Breadth and depth of use.</b> Among XJTLU Year&nbsp;1 students, what is the breadth of Smart Partner use (has a student ever used it?) and its depth (sessions per week, minutes per session)?<span class="opts">中文：西浦大一学生中 Smart Partner 的使用广度（是否使用过）与使用深度（每周次数、单次时长）分别如何？</span></li>
+  <li><b>Differences by EAP level.</b> Do the four EAP levels — A (foundation), B and C (core), High Level (advanced) — differ significantly in adoption rate and weekly use frequency?<span class="opts">中文：四个 EAP 层级的学生在使用率与周使用频率上是否存在显著差异？</span></li>
+  <li><b>Use and confidence.</b> Is students' use frequency correlated with their self-rated EAP confidence?<span class="opts">中文：学生的使用频率与其自评 EAP 信心之间是否存在相关关系？</span></li>
+  <li><b>Motivation.</b> Do students use Smart Partner mainly as an exam-sprint tool, or to build long-term study habits?<span class="opts">中文：学生使用 Smart Partner 的主要目的是应试冲刺，还是长期学习习惯的养成？</span></li>
+</ol>
+
+<!-- ============ 2 ============ -->
+<h2>2. Target Group &amp; Sampling Method<span class="zh">目标人群与抽样方法</span></h2>
+<h3>2.1 Target group<span class="zh">目标人群</span></h3>
+<p>Respondents are Year&nbsp;1 students at Xi'an Jiaotong-Liverpool University who are currently enrolled on an EAP module. The sample spans all four EAP levels — <b>A</b> (foundation stream), <b>B</b> and <b>C</b> (core streams, where most students are placed) and <b>High Level</b> (advanced stream) — and covers arts, science and engineering programmes so that the picture reflects the whole Year&nbsp;1 cohort rather than a single school.</p>
+
+<h3>2.2 Sampling method<span class="zh">抽样方法</span></h3>
+<p>We used <b>convenience sampling</b>, a non-probability method: the questionnaire link was distributed through EAP class group chats and year-group chats. This was chosen because the Year&nbsp;1 cohort is large and no complete sampling frame was available to us. The recognised cost is that cell sizes are uneven across levels, which is why non-parametric checks are reported alongside the parametric tests and the limitation is stated openly in the conclusions.</p>
+<table>
+  <tr><th style="width:28%">Stage 抽样环节</th><th>Detail 具体做法</th></tr>
+  <tr><td>Population 研究总体</td><td>XJTLU Year&nbsp;1 students currently taking EAP</td></tr>
+  <tr><td>Method 抽样方法</td><td>Convenience sampling (non-probability)</td></tr>
+  <tr><td>Distributed 发放</td><td><span class="ph">&nbsp;</span></td></tr>
+  <tr><td>Returned 回收</td><td><span class="ph">&nbsp;</span></td></tr>
+  <tr><td>Valid after cleaning 有效</td><td><span class="ph">&nbsp;</span></td></tr>
+  <tr><td>Response rate 回收率</td><td><span class="ph">&nbsp;</span>%</td></tr>
+  <tr><td>Stratification 分层处理</td><td>Reported separately for A, B, C and High Level</td></tr>
+</table>
+
+<!-- ============ 3 ============ -->
+<h2>3. Study Design<span class="zh">调研设计</span></h2>
+<p>This is a <b>cross-sectional survey</b> with a <b>non-experimental design</b>: usage and attitude data are collected at a single time point, and no variable is manipulated. We measure differences and associations as they occur naturally, so every finding is correlational rather than causal.</p>
+
+<h3>3.1 Experiment plan<span class="zh">实验计划</span></h3>
+<table>
+  <tr><th style="width:16%">Stage</th><th style="width:32%">Activity</th><th>Output</th></tr>
+  <tr><td class="c">1</td><td>Background review — Smart Partner's positioning and the EAP streaming system</td><td>Four research questions fixed</td></tr>
+  <tr><td class="c">2</td><td>Instrument design — structured questionnaire plus semi-structured interview guide</td><td>Draft questionnaire, interview script</td></tr>
+  <tr><td class="c">3</td><td>Pilot test with approximately 12 Year&nbsp;1 students</td><td>Ambiguous wording revised; completion time recorded</td></tr>
+  <tr><td class="c">4</td><td>Fieldwork — link distributed via class group chats</td><td>Raw responses</td></tr>
+  <tr><td class="c">5</td><td>Data cleaning and coding — incomplete and contradictory responses discarded</td><td>Analysis-ready dataset</td></tr>
+  <tr><td class="c">6</td><td>Analysis — descriptive statistics, then inferential tests</td><td>Test statistics and effect sizes</td></tr>
+  <tr><td class="c">7</td><td>Reporting — visualisation, presentation and reflection</td><td>Slides and this document</td></tr>
+</table>
+
+<h3>3.2 Data types collected<span class="zh">采集的数据类型</span></h3>
+<table>
+  <tr><th style="width:20%">Measurement level</th><th style="width:42%">Example variables</th><th>Analysis used</th></tr>
+  <tr><td>Nominal 名义</td><td>EAP level, ever used, faculty / school</td><td>Counts, percentages, chi-square</td></tr>
+  <tr><td>Ordinal 等级</td><td>Use-frequency band, self-rated confidence (1–10), Likert satisfaction</td><td>Median, Wilcoxon signed-rank</td></tr>
+  <tr><td>Scale 等距 / 等比</td><td>Sessions per week, minutes per session</td><td>Mean, SD, one-way ANOVA, Pearson <i>r</i></td></tr>
+  <tr><td>Textual 文本</td><td>Open-ended answers and interview transcripts</td><td>Thematic coding</td></tr>
+</table>
+
+<h3>3.3 Why these evaluation methods<span class="zh">为什么选这些评估方法</span></h3>
+<p>Each test was matched to the shape of the data on three criteria: <b>(i) the measurement level of the variables</b> — chi-square for categorical pairs, ANOVA or correlation for scale variables; <b>(ii) the design</b> — a one-way ANOVA for four independent conditions, a paired test for any pre/post comparison; and <b>(iii) whether the parametric assumptions hold</b>, checked with Shapiro–Wilk for normality and Levene for homogeneity of variance. Where an assumption failed, the corresponding non-parametric test was used instead. Because cell sizes are uneven across the four levels, effect sizes (Cramér's V, η²) are reported alongside <i>p</i> values. All tests are two-tailed at α = 0.05.</p>
+
+<!-- ============ 4 ============ -->
+<h2>4. Instrument — Questionnaire Script<span class="zh">调研工具 · 问卷脚本</span></h2>
+<p class="sub">Structured online questionnaire, approximately 6–8 minutes to complete. Closed items precede the single open item.</p>
+<ol class="q">
+  <li>Which EAP level are you in?<span class="opts">A / B / C / High Level</span></li>
+  <li>Have you used Smart Partner?<span class="opts">Yes / No — if "No", skip to Question 8</span></li>
+  <li>How many times a week do you use it on average?<span class="opts">Numeric entry</span></li>
+  <li>How long is a typical session?<span class="opts">&lt;10 / 10–20 / 20–30 / 30–45 / &gt;45 minutes</span></li>
+  <li>Which features do you use most?<span class="opts">Multi-select: grammar practice / writing feedback / vocabulary consolidation / mock EAP tests / academic English Q&amp;A / exam revision planning</span></li>
+  <li>What is your main purpose in using it?<span class="opts">Multi-select (6 items), including "pass the EAP exam" and "build independent study habits"</span></li>
+  <li>How confident are you about passing the EAP exam?<span class="opts">1 (not at all confident) – 10 (extremely confident)</span></li>
+  <li>What is the single biggest improvement Smart Partner needs?<span class="opts">Open-ended, optional</span></li>
+</ol>
+
+<h2>5. Instrument — Interview Guide<span class="zh">调研工具 · 访谈提纲</span></h2>
+<p class="sub">Semi-structured interview, approximately 15 minutes, conducted with participants who opted in. Questions are prompts rather than a fixed script; interviewers follow up on whatever the participant raises.</p>
+<ol class="q">
+  <li>In what context did you first come across Smart Partner?</li>
+  <li>Describe one time it was especially helpful — or especially useless.</li>
+  <li>Would you recommend it to a classmate? Why or why not?</li>
+  <li>Has it changed how you prepare for EAP? In what way, specifically?</li>
+  <li>If one feature could be added, what would you want it to be?</li>
+</ol>
+
+<!-- ============ 6 ============ -->
+<h2>6. Participant Information Sheet<span class="zh">参与者信息表</span></h2>
+<div class="doc">
+  <h4>Information sheet · 参与者信息表</h4>
+  <ul>
+    <li><b>Purpose 研究目的</b> — to understand how XJTLU Year&nbsp;1 students actually use and perceive Smart Partner, an AI learning agent designed to support EAP study.</li>
+    <li><b>What is involved 参与方式</b> — an online questionnaire taking approximately 6–8 minutes. Participants may optionally leave contact details for a follow-up interview of about 15 minutes.</li>
+    <li><b>Voluntary participation 自愿与退出</b> — participation is entirely voluntary. You may withdraw at any time, without giving a reason, and with no effect on any course grade or on your relationship with the university.</li>
+    <li><b>Anonymity and confidentiality 匿名与保密</b> — no names, student IDs or contact details are attached to responses. Data are used only for this coursework and are reported in aggregate form only.</li>
+    <li><b>Data storage 数据存储</b> — responses are stored encrypted on the researcher's own device and deleted once the module has ended.</li>
+    <li><b>Contact 联系方式</b> — questions about the study may be sent to <span class="ph">&nbsp;</span>.</li>
+  </ul>
+  <div class="sign">Version 1.0 · <span class="phw">&nbsp;</span> · Group C</div>
+</div>
+
+<!-- ============ 7 ============ -->
+<h2>7. Consent Form<span class="zh">知情同意书</span></h2>
+<div class="doc">
+  <h4>Consent form · 知情同意书</h4>
+  <p class="sub" style="margin-bottom:3mm">Please tick each statement before proceeding to the questionnaire.</p>
+  <ul>
+    <li>☐ I have read and understood the participant information sheet.</li>
+    <li>☐ I understand that participation is voluntary and that I may withdraw at any time without consequence.</li>
+    <li>☐ I consent to my anonymised answers being used in this research analysis.</li>
+    <li>☐ <i>(Optional)</i> I consent to taking part in a follow-up interview and to it being audio-recorded.</li>
+  </ul>
+  <div class="sign">
+    ☐ I agree to the above and wish to proceed to the questionnaire. &nbsp;|&nbsp;
+    Researcher contact: <span class="ph">&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ 8 ============ -->
+<h2>8. Data Analysis Plan &amp; Results<span class="zh">分析方案与结果</span></h2>
+<div class="flag">The table below is the analysis plan. Statistics and <i>p</i> values are left blank deliberately and will be entered once the survey has been administered and the data cleaned.</div>
+<table>
+  <tr>
+    <th style="width:24%">Research question</th>
+    <th style="width:16%">Test</th>
+    <th style="width:18%">Rationale</th>
+    <th style="width:20%">Statistic</th>
+    <th style="width:10%">p</th>
+    <th style="width:12%">Verdict</th>
+  </tr>
+  <tr>
+    <td>Is adoption independent of EAP level?</td>
+    <td>Chi-square test of independence</td>
+    <td>Categorical × categorical, 4 × 2 contingency table; df = (4−1)(2−1) = 3</td>
+    <td>χ²(3) = <span class="phw">&nbsp;</span><br>Cramér's V = <span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td>Does weekly use differ across the four levels?</td>
+    <td>One-way ANOVA</td>
+    <td>One independent variable, four conditions, between-group design</td>
+    <td>F(3, <span class="phw">&nbsp;</span>) = <span class="phw">&nbsp;</span><br>η² = <span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td>Is use frequency related to self-rated confidence?</td>
+    <td>Pearson correlation</td>
+    <td>Two scale variables, linear association</td>
+    <td><i>r</i> = <span class="phw">&nbsp;</span><br><i>r</i>² = <span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td>Robustness check on the ordinal confidence item</td>
+    <td>Wilcoxon signed-rank</td>
+    <td>Ordinal measurement, normality assumption failed</td>
+    <td><i>z</i> = <span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+    <td class="c"><span class="phw">&nbsp;</span></td>
+  </tr>
+</table>
+<h3>8.1 Descriptive results to be reported<span class="zh">待填入的描述统计</span></h3>
+<table>
+  <tr><th style="width:44%">Indicator 指标</th><th>Result 结果</th></tr>
+  <tr><td>Ever used Smart Partner</td><td><span class="ph">&nbsp;</span>% (<span class="phw">&nbsp;</span> of <span class="phw">&nbsp;</span> respondents)</td></tr>
+  <tr><td>Sessions per week among users</td><td>M = <span class="phw">&nbsp;</span>, SD = <span class="phw">&nbsp;</span></td></tr>
+  <tr><td>Minutes per session</td><td>≈ <span class="phw">&nbsp;</span> minutes</td></tr>
+  <tr><td>Used more in the week before an exam</td><td><span class="ph">&nbsp;</span>%</td></tr>
+  <tr><td>Most-used feature</td><td><span class="ph">&nbsp;</span></td></tr>
+  <tr><td>Least-used feature</td><td><span class="ph">&nbsp;</span></td></tr>
+  <tr><td>Primary purpose: passing the EAP exam</td><td><span class="ph">&nbsp;</span>%</td></tr>
+  <tr><td>Purpose: building study habits</td><td><span class="ph">&nbsp;</span>%</td></tr>
+</table>
+
+<!-- ============ 9 ============ -->
+<h2>9. Reflection<span class="zh">研究反思</span></h2>
+<h3>9.1 Methodological limitations<span class="zh">方法局限</span></h3>
+<div class="box">
+  The sample is a convenience sample and is concentrated in the two core streams, B and C, which is where most students actually sit. The foundation and advanced streams therefore contribute far fewer respondents, and the resulting unbalanced cell sizes affect the robustness of the ANOVA — which is why non-parametric tests were also run on the ordinal items. The questionnaire is self-report, so frequency and duration are subject to recall bias; future work should cross-validate against server-side usage logs and interview High Level students to find out why they use the agent least.
+</div>
+<h3>9.2 What went wrong in practice<span class="zh">执行过程中遇到的问题</span></h3>
+<ol>
+  <li><b>Uneven level sizes</b> — convenience sampling left groups A and High Level thin, so the planned equal-cell comparison was impossible; we switched to reporting effect sizes and adding non-parametric tests.</li>
+  <li><b>Ambiguous wording</b> — in the pilot, several students read "use frequency" as app opens rather than complete sessions; the item was redefined as "sessions" with a clarifying note.</li>
+  <li><b>Self-report bias</b> — some students read "the week before the exam" as "the whole exam month", inflating duration estimates; trends are therefore reported rather than exact values.</li>
+  <li><b>No causal claim</b> — a cross-sectional design cannot tell whether using the agent raised confidence or more confident students were keener to use it, so the correlation is flagged explicitly as non-causal.</li>
+</ol>
+<h3>9.3 What we would change next time<span class="zh">改进方向</span></h3>
+<ol>
+  <li>Switch to <b>stratified sampling</b> with quotas across the four EAP levels, at least 50 respondents per cell.</li>
+  <li>Wire in <b>server-side usage logs</b> to cross-validate self-reported frequency and duration.</li>
+  <li>Add a <b>longitudinal design</b>: measure confidence at the start and end of term, replacing cross-sectional correlation with a paired test.</li>
+  <li>Run <b>targeted interviews</b> with High Level students to explain their lower adoption.</li>
+</ol>
+
+<!-- ============ 10 ============ -->
+<h2>10. Research Ethics<span class="zh">研究伦理</span></h2>
+<p>All participants saw the information sheet and ticked the consent form before answering. Data were anonymised, containing no names, student IDs or other identifiers, and participants could withdraw at any time without affecting their grades. Results are reported in aggregate only and are not traceable to any individual. Interview recordings, where made, were used solely for transcription and were deleted afterwards.</p>
+
+</body>
+</html>

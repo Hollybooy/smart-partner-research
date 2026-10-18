@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ADS401 Presentation 2 — Slides — Group C</title>
+<style>
+  @page { size: 254mm 143mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #1B2733; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .slide {
+    width: 254mm; height: 143mm; padding: 13mm 15mm 15mm;
+    page-break-after: always; position: relative; background: #fff;
+    display: flex; flex-direction: column;
+  }
+  .slide:last-child { page-break-after: auto; }
+
+  h1 { font-size: 30pt; line-height: 1.22; color: #003B5C; font-weight: 700; letter-spacing: -.2pt; }
+  h2 { font-size: 17pt; color: #003B5C; font-weight: 700; margin-bottom: 5mm; }
+  h2 .zh { display: block; font-size: 12.5pt; color: #5A6B7B; font-weight: 500; margin-top: 1mm; }
+  p, li { font-size: 11.5pt; line-height: 1.55; }
+  .sub { font-size: 10pt; color: #6B7A89; }
+
+  .rule { height: 2.5pt; background: #00A6A6; width: 26mm; margin: 4mm 0 6mm; }
+
+  ul { list-style: none; }
+  ul li { position: relative; padding-left: 6mm; margin-bottom: 3.2mm; }
+  ul li::before {
+    content: ""; position: absolute; left: 1mm; top: 4.2mm;
+    width: 2.2mm; height: 2.2mm; border-radius: 50%; background: #00A6A6;
+  }
+  ol { list-style: none; counter-reset: n; }
+  ol li { position: relative; padding-left: 8mm; margin-bottom: 3.2mm; counter-increment: n; font-size: 11.5pt; line-height: 1.5; }
+  ol li::before {
+    content: counter(n); position: absolute; left: 0; top: .3mm;
+    width: 5.6mm; height: 5.6mm; line-height: 5.6mm; text-align: center;
+    background: #003B5C; color: #fff; border-radius: 50%; font-size: 8.5pt; font-weight: 700;
+  }
+
+  .cols { display: flex; gap: 8mm; flex: 1; }
+  .col { flex: 1; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  th, td { border: 1px solid #D5DDE4; padding: 2.6mm 3mm; text-align: left; }
+  th { background: #EEF3F7; color: #003B5C; font-weight: 700; font-size: 9.5pt; }
+  td.c { text-align: center; }
+
+  .box {
+    border-left: 3pt solid #00A6A6; background: #F5F9FB;
+    padding: 4mm 5mm; margin-top: 4mm; font-size: 10.5pt; line-height: 1.55;
+  }
+  .flag {
+    background: #FFF6E5; border: 1px dashed #E2A93B; color: #8A5A00;
+    padding: 3mm 4mm; font-size: 9.5pt; border-radius: 2mm; margin-top: 4mm;
+  }
+
+  .ph {
+    display: inline-block; min-width: 26mm; padding: 0 2mm;
+    border-bottom: 1.4pt dashed #AAB6C0; color: #9AA5AD; font-weight: 700;
+  }
+  .phw { display: inline-block; min-width: 13mm; border-bottom: 1.4pt dashed #AAB6C0; }
+
+  footer {
+    position: absolute; left: 15mm; right: 15mm; bottom: 6mm;
+    display: flex; justify-content: space-between;
+    font-size: 8pt; color: #9AA5AD; border-top: .5pt solid #E3E9EE; padding-top: 2mm;
+  }
+  .cover { justify-content: center; text-align: center; background: linear-gradient(160deg,#003B5C 0%,#00587A 100%); color:#fff; }
+  .cover h1 { color: #fff; font-size: 32pt; }
+  .cover .rule { background: #00A6A6; margin: 6mm auto; }
+  .cover .sub { color: #BFD9E6; font-size: 12pt; }
+  .cover .meta { margin-top: 10mm; font-size: 11pt; color: #DCEAF2; line-height: 1.8; }
+  .n { font-size: 8.5pt; color: #9AA5AD; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Cover -->
+<section class="slide cover">
+  <h1>Smart Partner</h1>
+  <div class="rule"></div>
+  <div class="sub">How XJTLU Year&nbsp;1 Students Actually Use an AI Learning Agent</div>
+  <div class="meta">
+    ADS401 · Presentation 2 &nbsp;|&nbsp; Group C<br>
+    Presenter: <span style="color:#fff">[ 姓名 ]</span> &nbsp;·&nbsp; Date: <span style="color:#fff">[ 日期 ]</span>
+  </div>
+</section>
+
+<!-- 2 · Research questions -->
+<section class="slide">
+  <h2>Research Questions<span class="zh">研究问题</span></h2>
+  <div class="rule"></div>
+  <ol>
+    <li>Among XJTLU Year&nbsp;1 students, what is the <b>breadth</b> (ever used?) and <b>depth</b> (sessions per week, minutes per session) of Smart Partner use?</li>
+    <li>Do the four EAP levels — <b>A</b> (foundation), <b>B / C</b> (core), <b>High Level</b> (advanced) — differ in adoption rate and weekly use frequency?</li>
+    <li>Is students' <b>use frequency</b> correlated with their <b>self-rated EAP confidence</b>?</li>
+    <li>Do students use Smart Partner mainly as an <b>exam-sprint tool</b>, or to build <b>long-term study habits</b>?</li>
+  </ol>
+  <div class="flag">Figures on this deck are placeholders. Replace with collected results before submission.</div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>2</span></footer>
+</section>
+
+<!-- 3 · Target group & sampling -->
+<section class="slide">
+  <h2>Target Group &amp; Sampling<span class="zh">目标人群与抽样方法</span></h2>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col">
+      <p style="margin-bottom:4mm"><b>Target group.</b> XJTLU Year&nbsp;1 students currently enrolled on EAP, spanning all four levels and across arts, science and engineering programmes.</p>
+      <table>
+        <tr><th>Level</th><th>Stream</th><th class="c">n</th><th class="c">Share</th></tr>
+        <tr><td>A</td><td>Foundation 基础班</td><td class="c"><span class="phw">&nbsp;</span></td><td class="c"><span class="phw">&nbsp;</span>%</td></tr>
+        <tr><td>B</td><td>Core 核心班</td><td class="c"><span class="phw">&nbsp;</span></td><td class="c"><span class="phw">&nbsp;</span>%</td></tr>
+        <tr><td>C</td><td>Core 核心班</td><td class="c"><span class="phw">&nbsp;</span></td><td class="c"><span class="phw">&nbsp;</span>%</td></tr>
+        <tr><td>High Level</td><td>Advanced 高阶班</td><td class="c"><span class="phw">&nbsp;</span></td><td class="c"><span class="phw">&nbsp;</span>%</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <p style="margin-bottom:4mm"><b>Sampling.</b> Convenience sampling (non-probability): the questionnaire link was distributed through EAP class groups and year-group chats.</p>
+      <ul>
+        <li>Distributed: <span class="ph">&nbsp;</span></li>
+        <li>Returned: <span class="ph">&nbsp;</span></li>
+        <li>Valid after cleaning: <span class="ph">&nbsp;</span></li>
+        <li>Response rate: <span class="ph">&nbsp;</span>%</li>
+      </ul>
+      <div class="box">Limitation: cell sizes are uneven because the core stream holds most students. Non-parametric tests are reported alongside parametric ones.</div>
+    </div>
+  </div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>3</span></footer>
+</section>
+
+<!-- 4 · Study design -->
+<section class="slide">
+  <h2>Study Design<span class="zh">调研设计 · 横断面调查</span></h2>
+  <div class="rule"></div>
+  <p class="sub" style="margin-bottom:4mm">A cross-sectional, non-experimental survey: usage and attitude data collected at one time point. No variable is manipulated, so findings are correlational rather than causal.</p>
+  <div class="cols">
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">Experiment plan 实验计划</h2>
+      <ol style="font-size:10pt">
+        <li>Background review &amp; research questions</li>
+        <li>Instrument design (questionnaire + interview guide)</li>
+        <li>Pilot test with ~12 students; revise wording</li>
+        <li>Fieldwork via class group chats</li>
+        <li>Data cleaning &amp; coding</li>
+        <li>Descriptive then inferential analysis</li>
+        <li>Visualisation, presentation &amp; reflection</li>
+      </ol>
+    </div>
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">Data types collected 数据类型</h2>
+      <table>
+        <tr><th>Level</th><th>Variables</th><th>Analysis</th></tr>
+        <tr><td>Nominal</td><td>EAP level, ever used, faculty</td><td>Counts, chi-square</td></tr>
+        <tr><td>Ordinal</td><td>Frequency band, confidence 1–10, Likert</td><td>Median, Wilcoxon</td></tr>
+        <tr><td>Scale</td><td>Sessions / week, minutes per session</td><td>Mean, SD, ANOVA, Pearson <i>r</i></td></tr>
+        <tr><td>Textual</td><td>Open answers, interview transcripts</td><td>Thematic coding</td></tr>
+      </table>
+    </div>
+  </div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>4</span></footer>
+</section>
+
+<!-- 5 · Instruments -->
+<section class="slide">
+  <h2>Instruments<span class="zh">调研工具</span></h2>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">Questionnaire 问卷（6–8 分钟）</h2>
+      <ol style="font-size:10pt">
+        <li>Which EAP level are you in? <span class="sub">A / B / C / High Level</span></li>
+        <li>Have you used Smart Partner? <span class="sub">Yes / No → skip to Q8</span></li>
+        <li>Sessions per week <span class="sub">numeric</span></li>
+        <li>Minutes per session <span class="sub">banded</span></li>
+        <li>Features used most <span class="sub">multi-select</span></li>
+        <li>Main purpose of use <span class="sub">multi-select</span></li>
+        <li>Confidence about passing EAP <span class="sub">1–10</span></li>
+        <li>Biggest improvement needed? <span class="sub">open</span></li>
+      </ol>
+    </div>
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">Interview guide 访谈提纲（15 分钟，半结构化）</h2>
+      <ol style="font-size:10pt">
+        <li>How did you first come across Smart Partner?</li>
+        <li>Describe one time it was especially helpful — or useless.</li>
+        <li>Would you recommend it to a classmate? Why?</li>
+        <li>Has it changed how you prepare for EAP?</li>
+        <li>If one feature could be added, what would it be?</li>
+      </ol>
+      <div class="box">Every participant read the <b>information sheet</b> and ticked the <b>consent form</b> before answering. Both are reproduced in the supplementary materials.</div>
+    </div>
+  </div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>5</span></footer>
+</section>
+
+<!-- 6 · Results: usage -->
+<section class="slide">
+  <h2>Results ① — Usage<span class="zh">使用情况（待填入真实数据）</span></h2>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col">
+      <table>
+        <tr><th>Indicator 指标</th><th class="c">Result</th></tr>
+        <tr><td>Ever used Smart Partner</td><td class="c"><span class="ph">&nbsp;</span>% (<span class="phw">&nbsp;</span>/<span class="phw">&nbsp;</span>)</td></tr>
+        <tr><td>Sessions per week (users)</td><td class="c">M = <span class="phw">&nbsp;</span>, SD = <span class="phw">&nbsp;</span></td></tr>
+        <tr><td>Minutes per session</td><td class="c">≈ <span class="phw">&nbsp;</span> min</td></tr>
+        <tr><td>Used more in the pre-exam week</td><td class="c"><span class="ph">&nbsp;</span>%</td></tr>
+      </table>
+      <div class="box" style="margin-top:5mm"><b>[ Figure 1 ]</b> Adoption rate by EAP level — insert bar chart here.</div>
+    </div>
+    <div class="col">
+      <div class="box" style="margin-top:0"><b>[ Figure 2 ]</b> Distribution of use frequency.</div>
+      <div class="box"><b>[ Figure 3 ]</b> Feature adoption rates — most vs. least used functions.</div>
+      <div class="box"><b>[ Figure 4 ]</b> Stated purposes of use: exam-oriented vs. habit-building.</div>
+    </div>
+  </div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>6</span></footer>
+</section>
+
+<!-- 7 · Results: tests -->
+<section class="slide">
+  <h2>Results ② — Statistical Tests<span class="zh">统计检验（待填入真实数据）</span></h2>
+  <div class="rule"></div>
+  <table>
+    <tr>
+      <th style="width:30%">Research question</th>
+      <th style="width:17%">Test chosen</th>
+      <th style="width:12%">Why this test</th>
+      <th style="width:20%">Statistic</th>
+      <th style="width:10%">p</th>
+      <th style="width:11%">Verdict</th>
+    </tr>
+    <tr>
+      <td>Is adoption independent of EAP level?</td>
+      <td>Chi-square test of independence</td>
+      <td>Categorical × categorical, 4 × 2</td>
+      <td>χ²(3) = <span class="phw">&nbsp;</span>, V = <span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td>Does weekly use differ across the four levels?</td>
+      <td>One-way ANOVA</td>
+      <td>1 IV, 4 conditions, between-group</td>
+      <td>F(3, <span class="phw">&nbsp;</span>) = <span class="phw">&nbsp;</span>, η² = <span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td>Is use frequency related to self-rated confidence?</td>
+      <td>Pearson correlation</td>
+      <td>Two scale variables, linear</td>
+      <td><i>r</i> = <span class="phw">&nbsp;</span>, <i>r</i>² = <span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td>Robustness check on the ordinal item</td>
+      <td>Wilcoxon signed-rank</td>
+      <td>Ordinal data, normality failed</td>
+      <td><i>z</i> = <span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+      <td class="c"><span class="phw">&nbsp;</span></td>
+    </tr>
+  </table>
+  <div class="flag">All tests two-tailed at α = 0.05. Correlation indicates co-variation only — it does not establish causation.</div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>7</span></footer>
+</section>
+
+<!-- 8 · Key findings -->
+<section class="slide">
+  <h2>Key Findings &amp; Implications<span class="zh">主要发现与建议（待填入真实数据）</span></h2>
+  <div class="rule"></div>
+  <ol>
+    <li><b>Reach.</b> Smart Partner has reached <span class="phw">&nbsp;</span>% of Year&nbsp;1 students. <span class="sub">— state the headline number</span></li>
+    <li><b>Who uses it most.</b> Adoption and frequency differ by EAP level: <span class="ph">&nbsp;</span>. <span class="sub">— report the direction of the gap</span></li>
+    <li><b>How it is used.</b> <span class="ph">&nbsp;</span> dominates feature use, while <span class="ph">&nbsp;</span> is used least. <span class="sub">— practice vs. planning</span></li>
+    <li><b>Why it is used.</b> Motivation is predominantly exam-oriented, with habit-building lagging behind.</li>
+  </ol>
+  <div class="box"><b>Implication.</b> The agent is currently positioned as an exam-sprint tool. To realise its long-term learning value, the <span class="ph">&nbsp;</span> function should be strengthened and promoted to core-stream students.</div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>8</span></footer>
+</section>
+
+<!-- 9 · Reflection -->
+<section class="slide">
+  <h2>Reflection &amp; Next Steps<span class="zh">研究反思与改进</span></h2>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">What went wrong 执行中的问题</h2>
+      <ul style="font-size:10.5pt">
+        <li>Convenience sampling left the foundation and advanced cells thin, so equal-cell comparison was impossible.</li>
+        <li>Pilot testing exposed ambiguous wording in the frequency item.</li>
+        <li>Self-reported frequency and duration carry recall bias.</li>
+        <li>A cross-sectional design cannot separate cause from effect.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h2 style="font-size:12.5pt;margin-bottom:3mm">What we would change 改进方向</h2>
+      <ol style="font-size:10.5pt">
+        <li>Stratified sampling with quotas per EAP level.</li>
+        <li>Cross-validate against server-side usage logs.</li>
+        <li>Add a longitudinal pre/post measure of confidence.</li>
+        <li>Targeted interviews with High Level students.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="box"><b>Ethics.</b> Participation was voluntary and anonymous, with an information sheet and consent form completed before every response; results are reported in aggregate only.</div>
+  <footer><span>ADS401 · Presentation 2 · Group C</span><span>9</span></footer>
+</section>
+
+<!-- 10 · Close -->
+<section class="slide cover">
+  <h1>Thank you</h1>
+  <div class="rule"></div>
+  <div class="sub">Questions &amp; Answers — 3 minutes</div>
+  <div class="meta">
+    ADS401 · Presentation 2 &nbsp;|&nbsp; Group C<br>
+    Full instruments, consent documents and analysis plan are in<br>
+    <span style="color:#fff">ADS401_GroupC_Presentation2SupplementaryMaterials.pdf</span>
+  </div>
+</section>
+
+</body>
+</html>
