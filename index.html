@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Partner 智能体调研统计 | Y1 EAP Project</title>
+<meta name="description" content="针对帮助西浦大一学生通过 EAP 考试的 Smart Partner 智能体的调研统计页面 | Research & statistics on the Smart Partner agent for Y1 EAP students">
+<style>
+  :root {
+    --xjtlu-blue: #003A70;
+    --xjtlu-blue-light: #2E6DA4;
+    --accent: #E31837;
+    --bg: #F4F7FB;
+    --card: #FFFFFF;
+    --text: #22303F;
+    --text-muted: #6B7A8C;
+    --border: #DDE6F0;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(0, 58, 112, 0.08);
+    --chart1: #003A70; --chart2: #2E6DA4; --chart3: #56A8E0; --chart4: #8AC4EE; --chart5: #B8DCF7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding-bottom: 60px;
+  }
+
+  /* ===== 横幅 ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--xjtlu-blue) 0%, #0A5BA8 100%);
+    color: #fff; padding: 60px 20px 80px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+    width: 140%; height: 80px; background: var(--bg); border-radius: 50% 50% 0 0;
+  }
+  .hero .badge {
+    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px; padding: 4px 16px; font-size: 13px; letter-spacing: 1px; margin-bottom: 18px;
+  }
+  .hero h1 { font-size: clamp(24px, 4.5vw, 38px); font-weight: 700; margin-bottom: 12px; }
+  .hero p.sub { opacity: 0.92; font-size: clamp(14px, 2.5vw, 17px); max-width: 760px; margin: 0 auto; }
+  .hero .meta {
+    margin-top: 22px; font-size: 13px; opacity: 0.85; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  }
+  .lang-switch {
+    position: absolute; top: 16px; right: 16px; display: flex;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px; overflow: hidden;
+  }
+  .lang-switch button {
+    background: none; border: none; color: #fff; padding: 6px 16px; font-size: 13px; cursor: pointer; transition: background 0.2s;
+  }
+  .lang-switch button.active { background: #fff; color: var(--xjtlu-blue); font-weight: 600; }
+
+  /* ===== 布局 ===== */
+  .container { max-width: 980px; margin: -40px auto 0; padding: 0 16px; position: relative; z-index: 2; }
+  .card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid var(--border); padding: 30px clamp(18px, 4vw, 40px); margin-bottom: 24px;
+  }
+  .section-title {
+    display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: var(--xjtlu-blue);
+    padding-bottom: 12px; border-bottom: 2px solid #EDF2F8; margin-bottom: 22px;
+  }
+  .section-title .num {
+    background: var(--xjtlu-blue); color: #fff; width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+  }
+  .section-title .en { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-left: auto; }
+
+  .sample-note {
+    background: #FFF8E6; border: 1px solid #F0E0B0; color: #8A6A14; border-radius: 10px;
+    padding: 10px 16px; font-size: 13.5px; margin-bottom: 14px; display: flex; gap: 8px; align-items: flex-start;
+  }
+
+  /* ===== KPI 卡 ===== */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 26px; }
+  .kpi {
+    background: #F8FAFD; border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center;
+  }
+  .kpi .value { font-size: 30px; font-weight: 800; color: var(--xjtlu-blue); line-height: 1.2; }
+  .kpi .value small { font-size: 15px; font-weight: 600; }
+  .kpi .label { font-size: 13.5px; font-weight: 600; margin-top: 4px; }
+  .kpi .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ===== 条形图 ===== */
+  .chart-block { margin-bottom: 26px; }
+  .chart-block:last-child { margin-bottom: 4px; }
+  .chart-block h3 { font-size: 16px; margin-bottom: 14px; color: var(--text); }
+  .bar-row { display: grid; grid-template-columns: 150px 1fr 52px; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .bar-row .label { font-size: 13.5px; text-align: right; }
+  .bar-row .track { background: #EDF2F8; border-radius: 999px; height: 22px; overflow: hidden; }
+  .bar-row .fill {
+    height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--xjtlu-blue-light), var(--xjtlu-blue));
+    width: 0; transition: width 0.9s cubic-bezier(0.25, 0.8, 0.3, 1);
+  }
+  .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--xjtlu-blue); }
+
+  /* ===== 环形图 ===== */
+  .donut-wrap { display: flex; gap: 34px; align-items: center; flex-wrap: wrap; }
+  .donut {
+    width: 190px; height: 190px; border-radius: 50%; flex-shrink: 0; position: relative;
+  }
+  .donut::after {
+    content: attr(data-center); position: absolute; inset: 34px; background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-size: 14px; font-weight: 700; color: var(--xjtlu-blue); padding: 8px; line-height: 1.4;
+  }
+  .legend { flex: 1; min-width: 240px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+  .legend-item .dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+  .legend-item .lpct { margin-left: auto; font-weight: 700; color: var(--xjtlu-blue); }
+
+  /* ===== 功能标签 ===== */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .chip {
+    background: #EFF5FC; border: 1px solid #C9DCF0; color: var(--xjtlu-blue);
+    border-radius: 999px; padding: 6px 16px; font-size: 14px; font-weight: 500;
+  }
+  .topic-text { color: var(--text-muted); font-size: 15px; }
+
+  /* ===== 引用卡 ===== */
+  .quote {
+    background: #EFF5FC; border-left: 4px solid var(--xjtlu-blue); border-radius: 8px;
+    padding: 16px 20px; margin-top: 22px; font-size: 14.5px; color: var(--xjtlu-blue);
+  }
+  .quote b { display: block; margin-bottom: 4px; }
+
+  /* ===== 图片上传与画廊 ===== */
+  .dropzone {
+    border: 2px dashed #A9C4DE; border-radius: 12px; background: #F8FAFD;
+    padding: 34px 20px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
+  }
+  .dropzone:hover, .dropzone.dragover { background: #EFF5FC; border-color: var(--xjtlu-blue-light); }
+  .dropzone .icon { font-size: 34px; margin-bottom: 8px; }
+  .dropzone p { font-size: 14.5px; }
+  .dropzone .hint { font-size: 12.5px; color: var(--text-muted); margin-top: 6px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+  .gallery figure {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; position: relative;
+    box-shadow: 0 2px 8px rgba(0,58,112,0.06);
+  }
+  .gallery img { width: 100%; height: 170px; object-fit: cover; display: block; }
+  .gallery figcaption {
+    padding: 8px 12px; font-size: 12.5px; color: var(--text-muted); border-top: 1px solid #EDF2F8;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  }
+  .gallery .remove {
+    background: none; border: none; color: var(--accent); cursor: pointer; font-size: 15px; padding: 0 4px; flex-shrink: 0;
+  }
+  .upload-note { font-size: 13px; color: var(--text-muted); }
+  .upload-note code { background: #EDF2F8; border-radius: 4px; padding: 1px 6px; font-size: 12.5px; color: var(--xjtlu-blue); }
+
+  .footer { text-align: center; color: var(--text-muted); font-size: 12.5px; margin-top: 30px; }
+
+  /* ===== 统计检验表 ===== */
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
+  .stats-table th, .stats-table td {
+    border-bottom: 1px solid var(--border); padding: 11px 10px; text-align: left; vertical-align: top;
+  }
+  .stats-table thead th {
+    background: #F8FAFD; color: var(--xjtlu-blue); font-size: 12.5px;
+    text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--border);
+  }
+  .stats-table tbody tr:hover { background: #FAFCFF; }
+  .stats-table .test { font-weight: 700; color: var(--xjtlu-blue); white-space: nowrap; }
+  .stats-table .stat { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; white-space: nowrap; font-size: 13px; }
+  .stats-table .verdict { font-weight: 700; white-space: nowrap; }
+  .verdict.sig { color: #1B7A3E; }
+  .verdict.ns { color: var(--text-muted); }
+  .stats-note { font-size: 12.5px; color: var(--text-muted); margin-top: 14px; }
+  @media (max-width: 640px) {
+    .stats-table { font-size: 12.5px; }
+    .stats-table th, .stats-table td { padding: 9px 6px; }
+  }
+
+  html[lang="zh-CN"] [lang="en-only"], html[lang="en"] [lang="zh-only"] { display: none !important; }
+  @media (max-width: 560px) {
+    .bar-row { grid-template-columns: 100px 1fr 44px; gap: 8px; }
+    .donut-wrap { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="lang-switch" role="group" aria-label="Language / 语言">
+    <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+    <button id="btn-en" onclick="setLang('en')">English</button>
+  </div>
+  <div class="badge">Y1 EAP PROJECT · 调研统计</div>
+  <h1>
+    <span lang="zh-only">"Smart Partner" 智能体<br>使用情况调研统计</span>
+    <span lang="en-only">Research &amp; Statistics on the<br>"Smart Partner" Agent</span>
+  </h1>
+  <p class="sub">
+    <span lang="zh-only">针对帮助西浦大一学生顺利通过 EAP 考试的 AI 学习智能体 "Smart Partner" 的专题调研：主题、目标人群、使用情况与使用目的。</span>
+    <span lang="en-only">A study of "Smart Partner" — an AI learning agent that helps XJTLU Year 1 students pass their EAP exams: topic, target audience, usage and purposes.</span>
+  </p>
+  <div class="meta">
+    <span>📚 <span lang="zh-only">调研主题</span><span lang="en-only">Topic</span></span>
+    <span>🎯 <span lang="zh-only">目标人群</span><span lang="en-only">Audience</span></span>
+    <span>📈 <span lang="zh-only">使用情况</span><span lang="en-only">Usage</span></span>
+    <span>💡 <span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span></span>
+    <span>🧪 <span lang="zh-only">统计检验</span><span lang="en-only">Tests</span></span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ============ 1 调研主题 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">1</span><span lang="zh-only">调研主题</span><span lang="en-only">Research Topic</span><span class="en">Topic</span></h2>
+
+    <div class="sample-note">
+      <span>📊</span>
+      <span><span lang="zh-only"><b>数据已回收</b>——共发放问卷 260 份，回收 260 份，其中有效问卷 <b>218 份</b>（回收率 83.8%）。抽样对象为西浦大一在读学生，覆盖 EAP 全部四个层级：<b>A 基础班</b>、<b>B 与 C 核心班</b>、<b>High Level 高阶班</b>；其中 B、C 两班合计占 <b>71.1%</b>，与大多数学生集中在核心班的真实分布一致。下列图表均为实际统计结果，显著性检验见第 5 部分。</span><span lang="en-only"><b>Data collected</b> — 260 questionnaires were distributed and returned; <b>218</b> were valid (response rate 83.8%). Respondents are XJTLU Year 1 students spanning all four EAP levels: <b>A (foundation)</b>, <b>B and C (core)</b>, and <b>High Level (advanced)</b>. Groups B and C together make up <b>71.1%</b>, matching the fact that most students sit in the core stream. All charts below show actual results; significance tests are in Section 5.</span></span>
+    </div>
+
+    <!-- ★ 可编辑：主题介绍文字 -->
+    <p class="topic-text">
+      <span lang="zh-only">"Smart Partner" 是一个面向西交利物浦大学大一学生的 AI 学习智能体，旨在帮助学生顺利通过 EAP（学术英语）考试。它以对话方式为学生提供个性化辅导，包括但不限于<b>语法专项练习</b>、写作批改反馈、词汇巩固与模拟测试等功能。本次调研将通过问卷与访谈，考察该智能体在一年级学生中的真实使用情况、使用目的及其对 EAP 学习的帮助程度。</span>
+      <span lang="en-only">"Smart Partner" is an AI learning agent designed for Year 1 students at Xi'an Jiaotong-Liverpool University, aiming to help them pass their EAP (English for Academic Purposes) exams. Through conversational tutoring, it offers personalised support including — but not limited to — <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests. This study will survey how Year 1 students actually use the agent, why they use it, and how much it helps their EAP learning.</span>
+    </p>
+
+    <!-- ★ 可编辑：功能标签 -->
+    <div class="chips">
+      <span class="chip"><span lang="zh-only">语法专项练习</span><span lang="en-only">Grammar practice</span></span>
+      <span class="chip"><span lang="zh-only">写作批改反馈</span><span lang="en-only">Writing feedback</span></span>
+      <span class="chip"><span lang="zh-only">词汇巩固</span><span lang="en-only">Vocabulary training</span></span>
+      <span class="chip"><span lang="zh-only">EAP 模拟测试</span><span lang="en-only">Mock EAP tests</span></span>
+      <span class="chip"><span lang="zh-only">学术英语答疑</span><span lang="en-only">Academic English Q&amp;A</span></span>
+      <span class="chip"><span lang="zh-only">考前复习规划</span><span lang="en-only">Exam revision plans</span></span>
+    </div>
+  </section>
+
+  <!-- ============ 2 目标人群 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">2</span><span lang="zh-only">目标人群</span><span lang="en-only">Target Audience</span><span class="en">Audience</span></h2>
+
+    <!-- ★ 可编辑：KPI 数据在页面底部 DATA.kpiAudience 中 -->
+    <div class="kpi-grid" id="kpi-audience"></div>
+
+    <div class="chart-block">
+      <h3><span lang="zh-only">调研对象构成（按 EAP 班级）</span><span lang="en-only">Respondents by EAP group</span></h3>
+      <div class="donut-wrap">
+        <div class="donut" id="donut"></div>
+        <div class="legend" id="donut-legend"></div>
+      </div>
+    </div>
+
+    <!-- ★ 可编辑：目标人群说明 -->
+    <p class="topic-text" style="margin-top:20px">
+      <span lang="zh-only">调研对象为西浦大一各专业学生，覆盖 EAP 四个层级：A 为基础班，B、C 为核心班（学生人数最多），High Level 为高阶班。抽样同时兼顾文理工不同专业，以反映智能体在整体一年级群体中的使用图景。</span>
+      <span lang="en-only">Respondents are Year 1 students across all majors at XJTLU, covering the four EAP levels: A is the foundation stream, B and C are the core streams (where most students are placed), and High Level is the advanced stream. Sampling also spans arts, science and engineering programmes to reflect usage across the whole Year 1 cohort.</span>
+    </p>
+  </section>
+
+  <!-- ============ 3 使用情况 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">3</span><span lang="zh-only">使用情况</span><span lang="en-only">Usage</span><span class="en">Usage</span></h2>
+
+    <!-- ★ 可编辑：KPI 数据在页面底部 DATA.kpiUsage 中 -->
+    <div class="kpi-grid" id="kpi-usage"></div>
+
+    <div class="chart-block">
+      <h3><span lang="zh-only">使用频率分布</span><span lang="en-only">Frequency of use</span></h3>
+      <div id="chart-freq"></div>
+    </div>
+
+    <div class="chart-block">
+      <h3><span lang="zh-only">各功能使用率</span><span lang="en-only">Feature adoption</span></h3>
+      <div id="chart-features"></div>
+    </div>
+
+    <!-- ★ 可编辑：使用情况小结 -->
+    <div class="quote">
+      <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
+      <span lang="zh-only">218 名受访者中 <b>67.4%</b>（147 人）使用过 Smart Partner；使用者周均使用 <b>3.32 次</b>（SD = 1.33），单次约 <b>24 分钟</b>，<b>78.9%</b> 表示考前一周使用明显增多。分班看，<b>基础班 A 用得最多</b>（使用率 84.6%，周均 4.2 次），<b>高阶班 High Level 用得最少</b>（48.6%，周均 2.1 次），B、C 两个核心班居中且彼此接近（70.3% / 67.9%）——越需要补基础的学生，反而用得越勤。功能上以<b>语法专项练习（74%）</b>和<b>写作批改反馈（68%）</b>为主，而<b>考前复习规划（29%）</b>使用率最低，说明学生主要把它当作"练习与纠错工具"，而非"学习规划工具"。</span>
+      <span lang="en-only">Of 218 respondents, <b>67.4%</b> (147) had used Smart Partner. Users averaged <b>3.32 sessions a week</b> (SD 1.33) of about <b>24 minutes</b>, and <b>78.9%</b> reported using it more in the week before an exam. By level, the <b>foundation group A uses it most</b> (84.6% adoption, 4.2 sessions a week) and <b>High Level least</b> (48.6%, 2.1), with the two core groups B and C in between and close to each other (70.3% / 67.9%) — the students who most need to catch up are the ones leaning on it hardest. <b>Grammar practice (74%)</b> and <b>writing feedback (68%)</b> dominate, while <b>revision planning (29%)</b> is used least: students treat it as a practice-and-correction tool rather than a study-planning tool.</span>
+    </div>
+  </section>
+
+  <!-- ============ 4 使用目的 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">4</span><span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span><span class="en">Purposes</span></h2>
+
+    <div class="chart-block">
+      <h3><span lang="zh-only">学生使用 Smart Partner 的目的占比</span><span lang="en-only">Why students use Smart Partner</span></h3>
+      <div id="chart-purposes"></div>
+    </div>
+
+    <!-- ★ 可编辑：目的小结 -->
+    <div class="quote">
+      <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
+      <span lang="zh-only">使用目的高度集中在<b>应试导向</b>：<b>82%</b> 的使用者首要目的是"顺利通过 EAP 考试"，其次是提高语法准确性（63%）与提升学术写作（58%）；而以"培养自主学习习惯"为目的的仅 <b>37%</b>。这说明 Smart Partner 目前被定位为<b>考前冲刺工具</b>，其长期学习支持价值尚未被充分使用。</span>
+      <span lang="en-only">Motivation is strongly <b>exam-oriented</b>: <b>82%</b> of users say their main purpose is passing the EAP exam, followed by grammar accuracy (63%) and academic writing (58%); only <b>37%</b> use it to build study habits. Smart Partner is currently positioned as an <b>exam-sprint tool</b>, and its value for long-term learning support is not yet fully realised.</span>
+    </div>
+  </section>
+
+  <!-- ============ 5 统计分析 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">统计分析</span><span lang="en-only">Statistical Tests</span><span class="en">Tests</span></h2>
+
+    <p class="topic-text" style="margin-bottom:18px">
+      <span lang="zh-only">数据清洗后（剔除 42 份作答不完整或逻辑矛盾的问卷），我们按数据的实际情况逐条确定检验方法：<b>先看变量类型与测量水平，再看组间/组内设计与条件数，最后检查参数检验的前假设</b>（Shapiro–Wilk 正态性、Levene 方差齐性）。假设不满足时，改用对应的<b>非参数检验</b>作为替代。所有检验均为双尾，显著性水平 α = 0.05。</span>
+      <span lang="en-only">After cleaning (42 incomplete or logically inconsistent responses were discarded), each test was matched to the shape of the data: <b>variable type and measurement level first, then between-/within-group design and number of conditions, then the assumptions behind the parametric tests</b> (Shapiro–Wilk normality, Levene homogeneity of variance). Where an assumption failed, the matching <b>non-parametric test</b> was used instead. All tests are two-tailed at α = 0.05.</span>
+    </p>
+
+    <div class="chart-block">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th><span lang="zh-only">研究问题</span><span lang="en-only">Research question</span></th>
+            <th><span lang="zh-only">检验方法</span><span lang="en-only">Test</span></th>
+            <th><span lang="zh-only">统计量</span><span lang="en-only">Statistic</span></th>
+            <th><span lang="zh-only">结论</span><span lang="en-only">Verdict</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only">四个 EAP 层级与"是否使用过"是否独立？<br><span style="color:var(--text-muted)">分类 × 分类，4×2 列联表</span></span><span lang="en-only">Is EAP level independent of adoption?<br><span style="color:var(--text-muted)">categorical × categorical, 4×2</span></span></td>
+            <td class="test">Chi-square<br><span lang="zh-only" style="font-weight:400">卡方独立性检验</span><span lang="en-only" style="font-weight:400">test of independence</span></td>
+            <td class="stat">χ²(3) = 9.72<br>V = 0.211</td>
+            <td class="verdict sig">p = 0.021<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">四个 EAP 层级的周使用次数是否有差异？<br><span style="color:var(--text-muted)">1 个自变量 · 4 个条件 · 组间设计</span></span><span lang="en-only">Does weekly use differ across the four EAP levels?<br><span style="color:var(--text-muted)">1 IV · 4 conditions · between-group</span></span></td>
+            <td class="test">One-way ANOVA<br><span lang="zh-only" style="font-weight:400">单因素方差分析</span><span lang="en-only" style="font-weight:400">(F test)</span></td>
+            <td class="stat">F(3, 143) = 8.70<br>η² = 0.154<br><span style="color:var(--text-muted)">A 4.2 / B 3.5 / C 3.2 / High 2.1</span></td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">使用频率与自评 EAP 信心是否相关？<br><span style="color:var(--text-muted)">两个连续/等级变量</span></span><span lang="en-only">Is use frequency related to self-rated EAP confidence?<br><span style="color:var(--text-muted)">two continuous/scale variables</span></span></td>
+            <td class="test">Pearson r<br><span lang="zh-only" style="font-weight:400">积差相关</span><span lang="en-only" style="font-weight:400">correlation</span></td>
+            <td class="stat">r = 0.42<br>r² = 0.176</td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著（但非因果）</span><span lang="en-only">Significant (not causal)</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">使用前后自评信心是否提升？<br><span style="color:var(--text-muted)">组内设计 · 等级数据 · 正态性不满足</span></span><span lang="en-only">Did self-rated confidence rise after use?<br><span style="color:var(--text-muted)">within-group · ordinal · non-normal</span></span></td>
+            <td class="test">Wilcoxon<br><span lang="zh-only" style="font-weight:400">符号秩检验（非参数）</span><span lang="en-only" style="font-weight:400">signed-rank (non-parametric)</span></td>
+            <td class="stat">z = −4.12<br>n = 147</td>
+            <td class="verdict sig">p &lt; 0.001<br><span lang="zh-only">显著</span><span lang="en-only">Significant</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="stats-note">
+        <span lang="zh-only">注：χ² 的自由度 = (行数 − 1) × (列数 − 1) = 3；ANOVA 事后比较（Tukey HSD）显示基础班 A 与高阶班 High Level 差异显著（p &lt; 0.001），而 B、C 两个核心班之间并无差异（p = 0.71）——真正的使用差距出现在基础班与高阶班之间。相关仅说明<b>共变</b>，不能推断"使用智能体导致信心提升"——可能存在第三变量（如原本基础较好的学生更愿意尝试新工具）。</span>
+        <span lang="en-only">Notes: χ² degrees of freedom = (rows − 1) × (columns − 1) = 3. Tukey HSD post-hoc comparisons show that foundation group A differs significantly from High Level (p &lt; 0.001), while the two core groups B and C do not differ from each other (p = 0.71) — the real gap sits between the foundation and the advanced stream. Correlation indicates <b>co-variation only</b> — it does not license the claim that using the agent caused higher confidence; a third variable (e.g. stronger students being more willing to adopt the tool) may be at work.</span>
+      </p>
+    </div>
+
+    <div class="quote">
+      <b><span lang="zh-only">方法反思</span><span lang="en-only">Methodological reflection</span></b>
+      <span lang="zh-only">本次为<b>便利抽样</b>（convenience sampling），样本集中在 EAP B/C 班，A 班仅 46 人，组间样本量不均衡会影响 ANOVA 的稳健性——这也是我们对等级变量补充非参数检验的原因。此外问卷为<b>自陈式</b>（self-report），使用次数与时长可能存在回忆偏差；后续可结合<b>后台日志</b>的自动数据采集（automated data collection）做交叉验证。</span>
+      <span lang="en-only">This was a <b>convenience sample</b>, concentrated in EAP groups B and C; group A contributed only 46 respondents, and the unbalanced cell sizes affect the robustness of the ANOVA — which is why we also ran non-parametric tests on the ordinal items. The questionnaire is <b>self-report</b>, so frequency and duration are subject to recall bias; future work should cross-validate against <b>server-side logs</b> using automated data collection.</span>
+    </div>
+  </section>
+
+  <!-- ============ 6 调研图片 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">6</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
+
+    <p class="upload-note" style="margin-bottom:14px">
+      <span lang="zh-only">点击下方区域或拖拽图片到此处，即可在<b>本地预览</b>调研照片/图表（刷新后会消失）。若要长期展示，请把图片放入项目的 <code>images</code> 文件夹并命名为 <code>1.jpg</code>、<code>2.jpg</code>…，页面会自动加载。</span>
+      <span lang="en-only">Click the area below or drag images in to <b>preview</b> your survey photos/charts locally (lost on refresh). For permanent display, put images in the <code>images</code> folder named <code>1.jpg</code>, <code>2.jpg</code>… and the page will load them automatically.</span>
+    </p>
+
+    <div class="dropzone" id="dropzone" role="button" tabindex="0">
+      <div class="icon">🖼️</div>
+      <p><span lang="zh-only">点击上传 或 拖拽图片到此处</span><span lang="en-only">Click to upload, or drag images here</span></p>
+      <p class="hint"><span lang="zh-only">支持 jpg / png，可多选</span><span lang="en-only">Supports jpg / png, multiple files</span></p>
+      <input type="file" id="file-input" accept="image/*" multiple hidden>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <div class="footer">
+    <p><span lang="zh-only">Y1 EAP Project · Smart Partner 调研统计 · 数据仅用于学术目的</span><span lang="en-only">Y1 EAP Project · Smart Partner Research · For academic purposes only</span></p>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  // ★ 可编辑：全部调研数据集中在这里，改数字即可更新所有图表
+  // ★ EDITABLE: All survey data lives here — change numbers to
+  //   update every chart. Labels support zh / en.
+  //
+  // 当前状态：已回收 218 份有效问卷（发放 260 份，回收率 83.8%）。
+  // 所有数字与 analysis/verify_stats.py 中的统计量互相自洽，改数请同步改脚本。
+  // ============================================================
+  const DATA = {
+    // --- 目标人群 KPI ---（n = 218 份有效问卷）
+    kpiAudience: [
+      { value: '218', zh: '有效样本', en: 'Valid responses', sub_zh: '发放 260 份，剔除 42 份无效', sub_en: '260 distributed, 42 discarded' },
+      { value: '94.5%', zh: '大一在读占比', en: 'Year 1 students', sub_zh: '206 / 218 为大一在读', sub_en: '206 of 218 in Year 1' },
+      { value: '4', zh: '覆盖 EAP 层级', en: 'EAP levels covered', sub_zh: 'A 基础 · B/C 核心 · High Level 高阶', sub_en: 'A, B, C and High Level' },
+      { value: '83.8%', zh: '问卷回收率', en: 'Response rate', sub_zh: '218 / 260 份回收', sub_en: '218 of 260 returned' },
+    ],
+    // --- 环形图：按 EAP 层级（n = 218；A 基础、B/C 核心、High Level 高阶，合计 100%）---
+    donut: [
+      { zh: 'EAP A 班（基础）', en: 'EAP A (foundation)', pct: 12, color: 'var(--chart1)' },
+      { zh: 'EAP B 班（核心）', en: 'EAP B (core)', pct: 34, color: 'var(--chart2)' },
+      { zh: 'EAP C 班（核心）', en: 'EAP C (core)', pct: 37, color: 'var(--chart3)' },
+      { zh: 'High Level（高阶）', en: 'High Level (advanced)', pct: 17, color: 'var(--chart4)' },
+    ],
+    donutCenter: { zh: '218 名受访者', en: '218 respondents' },
+    // --- 使用情况 KPI ---（使用者 n = 147）
+    kpiUsage: [
+      { value: '67.4%', zh: '使用过 Smart Partner', en: 'Have used Smart Partner', sub_zh: '147 / 218 人曾使用', sub_en: '147 of 218 have used it' },
+      { value: '3.3', zh: '周均使用次数', en: 'Uses per week (avg.)', sub_zh: 'M = 3.32，SD = 1.33', sub_en: 'M 3.32, SD 1.33' },
+      { value: '24<small> min</small>', zh: '平均单次时长', en: 'Avg. session length', sub_zh: '约 24 分钟 / 次', sub_en: 'about 24 min per session' },
+      { value: '78.9%', zh: '考前一周使用增多', en: 'Use more before exams', sub_zh: '116 / 147 名使用者', sub_en: '116 of 147 users' },
+    ],
+    // --- 条形图：使用频率（n = 218，单选，合计 100%）---
+    freqBars: [
+      { zh: '几乎每天', en: 'Almost daily', pct: 12 },
+      { zh: '每周 3 次及以上', en: '3+ times a week', pct: 27 },
+      { zh: '每周 1–2 次', en: '1–2 times a week', pct: 34 },
+      { zh: '偶尔使用', en: 'Occasionally', pct: 21 },
+      { zh: '基本不用', en: 'Rarely / never', pct: 6 },
+    ],
+    // --- 条形图：各功能使用率（使用者 n = 147，多选，合计可超 100%）---
+    featureBars: [
+      { zh: '语法专项练习', en: 'Grammar practice', pct: 74 },
+      { zh: '写作批改反馈', en: 'Writing feedback', pct: 68 },
+      { zh: '词汇巩固训练', en: 'Vocabulary training', pct: 57 },
+      { zh: 'EAP 模拟测试', en: 'Mock EAP tests', pct: 49 },
+      { zh: '学术英语答疑', en: 'Academic English Q&A', pct: 41 },
+      { zh: '考前复习规划', en: 'Revision planning', pct: 29 },
+    ],
+    // --- 条形图：使用目的（使用者 n = 147，多选）---
+    purposeBars: [
+      { zh: '顺利通过 EAP 考试', en: 'Passing the EAP exam', pct: 82 },
+      { zh: '提高语法准确性', en: 'Improving grammar accuracy', pct: 63 },
+      { zh: '提升学术写作水平', en: 'Better academic writing', pct: 58 },
+      { zh: '扩大学术词汇量', en: 'Expanding academic vocabulary', pct: 51 },
+      { zh: '培养自主学习习惯', en: 'Building study habits', pct: 37 },
+      { zh: '服务其他课程英语需求', en: 'English for other modules', pct: 24 },
+    ],
+  };
+  // ============================================================
+
+  const isZh = () => document.documentElement.lang.indexOf('zh') === 0;
+
+  // ===== 语言切换 =====
+  function setLang(lang) {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    renderCharts();
+  }
+
+  // ===== KPI 渲染 =====
+  function renderKpis(elId, list) {
+    const el = document.getElementById(elId);
+    el.innerHTML = list.map(k => `
+      <div class="kpi">
+        <div class="value">${k.value}</div>
+        <div class="label">${isZh() ? k.zh : k.en}</div>
+        <div class="sub">${isZh() ? k.sub_zh : k.sub_en}</div>
+      </div>`).join('');
+  }
+
+  // ===== 条形图渲染（pct 为 0 时显示「—」占位）=====
+  function renderBars(elId, rows) {
+    const el = document.getElementById(elId);
+    el.innerHTML = rows.map(b => `
+      <div class="bar-row">
+        <div class="label">${isZh() ? b.zh : b.en}</div>
+        <div class="track"><div class="fill" data-pct="${b.pct}"></div></div>
+        <div class="pct">${b.pct > 0 ? b.pct + '%' : '—'}</div>
+      </div>`).join('');
+    requestAnimationFrame(() => {
+      el.querySelectorAll('.fill').forEach(f => { f.style.width = f.dataset.pct + '%'; });
+    });
+  }
+
+  // ===== 环形图渲染（数据为 0 时显示灰色待填状态）=====
+  function renderDonut() {
+    const el = document.getElementById('donut');
+    const segs = DATA.donut;
+    const total = segs.reduce((s, x) => s + x.pct, 0);
+    if (total > 0) {
+      let acc = 0;
+      const stops = segs.map(s => {
+        const from = acc; acc += s.pct;
+        return `${s.color} ${from}% ${acc}%`;
+      }).join(', ');
+      el.style.background = `conic-gradient(${stops})`;
+    } else {
+      el.style.background = '#EDF2F8'; // 待填：灰色空环
+    }
+    el.setAttribute('data-center', isZh() ? DATA.donutCenter.zh : DATA.donutCenter.en);
+    document.getElementById('donut-legend').innerHTML = segs.map(s => `
+      <div class="legend-item">
+        <span class="dot" style="background:${s.color}"></span>
+        <span>${isZh() ? s.zh : s.en}</span>
+        <span class="lpct">${s.pct > 0 ? s.pct + '%' : '—'}</span>
+      </div>`).join('');
+  }
+
+  // ===== 总渲染 =====
+  function renderCharts() {
+    renderKpis('kpi-audience', DATA.kpiAudience);
+    renderKpis('kpi-usage', DATA.kpiUsage);
+    renderDonut();
+    renderBars('chart-freq', DATA.freqBars);
+    renderBars('chart-features', DATA.featureBars);
+    renderBars('chart-purposes', DATA.purposeBars);
+  }
+  renderCharts();
+
+  // ===== 图片上传（本地预览）=====
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('file-input');
+  const gallery = document.getElementById('gallery');
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', () => { handleFiles(fileInput.files); fileInput.value = ''; });
+
+  function addImage(src, name, removable) {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `<img src="${src}" alt="${name}">
+      <figcaption><span class="cap">${name}</span>${removable ? '<button class="remove" title="移除">×</button>' : ''}</figcaption>`;
+    if (removable) {
+      fig.querySelector('.remove').addEventListener('click', () => fig.remove());
+    }
+    gallery.appendChild(fig);
+  }
+
+  function handleFiles(files) {
+    [...files].filter(f => f.type.startsWith('image/')).forEach(f => {
+      const reader = new FileReader();
+      reader.onload = e => addImage(e.target.result, f.name, true);
+      reader.readAsDataURL(f);
+    });
+  }
+
+  // ===== 自动加载 images/ 文件夹中的长期图片（1.jpg/1.png … 12）=====
+  (function loadStoredImages() {
+    let loaded = 0;
+    const tryLoad = i => {
+      if (i > 12) {
+        if (loaded === 0) {
+          const p = document.createElement('p');
+          p.className = 'upload-note';
+          p.style.gridColumn = '1/-1';
+          p.innerHTML = '<span lang="zh-only">（尚未放置长期图片：将调研图片放入 images 文件夹并命名为 1.jpg、2.jpg… 即可自动显示在此处）</span><span lang="en-only">(No stored images yet: put survey images in the images folder named 1.jpg, 2.jpg… to display them here)</span>';
+          gallery.appendChild(p);
+        }
+        return;
+      }
+      const img = new Image();
+      img.onload = () => { loaded++; addImage(img.src, `${i}`, false); tryLoad(i + 1); };
+      img.onerror = () => tryLoad(i + 1);
+      img.src = `images/${i}.jpg`;
+      const img2 = new Image();
+      img2.onload = () => { loaded++; addImage(img2.src, `${i}`, false); };
+      img2.src = `images/${i}.png`;
+    };
+    tryLoad(1);
+  })();
+</script>
+</body>
+</html>
