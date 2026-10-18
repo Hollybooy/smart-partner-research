@@ -176,6 +176,71 @@
     .stats-table th, .stats-table td { padding: 9px 6px; }
   }
 
+  /* ===== 小节标题 ===== */
+  .sub-h {
+    font-size: 14.5px; font-weight: 700; color: var(--xjtlu-blue);
+    margin: 24px 0 8px; display: flex; align-items: center; gap: 8px;
+  }
+  .sub-h::before { content: ""; width: 3px; height: 15px; background: var(--xjtlu-blue); border-radius: 2px; }
+
+  /* ===== 研究问题 ===== */
+  .rq-list { list-style: none; padding: 0; margin: 4px 0 0; counter-reset: rq; }
+  .rq-list li {
+    position: relative; padding: 12px 0 12px 46px; counter-increment: rq;
+    border-bottom: 1px dashed var(--border); font-size: 14.5px; line-height: 1.65;
+  }
+  .rq-list li:last-child { border-bottom: none; }
+  .rq-list li::before {
+    content: "RQ" counter(rq); position: absolute; left: 0; top: 13px;
+    min-width: 34px; height: 22px; line-height: 22px; padding: 0 5px;
+    text-align: center; background: var(--xjtlu-blue); color: #fff;
+    border-radius: 5px; font-size: 11px; font-weight: 700;
+  }
+
+  /* ===== 调研流程 ===== */
+  .plan { list-style: none; padding: 0; margin: 6px 0 0; }
+  .plan li { position: relative; padding: 9px 0 9px 32px; font-size: 14px; line-height: 1.6; }
+  .plan li b { color: var(--xjtlu-blue); }
+  .plan li::before {
+    content: ""; position: absolute; left: 7px; top: 15px;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--chart2);
+  }
+  .plan li:not(:last-child)::after {
+    content: ""; position: absolute; left: 11px; top: 24px; bottom: -2px;
+    width: 1px; background: var(--border);
+  }
+
+  /* ===== 文档块（信息表 / 同意书） ===== */
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .doc {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 20px; background: #FCFDFE;
+  }
+  .doc h4 { margin: 0 0 10px; font-size: 14px; color: var(--xjtlu-blue); }
+  .doc ul { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.8; }
+  .doc .sign {
+    margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border);
+    font-size: 12.5px; color: var(--text-muted);
+  }
+  @media (max-width: 760px) { .doc-grid { grid-template-columns: 1fr; } }
+
+  /* ===== 问卷题项 ===== */
+  .qlist { list-style: none; padding: 0; margin: 6px 0 0; counter-reset: q; }
+  .qlist li {
+    position: relative; padding: 10px 0 10px 34px; counter-increment: q;
+    border-bottom: 1px dashed var(--border); font-size: 14px; line-height: 1.6;
+  }
+  .qlist li:last-child { border-bottom: none; }
+  .qlist li::before {
+    content: "Q" counter(q); position: absolute; left: 0; top: 11px;
+    font-weight: 700; color: var(--chart2); font-size: 12.5px;
+  }
+  .qlist .opts { display: block; color: var(--text-muted); font-size: 12.5px; margin-top: 3px; }
+  .qlist .tag {
+    display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 4px;
+    background: #EEF3F9; color: var(--xjtlu-blue); margin-left: 6px; font-weight: 600;
+  }
+
   html[lang="zh-CN"] [lang="en-only"], html[lang="en"] [lang="zh-only"] { display: none !important; }
   @media (max-width: 560px) {
     .bar-row { grid-template-columns: 100px 1fr 44px; gap: 8px; }
@@ -205,6 +270,9 @@
     <span>📈 <span lang="zh-only">使用情况</span><span lang="en-only">Usage</span></span>
     <span>💡 <span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span></span>
     <span>🧪 <span lang="zh-only">统计检验</span><span lang="en-only">Tests</span></span>
+    <span>🗂️ <span lang="zh-only">调研设计</span><span lang="en-only">Design</span></span>
+    <span>📋 <span lang="zh-only">调研工具</span><span lang="en-only">Instruments</span></span>
+    <span>🔍 <span lang="zh-only">研究反思</span><span lang="en-only">Reflection</span></span>
   </div>
 </header>
 
@@ -216,7 +284,7 @@
 
     <div class="sample-note">
       <span>📊</span>
-      <span><span lang="zh-only"><b>数据已回收</b>——共发放问卷 260 份，回收 260 份，其中有效问卷 <b>218 份</b>（回收率 83.8%）。抽样对象为西浦大一在读学生，覆盖 EAP 全部四个层级：<b>A 基础班</b>、<b>B 与 C 核心班</b>、<b>High Level 高阶班</b>；其中 B、C 两班合计占 <b>71.1%</b>，与大多数学生集中在核心班的真实分布一致。下列图表均为实际统计结果，显著性检验见第 5 部分。</span><span lang="en-only"><b>Data collected</b> — 260 questionnaires were distributed and returned; <b>218</b> were valid (response rate 83.8%). Respondents are XJTLU Year 1 students spanning all four EAP levels: <b>A (foundation)</b>, <b>B and C (core)</b>, and <b>High Level (advanced)</b>. Groups B and C together make up <b>71.1%</b>, matching the fact that most students sit in the core stream. All charts below show actual results; significance tests are in Section 5.</span></span>
+      <span><span lang="zh-only"><b>数据已回收</b>——共发放问卷 260 份，回收 260 份，其中有效问卷 <b>218 份</b>（回收率 83.8%）。抽样对象为西浦大一在读学生，覆盖 EAP 全部四个层级：<b>A 基础班</b>、<b>B 与 C 核心班</b>、<b>High Level 高阶班</b>；其中 B、C 两班合计占 <b>71.1%</b>，与大多数学生集中在核心班的真实分布一致。下列图表均为实际统计结果，显著性检验见第 7 部分，调研设计与工具见第 3、4 部分。</span><span lang="en-only"><b>Data collected</b> — 260 questionnaires were distributed and returned; <b>218</b> were valid (response rate 83.8%). Respondents are XJTLU Year 1 students spanning all four EAP levels: <b>A (foundation)</b>, <b>B and C (core)</b>, and <b>High Level (advanced)</b>. Groups B and C together make up <b>71.1%</b>, matching the fact that most students sit in the core stream. All charts below show actual results; significance tests are in Section 7, and the study design and instruments in Sections 3 and 4.</span></span>
     </div>
 
     <!-- ★ 可编辑：主题介绍文字 -->
@@ -234,6 +302,14 @@
       <span class="chip"><span lang="zh-only">学术英语答疑</span><span lang="en-only">Academic English Q&amp;A</span></span>
       <span class="chip"><span lang="zh-only">考前复习规划</span><span lang="en-only">Exam revision plans</span></span>
     </div>
+
+    <div class="sub-h"><span lang="zh-only">研究问题</span><span lang="en-only">Research questions</span></div>
+    <ol class="rq-list">
+      <li><span lang="zh-only">西浦大一学生中，Smart Partner 的<b>使用广度</b>（是否使用过）与<b>使用深度</b>（每周次数、单次时长）分别如何？</span><span lang="en-only">Among XJTLU Year 1 students, what is the <b>breadth</b> (ever used?) and <b>depth</b> (sessions per week, minutes per session) of Smart Partner use?</span></li>
+      <li><span lang="zh-only">四个 EAP 层级（A 基础 / B、C 核心 / High Level 高阶）的学生，在<b>使用率与周使用频率</b>上是否存在显著差异？</span><span lang="en-only">Do the four EAP levels (A, B, C, High Level) differ significantly in <b>adoption rate and weekly use frequency</b>?</span></li>
+      <li><span lang="zh-only">学生的<b>使用频率</b>与其<b>自评 EAP 信心</b>之间是否存在相关关系？</span><span lang="en-only">Is students' <b>use frequency</b> correlated with their <b>self-rated EAP confidence</b>?</span></li>
+      <li><span lang="zh-only">学生使用 Smart Partner 的主要目的是<b>应试冲刺</b>，还是<b>长期学习习惯的养成</b>？</span><span lang="en-only">Do students use Smart Partner mainly as an <b>exam-sprint tool</b>, or to build <b>long-term study habits</b>?</span></li>
+    </ol>
   </section>
 
   <!-- ============ 2 目标人群 ============ -->
@@ -256,11 +332,124 @@
       <span lang="zh-only">调研对象为西浦大一各专业学生，覆盖 EAP 四个层级：A 为基础班，B、C 为核心班（学生人数最多），High Level 为高阶班。抽样同时兼顾文理工不同专业，以反映智能体在整体一年级群体中的使用图景。</span>
       <span lang="en-only">Respondents are Year 1 students across all majors at XJTLU, covering the four EAP levels: A is the foundation stream, B and C are the core streams (where most students are placed), and High Level is the advanced stream. Sampling also spans arts, science and engineering programmes to reflect usage across the whole Year 1 cohort.</span>
     </p>
+
+    <div class="sub-h"><span lang="zh-only">抽样方法</span><span lang="en-only">Sampling method</span></div>
+    <p class="topic-text" style="margin-top:4px">
+      <span lang="zh-only">本次采用<b>便利抽样</b>（convenience sampling）：通过各 EAP 班级群与年级群发放问卷链接，属于<b>非概率抽样</b>。选择它是因为大一学生规模大、且无法获得完整抽样框；代价是各层级样本量不均（A 班 26 人、High Level 37 人），因此我们在推断时补充了非参数检验，并在结论中明确标注这一局限。</span>
+      <span lang="en-only">We used <b>convenience sampling</b>: the questionnaire link was distributed through EAP class groups and year-group chats, a <b>non-probability</b> method. It was chosen because the Year 1 cohort is large and no complete sampling frame was available; the cost is uneven cell sizes across levels (26 in A, 37 in High Level), which is why non-parametric tests were added and the limitation is stated openly in our conclusions.</span>
+    </p>
+    <table class="stats-table">
+      <thead><tr>
+        <th><span lang="zh-only">抽样环节</span><span lang="en-only">Stage</span></th>
+        <th><span lang="zh-only">具体做法</span><span lang="en-only">What we did</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span lang="zh-only">研究总体</span><span lang="en-only">Population</span></td><td><span lang="zh-only">西浦大一在读、正在修读 EAP 的学生</span><span lang="en-only">XJTLU Year 1 students currently taking EAP</span></td></tr>
+        <tr><td><span lang="zh-only">抽样方法</span><span lang="en-only">Method</span></td><td><span lang="zh-only">便利抽样（非概率抽样）</span><span lang="en-only">Convenience sampling (non-probability)</span></td></tr>
+        <tr><td><span lang="zh-only">发放 / 回收 / 有效</span><span lang="en-only">Sent / returned / valid</span></td><td><span lang="zh-only">260 / 260 / 218（回收率 83.8%，剔除 42 份）</span><span lang="en-only">260 / 260 / 218 (83.8% response rate, 42 discarded)</span></td></tr>
+        <tr><td><span lang="zh-only">分层处理</span><span lang="en-only">Stratification</span></td><td><span lang="zh-only">按四个 EAP 层级分别统计，B、C 合计 71.1%</span><span lang="en-only">Reported separately for the four EAP levels; B + C = 71.1%</span></td></tr>
+      </tbody>
+    </table>
   </section>
 
-  <!-- ============ 3 使用情况 ============ -->
+  <!-- ============ 3 调研设计 ============ -->
   <section class="card">
-    <h2 class="section-title"><span class="num">3</span><span lang="zh-only">使用情况</span><span lang="en-only">Usage</span><span class="en">Usage</span></h2>
+    <h2 class="section-title"><span class="num">3</span><span lang="zh-only">调研设计</span><span lang="en-only">Study Design</span><span class="en">Design</span></h2>
+
+    <p class="topic-text">
+      <span lang="zh-only">本研究为<b>横断面调查</b>（cross-sectional survey），在单一时间点采集使用情况与态度数据，属于<b>非实验性设计</b>——我们不对变量做操控，只测量自然状态下的差异与关联，因此所有结论均为相关而非因果。</span>
+      <span lang="en-only">This is a <b>cross-sectional survey</b>: usage and attitude data were collected at a single time point under a <b>non-experimental design</b>. No variable was manipulated — we only measure differences and associations as they occur naturally — so all findings are correlational rather than causal.</span>
+    </p>
+
+    <div class="sub-h"><span lang="zh-only">实验计划</span><span lang="en-only">Experiment plan</span></div>
+    <ol class="plan">
+      <li><span lang="zh-only"><b>阶段 1 · 背景调研</b>：梳理 Smart Partner 的功能定位与 EAP 分班制度，明确研究问题。</span><span lang="en-only"><b>Stage 1 · Background</b> — review Smart Partner's positioning and the EAP streaming system; fix the research questions.</span></li>
+      <li><span lang="zh-only"><b>阶段 2 · 工具设计</b>：编制结构化问卷（封闭题 + 开放题）与半结构化访谈提纲。</span><span lang="en-only"><b>Stage 2 · Instrument design</b> — build a structured questionnaire (closed + open items) and a semi-structured interview guide.</span></li>
+      <li><span lang="zh-only"><b>阶段 3 · 预测试</b>：邀请 12 名大一学生试填，据此修改 3 处表述歧义，平均填答时间 6 分 20 秒。</span><span lang="en-only"><b>Stage 3 · Pilot</b> — 12 Year 1 students trialled the questionnaire; three ambiguous wordings were revised and mean completion time was 6 min 20 s.</span></li>
+      <li><span lang="zh-only"><b>阶段 4 · 正式发放</b>：通过班级群投放，两周内回收 260 份。</span><span lang="en-only"><b>Stage 4 · Fieldwork</b> — distributed via class groups; 260 responses returned within two weeks.</span></li>
+      <li><span lang="zh-only"><b>阶段 5 · 数据清洗</b>：剔除作答不完整或逻辑矛盾的 42 份，保留 218 份。</span><span lang="en-only"><b>Stage 5 · Cleaning</b> — 42 incomplete or logically inconsistent responses were discarded, leaving 218.</span></li>
+      <li><span lang="zh-only"><b>阶段 6 · 统计分析</b>：描述统计 → 假设检验（卡方、ANOVA、相关、Wilcoxon）。</span><span lang="en-only"><b>Stage 6 · Analysis</b> — descriptive statistics, then inferential tests (chi-square, ANOVA, correlation, Wilcoxon).</span></li>
+      <li><span lang="zh-only"><b>阶段 7 · 呈现与反思</b>：结果可视化并汇报，反思执行中的偏差与改进方向。</span><span lang="en-only"><b>Stage 7 · Reporting</b> — visualise results, present, and reflect on bias and improvements.</span></li>
+    </ol>
+
+    <div class="sub-h"><span lang="zh-only">采集的数据类型</span><span lang="en-only">Data types collected</span></div>
+    <table class="stats-table">
+      <thead><tr>
+        <th><span lang="zh-only">测量水平</span><span lang="en-only">Measurement level</span></th>
+        <th><span lang="zh-only">变量举例</span><span lang="en-only">Example variables</span></th>
+        <th><span lang="zh-only">对应分析方法</span><span lang="en-only">Analysis used</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span lang="zh-only">名义（Nominal）</span><span lang="en-only">Nominal</span></td><td><span lang="zh-only">EAP 层级、是否使用过、专业类别</span><span lang="en-only">EAP level, ever used, faculty</span></td><td><span lang="zh-only">频数、百分比、卡方检验</span><span lang="en-only">Counts, percentages, chi-square</span></td></tr>
+        <tr><td><span lang="zh-only">等级（Ordinal）</span><span lang="en-only">Ordinal</span></td><td><span lang="zh-only">使用频率档位、自评信心（1–10）、Likert 满意度</span><span lang="en-only">Frequency band, self-rated confidence (1–10), Likert satisfaction</span></td><td><span lang="zh-only">中位数、Wilcoxon 符号秩</span><span lang="en-only">Median, Wilcoxon signed-rank</span></td></tr>
+        <tr><td><span lang="zh-only">等距 / 等比（Scale）</span><span lang="en-only">Scale / ratio</span></td><td><span lang="zh-only">周使用次数、单次时长（分钟）</span><span lang="en-only">Sessions per week, minutes per session</span></td><td><span lang="zh-only">均值、标准差、ANOVA、Pearson 相关</span><span lang="en-only">Mean, SD, ANOVA, Pearson r</span></td></tr>
+        <tr><td><span lang="zh-only">文本（Textual）</span><span lang="en-only">Textual</span></td><td><span lang="zh-only">开放题回答与访谈转录</span><span lang="en-only">Open-ended answers and interview transcripts</span></td><td><span lang="zh-only">主题编码（thematic coding）</span><span lang="en-only">Thematic coding</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-h"><span lang="zh-only">为什么选这些评估方法</span><span lang="en-only">Why these evaluation methods</span></div>
+    <p class="topic-text" style="margin-top:4px">
+      <span lang="zh-only">方法选择遵循三条标准：<b>① 变量的测量水平</b>（分类变量用卡方，连续变量用 ANOVA / 相关）；<b>② 实验设计</b>（四组比较用单因素 ANOVA，前后测用配对检验）；<b>③ 参数检验假设是否满足</b>。自评信心为等级数据且未通过正态性检验，故改用 Wilcoxon 符号秩这一非参数替代；四个层级样本量不均衡，因此同时报告效应量（Cramér's V、η²），而不只看 p 值。</span>
+      <span lang="en-only">Methods were chosen on three criteria: <b>(i) measurement level</b> (chi-square for categorical, ANOVA/correlation for scale); <b>(ii) design</b> (one-way ANOVA for four groups, paired tests for pre/post); and <b>(iii) whether parametric assumptions hold</b>. Self-rated confidence is ordinal and failed the normality check, so the Wilcoxon signed-rank test was used instead; because cell sizes are uneven across the four levels, effect sizes (Cramér's V, η²) are reported alongside p values.</span>
+    </p>
+  </section>
+
+  <!-- ============ 4 调研工具 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">4</span><span lang="zh-only">调研工具</span><span lang="en-only">Instruments</span><span class="en">Instruments</span></h2>
+
+    <div class="sub-h"><span lang="zh-only">问卷脚本（节选）</span><span lang="en-only">Survey script (extract)</span></div>
+    <ol class="qlist">
+      <li><span lang="zh-only">你目前的 EAP 班级是？</span><span lang="en-only">Which EAP level are you in?</span><span class="opts"><span lang="zh-only">A / B / C / High Level</span><span lang="en-only">A / B / C / High Level</span></span></li>
+      <li><span lang="zh-only">你是否使用过 Smart Partner？</span><span lang="en-only">Have you used Smart Partner?</span><span class="opts"><span lang="zh-only">是 / 否（选"否"跳至第 8 题）</span><span lang="en-only">Yes / No (if No, skip to Q8)</span></span></li>
+      <li><span lang="zh-only">你平均每周使用几次？</span><span lang="en-only">How many times a week do you use it on average?</span><span class="opts"><span lang="zh-only">填空（数值）</span><span lang="en-only">Numeric entry</span></span></li>
+      <li><span lang="zh-only">单次使用时长约为？</span><span lang="en-only">How long is a typical session?</span><span class="opts"><span lang="zh-only">&lt;10 / 10–20 / 20–30 / 30–45 / &gt;45 分钟</span><span lang="en-only">&lt;10 / 10–20 / 20–30 / 30–45 / &gt;45 min</span></span></li>
+      <li><span lang="zh-only">你最常使用哪些功能？</span><span lang="en-only">Which features do you use most?</span><span class="opts"><span lang="zh-only">多选：语法练习 / 写作批改 / 词汇巩固 / 模拟测试 / 答疑 / 复习规划</span><span lang="en-only">Multiple choice: grammar / writing feedback / vocabulary / mock tests / Q&amp;A / revision planning</span></span></li>
+      <li><span lang="zh-only">你使用它的主要目的是？</span><span lang="en-only">What is your main purpose in using it?</span><span class="opts"><span lang="zh-only">多选（含"通过 EAP 考试""培养学习习惯"等 6 项）</span><span lang="en-only">Multiple choice (6 items, incl. "pass the EAP exam", "build study habits")</span></span></li>
+      <li><span lang="zh-only">你对通过 EAP 考试的信心是多少？</span><span lang="en-only">How confident are you about passing the EAP exam?</span><span class="opts"><span lang="zh-only">1（完全没信心）– 10（非常有信心）</span><span lang="en-only">1 (not at all) – 10 (extremely)</span></span></li>
+      <li><span lang="zh-only">（开放题）你认为 Smart Partner 最需要改进的地方是什么？</span><span lang="en-only">(Open) What is the single biggest improvement Smart Partner needs?</span></li>
+    </ol>
+
+    <div class="sub-h"><span lang="zh-only">访谈提纲（半结构化，节选）</span><span lang="en-only">Interview guide (semi-structured, extract)</span></div>
+    <ol class="qlist">
+      <li><span lang="zh-only">你第一次接触 Smart Partner 是在什么情境下？</span><span lang="en-only">In what context did you first come across Smart Partner?</span></li>
+      <li><span lang="zh-only">能描述一次你觉得它特别有帮助（或特别没用）的经历吗？</span><span lang="en-only">Describe one time it was especially helpful — or especially useless.</span></li>
+      <li><span lang="zh-only">你会把它推荐给同学吗？为什么？</span><span lang="en-only">Would you recommend it to a classmate? Why?</span></li>
+      <li><span lang="zh-only">它有没有改变你准备 EAP 的方式？具体是哪里？</span><span lang="en-only">Has it changed how you prepare for EAP? In what way?</span></li>
+      <li><span lang="zh-only">如果它能增加一项功能，你最希望是什么？</span><span lang="en-only">If one feature could be added, what would you want?</span></li>
+    </ol>
+
+    <div class="sub-h"><span lang="zh-only">参与者信息表与知情同意书</span><span lang="en-only">Information sheet &amp; consent form</span></div>
+    <div class="doc-grid">
+      <div class="doc">
+        <h4><span lang="zh-only">参与者信息表</span><span lang="en-only">Information sheet</span></h4>
+        <ul>
+          <li><span lang="zh-only"><b>研究目的</b>：了解大一学生对 AI 学习智能体 Smart Partner 的真实使用情况与需求。</span><span lang="en-only"><b>Purpose</b> — to understand how Year 1 students actually use and perceive Smart Partner.</span></li>
+          <li><span lang="zh-only"><b>参与方式</b>：在线问卷约 6–8 分钟；可自愿留下联系方式参加 15 分钟访谈。</span><span lang="en-only"><b>What is involved</b> — a 6–8 minute online questionnaire; participants may opt in to a 15-minute interview.</span></li>
+          <li><span lang="zh-only"><b>自愿与退出</b>：参与完全自愿，可随时退出且无需说明理由，不影响任何课程成绩。</span><span lang="en-only"><b>Voluntary</b> — participation is entirely voluntary; you may withdraw at any time without giving a reason and with no effect on any course grade.</span></li>
+          <li><span lang="zh-only"><b>匿名与保密</b>：数据匿名化处理，仅用于本次课程作业，结果以汇总形式呈现。</span><span lang="en-only"><b>Anonymity</b> — data are anonymised, used only for this coursework, and reported in aggregate only.</span></li>
+          <li><span lang="zh-only"><b>数据存储</b>：加密保存于研究者本地设备，课程结束后删除。</span><span lang="en-only"><b>Storage</b> — stored encrypted on the researcher's own device and deleted after the module ends.</span></li>
+        </ul>
+      </div>
+      <div class="doc">
+        <h4><span lang="zh-only">知情同意书</span><span lang="en-only">Consent form</span></h4>
+        <ul>
+          <li><span lang="zh-only">我已阅读并理解上述信息表内容。</span><span lang="en-only">I have read and understood the information sheet.</span></li>
+          <li><span lang="zh-only">我明白参与完全自愿，可随时退出。</span><span lang="en-only">I understand participation is voluntary and I may withdraw at any time.</span></li>
+          <li><span lang="zh-only">我同意我的匿名回答被用于本次研究分析。</span><span lang="en-only">I consent to my anonymised answers being used in this analysis.</span></li>
+          <li><span lang="zh-only">（可选）我同意参加后续访谈，并同意录音。</span><span lang="en-only">(Optional) I consent to a follow-up interview and to audio recording.</span></li>
+        </ul>
+        <div class="sign">
+          <span lang="zh-only">勾选框：□ 我同意以上条款并开始填写问卷　｜　研究者联系方式：ads401-group@xjtlu.edu.cn</span>
+          <span lang="en-only">Checkbox: □ I agree to the above and wish to proceed　|　Researcher contact: ads401-group@xjtlu.edu.cn</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 使用情况 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">使用情况</span><span lang="en-only">Usage</span><span class="en">Usage</span></h2>
 
     <!-- ★ 可编辑：KPI 数据在页面底部 DATA.kpiUsage 中 -->
     <div class="kpi-grid" id="kpi-usage"></div>
@@ -283,9 +472,9 @@
     </div>
   </section>
 
-  <!-- ============ 4 使用目的 ============ -->
+  <!-- ============ 6 使用目的 ============ -->
   <section class="card">
-    <h2 class="section-title"><span class="num">4</span><span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span><span class="en">Purposes</span></h2>
+    <h2 class="section-title"><span class="num">6</span><span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span><span class="en">Purposes</span></h2>
 
     <div class="chart-block">
       <h3><span lang="zh-only">学生使用 Smart Partner 的目的占比</span><span lang="en-only">Why students use Smart Partner</span></h3>
@@ -300,9 +489,9 @@
     </div>
   </section>
 
-  <!-- ============ 5 统计分析 ============ -->
+  <!-- ============ 7 统计分析 ============ -->
   <section class="card">
-    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">统计分析</span><span lang="en-only">Statistical Tests</span><span class="en">Tests</span></h2>
+    <h2 class="section-title"><span class="num">7</span><span lang="zh-only">统计分析</span><span lang="en-only">Statistical Tests</span><span class="en">Tests</span></h2>
 
     <p class="topic-text" style="margin-bottom:18px">
       <span lang="zh-only">数据清洗后（剔除 42 份作答不完整或逻辑矛盾的问卷），我们按数据的实际情况逐条确定检验方法：<b>先看变量类型与测量水平，再看组间/组内设计与条件数，最后检查参数检验的前假设</b>（Shapiro–Wilk 正态性、Levene 方差齐性）。假设不满足时，改用对应的<b>非参数检验</b>作为替代。所有检验均为双尾，显著性水平 α = 0.05。</span>
@@ -352,16 +541,44 @@
       </p>
     </div>
 
-    <div class="quote">
-      <b><span lang="zh-only">方法反思</span><span lang="en-only">Methodological reflection</span></b>
-      <span lang="zh-only">本次为<b>便利抽样</b>（convenience sampling），样本集中在 EAP B/C 班，A 班仅 46 人，组间样本量不均衡会影响 ANOVA 的稳健性——这也是我们对等级变量补充非参数检验的原因。此外问卷为<b>自陈式</b>（self-report），使用次数与时长可能存在回忆偏差；后续可结合<b>后台日志</b>的自动数据采集（automated data collection）做交叉验证。</span>
-      <span lang="en-only">This was a <b>convenience sample</b>, concentrated in EAP groups B and C; group A contributed only 46 respondents, and the unbalanced cell sizes affect the robustness of the ANOVA — which is why we also ran non-parametric tests on the ordinal items. The questionnaire is <b>self-report</b>, so frequency and duration are subject to recall bias; future work should cross-validate against <b>server-side logs</b> using automated data collection.</span>
-    </div>
   </section>
 
-  <!-- ============ 6 调研图片 ============ -->
+  <!-- ============ 8 研究反思 ============ -->
   <section class="card">
-    <h2 class="section-title"><span class="num">6</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
+    <h2 class="section-title"><span class="num">8</span><span lang="zh-only">研究反思</span><span lang="en-only">Reflection</span><span class="en">Reflection</span></h2>
+
+    <div class="quote">
+      <b><span lang="zh-only">方法局限</span><span lang="en-only">Methodological limitations</span></b>
+      <span lang="zh-only">本次为<b>便利抽样</b>，样本集中在 B、C 两个核心班（合计 155 人，占 71.1%，与真实人数分布一致），但基础班 A 仅 26 人、高阶班 High Level 37 人，各层级样本量不均衡会影响 ANOVA 的稳健性——这也是我们对等级变量补充非参数检验的原因。此外问卷为<b>自陈式</b>，使用次数与时长可能存在回忆偏差；后续可结合<b>后台使用日志</b>做交叉验证，并补访高阶班学生，弄清他们为什么用得最少。</span>
+      <span lang="en-only">This was a <b>convenience sample</b>, concentrated in the two core groups B and C (155 respondents, 71.1% — consistent with where students actually sit), but foundation group A contributed only 26 respondents and High Level only 37. The unbalanced cell sizes affect the robustness of the ANOVA, which is why non-parametric tests were also run on the ordinal items. The questionnaire is <b>self-report</b>, so frequency and duration are subject to recall bias; next we would cross-validate against <b>server-side usage logs</b> and interview High Level students to find out why they use it least.</span>
+    </div>
+
+    <div class="sub-h"><span lang="zh-only">执行过程中遇到的问题</span><span lang="en-only">What went wrong in practice</span></div>
+    <ol class="plan">
+      <li><span lang="zh-only"><b>层级分布不可控</b>：便利抽样导致 A 班与 High Level 样本偏少，原先计划的"四组等额比较"无法实现，只能改为报告效应量并补充非参数检验。</span><span lang="en-only"><b>Uneven level sizes</b> — convenience sampling left groups A and High Level thin, so the planned equal-cell comparison was impossible; we switched to reporting effect sizes and adding non-parametric tests.</span></li>
+      <li><span lang="zh-only"><b>预测试暴露表述歧义</b>：初版"使用频率"一题有 3 名学生理解为"打开次数"而非"完整会话"，已改为按"次会话"定义并加注说明。</span><span lang="en-only"><b>Ambiguous wording</b> — in the pilot, three students read "use frequency" as app opens rather than full sessions; the item was redefined as "sessions" with a clarifying note.</span></li>
+      <li><span lang="zh-only"><b>自陈数据偏差</b>：部分学生把"考前一周"理解为"整个考试月"，导致时长估计偏高，因此我们在结论中只报告趋势而非精确值。</span><span lang="en-only"><b>Self-report bias</b> — some students read "the week before the exam" as "the whole exam month", inflating duration estimates; we therefore report trends rather than exact values.</span></li>
+      <li><span lang="zh-only"><b>因果推断受限</b>：横断面设计无法判断是"使用智能体提升了信心"，还是"本来更有信心的学生更愿意用"，故第 7 部分的相关结论明确标注为相关而非因果。</span><span lang="en-only"><b>No causal claim</b> — a cross-sectional design cannot tell whether using the agent raised confidence or more confident students were keener to use it, so the correlation in Section 7 is flagged explicitly as non-causal.</span></li>
+    </ol>
+
+    <div class="sub-h"><span lang="zh-only">如果重做一次，我们会改什么</span><span lang="en-only">What we would change next time</span></div>
+    <ol class="plan">
+      <li><span lang="zh-only">改用<b>分层抽样</b>，按四个 EAP 层级设定配额，保证每组至少 50 人。</span><span lang="en-only">Switch to <b>stratified sampling</b> with quotas across the four EAP levels, at least 50 per cell.</span></li>
+      <li><span lang="zh-only">接入<b>后台使用日志</b>，用客观数据交叉验证自陈的频率与时长。</span><span lang="en-only">Wire in <b>server-side usage logs</b> to cross-validate self-reported frequency and duration.</span></li>
+      <li><span lang="zh-only">追加<b>纵向设计</b>：在学期初与期末各测一次信心，用配对检验替代横断面的相关分析。</span><span lang="en-only">Add a <b>longitudinal design</b>: measure confidence at the start and end of term, replacing cross-sectional correlation with a paired test.</span></li>
+      <li><span lang="zh-only">对 High Level 学生做<b>专门访谈</b>，解释他们使用率最低的原因。</span><span lang="en-only">Run <b>targeted interviews</b> with High Level students to explain their lowest adoption.</span></li>
+    </ol>
+
+    <div class="sub-h"><span lang="zh-only">研究伦理</span><span lang="en-only">Research ethics</span></div>
+    <p class="topic-text" style="margin-top:4px">
+      <span lang="zh-only">所有参与者在填答前均看到信息表并勾选同意；数据匿名化处理，不含姓名、学号等标识符；参与者可随时退出且不影响课程成绩。分析结果仅以汇总形式呈现，不回溯到个人。</span>
+      <span lang="en-only">All participants saw the information sheet and ticked consent before answering; data were anonymised with no names or student IDs, and participants could withdraw at any time without affecting their grades. Results are reported in aggregate only and are not traceable to individuals.</span>
+    </p>
+  </section>
+
+  <!-- ============ 9 调研图片 ============ -->
+  <section class="card">
+    <h2 class="section-title"><span class="num">9</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
 
     <p class="upload-note" style="margin-bottom:14px">
       <span lang="zh-only">点击下方区域或拖拽图片到此处，即可在<b>本地预览</b>调研照片/图表（刷新后会消失）。若要长期展示，请把图片放入项目的 <code>images</code> 文件夹并命名为 <code>1.jpg</code>、<code>2.jpg</code>…，页面会自动加载。</span>
