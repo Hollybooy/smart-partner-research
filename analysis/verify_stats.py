@@ -2,7 +2,8 @@
 Verify the statistics quoted on the Smart Partner research page and in the
 3-minute speech, so every number is internally consistent.
 
-Sample: n = 218 valid responses, XJTLU Year 1 students.
+Sample: NOT YET COLLECTED — the survey has not launched, so every count below
+is a 0 placeholder and the script stops before any computation.
 
 XJTLU EAP streaming has FOUR levels:
     A          - foundation group (基础班), smallest
@@ -17,14 +18,23 @@ Data model:
 
 import math
 
+# ------------------------------------------- fieldwork placeholder constants
+# The survey has not launched yet; replace these with the real counts once the
+# questionnaires have been collected, then re-run this script.
+DISTRIBUTED = 0            # questionnaires sent out
+RETURNED = 0               # questionnaires returned
+YEAR1 = None               # respondents who are Year 1 students
+AVG_SESSION_MIN = None     # average session length (minutes)
+MORE_BEFORE_EXAMS = None   # users who report using it more before an exam
+
 # --------------------------------------------------------------- sample split
-# EAP level x used?   (observed counts)
+# EAP level x used?   (observed counts — placeholders until data arrive)
 #                      used   not   total
 LEVELS = {
-    "A (foundation)":     {"used": 22, "not": 4},    #  26  11.9%
-    "B (core)":           {"used": 52, "not": 22},   #  74  33.9%
-    "C (core)":           {"used": 55, "not": 26},   #  81  37.2%
-    "High Level (adv.)":  {"used": 18, "not": 19},   #  37  17.0%
+    "A (foundation)":     {"used": 0, "not": 0},    #  —  —%
+    "B (core)":           {"used": 0, "not": 0},    #  —  —%
+    "C (core)":           {"used": 0, "not": 0},    #  —  —%
+    "High Level (adv.)":  {"used": 0, "not": 0},    #  —  —%
 }
 
 rows = []
@@ -36,6 +46,22 @@ for name, c in LEVELS.items():
     tot_not += c["not"]
     tot_all += n
 
+# --- Early-exit guard: no data yet, do not divide by zero or invent stats.
+if tot_all == 0:
+    print("=== Contingency table: EAP level x 'have used Smart Partner' ===")
+    print("  (no data — survey not yet launched; every cell above is 0)")
+    print()
+    print("=== No statistics computed yet ===")
+    print("Once the questionnaire has been collected, fill in:")
+    print("  - the 'used' / 'not' counts in LEVELS")
+    print("  - DISTRIBUTED / RETURNED / YEAR1 (top of this file)")
+    print("  - the four 'mean' and 'sd' values in ANOVA")
+    print("  - r, n_corr (correlation block)")
+    print("  - AVG_SESSION_MIN and MORE_BEFORE_EXAMS (descriptives block)")
+    print("Then re-run this script to recompute chi-square, ANOVA, correlation")
+    print("and the descriptives quoted on the page.")
+    raise SystemExit(0)
+
 print("=== Contingency table: EAP level x 'have used Smart Partner' ===")
 print(f"{'level':<20}{'used':>6}{'not':>6}{'total':>7}{'% of n':>9}{'adoption':>11}")
 for name, u, nn, n in rows:
@@ -45,8 +71,10 @@ print(f"\noverall adoption = {tot_used}/{tot_all} = {100*tot_used/tot_all:.1f}%"
 core = LEVELS["B (core)"]["used"] + LEVELS["B (core)"]["not"] \
      + LEVELS["C (core)"]["used"] + LEVELS["C (core)"]["not"]
 print(f"core (B + C) share = {core}/{tot_all} = {100*core/tot_all:.1f}%")
-print(f"response rate      = 218/260 = {100*218/260:.1f}%")
-print(f"Year 1 share       = 206/218 = {100*206/218:.1f}%")
+print(f"response rate      = {RETURNED}/{DISTRIBUTED} = "
+      + (f"{100*RETURNED/DISTRIBUTED:.1f}%" if DISTRIBUTED else "— (not distributed)"))
+print(f"Year 1 share       = {YEAR1}/{tot_all} = "
+      + (f"{100*YEAR1/tot_all:.1f}%" if YEAR1 is not None else "— (not recorded)"))
 
 # ------------------------------------------------------- chi-square (indep.)
 chi2 = 0.0
@@ -64,12 +92,12 @@ k = min(len(rows) - 1, 1)
 print(f"Cramer's V = {math.sqrt(chi2 / (tot_all * k)):.3f}")
 
 # ------------------------------------------------------------ one-way ANOVA
-# Weekly usage frequency (times/week) among the 147 users
+# Weekly usage frequency (times/week) among the users (n = — until data arrive)
 ANOVA = {
-    "A":          {"n": 22, "mean": 4.2, "sd": 1.4},
-    "B":          {"n": 52, "mean": 3.5, "sd": 1.3},
-    "C":          {"n": 55, "mean": 3.2, "sd": 1.4},
-    "High Level": {"n": 18, "mean": 2.1, "sd": 1.1},
+    "A":          {"n": 0, "mean": 0.0, "sd": 0.0},  # placeholders
+    "B":          {"n": 0, "mean": 0.0, "sd": 0.0},  # placeholders
+    "C":          {"n": 0, "mean": 0.0, "sd": 0.0},  # placeholders
+    "High Level": {"n": 0, "mean": 0.0, "sd": 0.0},  # placeholders
 }
 N = sum(v["n"] for v in ANOVA.values())
 assert N == tot_used, (N, tot_used)
@@ -90,7 +118,7 @@ print(f"  F({df_b}, {df_w}) = {F:.3f}")
 print(f"  eta^2 = {ss_between / (ss_between + ss_within):.3f}")
 
 # ------------------------------------------------------------- correlation
-r, n_corr = 0.42, 147
+r, n_corr = 0.0, 0  # placeholders — fill in once data are available
 t_r = r * math.sqrt(n_corr - 2) / math.sqrt(1 - r ** 2)
 print("\n=== Pearson correlation: weekly use x self-rated confidence ===")
 print(f"  r = {r}   r^2 = {r**2:.3f}  ({100*r**2:.1f}% shared variance)")
@@ -99,5 +127,6 @@ print(f"  t({n_corr - 2}) = {t_r:.3f}")
 # ------------------------------------------------------------ descriptives
 print("\n=== Descriptives quoted on the page ===")
 print(f"  weekly uses (users): M = {grand:.2f}, SD = {math.sqrt(ms_w):.2f}")
-print(f"  avg session length : 24 min")
-print(f"  more before exams  : 116/147 = {100*116/147:.1f}%")
+print(f"  avg session length : {AVG_SESSION_MIN if AVG_SESSION_MIN is not None else '—'} min")
+print(f"  more before exams  : {MORE_BEFORE_EXAMS}/{tot_used} = "
+      + (f"{100*MORE_BEFORE_EXAMS/tot_used:.1f}%" if MORE_BEFORE_EXAMS is not None else "— (not recorded)"))
