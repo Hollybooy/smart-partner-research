@@ -1,0 +1,5 @@
+# Normalise text files to LF and let git auto-detect text vs binary.
+# This prevents whole-file "every line changed" diffs when files are
+# edited on different operating systems (e.g. uploading via the
+# GitHub web UI tends to convert to CRLF on Windows).
+* text=auto eol=lf
