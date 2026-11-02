@@ -3,506 +3,757 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Partner 智能体调研统计 | Y1 EAP Project</title>
-<meta name="description" content="针对帮助西浦大一学生通过 EAP 考试的 Smart Partner 智能体的调研统计页面 | Research & statistics on the Smart Partner agent for Y1 EAP students">
+<title>Smart Partner 评估研究 | Y1 EAP Project</title>
+<meta name="description" content="一项混合设计评估研究：让西浦大一学生带着自己的 EAP 草稿使用 Smart Partner，比较直接纠错与引导提示两种反馈方式在修订质量、迁移表现与认知负荷上的差异 | A mixed-design evaluation study of the Smart Partner agent">
 <style>
+  /* ============================================================
+     BLACK & WHITE · SWISS GRID
+     版式：左侧 sticky 章节编号 / 右侧内容
+     规则：无圆角、无阴影、无彩色；仅用字号、字重、留白与发丝线
+     ============================================================ */
   :root {
-    --xjtlu-blue: #003A70;
-    --xjtlu-blue-light: #2E6DA4;
-    --accent: #E31837;
-    --bg: #F4F7FB;
-    --card: #FFFFFF;
-    --text: #22303F;
-    --text-muted: #6B7A8C;
-    --border: #DDE6F0;
-    --radius: 14px;
-    --shadow: 0 4px 20px rgba(0, 58, 112, 0.08);
-    --chart1: #003A70; --chart2: #2E6DA4; --chart3: #56A8E0; --chart4: #8AC4EE; --chart5: #B8DCF7;
+    --ink:      #0A0A0A;   /* 主文字 */
+    --ink-2:    #3D3D3D;   /* 正文 */
+    --grey:     #777777;   /* 辅助、标签 */
+    --rule:     #E2E2E2;   /* 发丝分隔线 */
+    --wash:     #F5F5F5;   /* 极浅底（表格头、轨道） */
+    --paper:    #FFFFFF;
+
+    --c1: #0A0A0A;         /* 图表灰阶 · 由深到浅 */
+    --c2: #4F4F4F;
+    --c3: #8C8C8C;
+    --c4: #C6C6C6;
+    --c5: #E4E4E4;
+
+    --measure: 66ch;       /* 正文行宽 */
+    --gutter: clamp(24px, 5vw, 64px);
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.7; padding-bottom: 60px;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--paper); color: var(--ink-2);
+    line-height: 1.75; font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
   }
+  ::selection { background: var(--ink); color: var(--paper); }
 
-  /* ===== 横幅 ===== */
-  .hero {
-    background: linear-gradient(135deg, var(--xjtlu-blue) 0%, #0A5BA8 100%);
-    color: #fff; padding: 60px 20px 80px; text-align: center; position: relative; overflow: hidden;
+  /* ===== 顶栏 ===== */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    padding: 14px var(--gutter);
+    background: rgba(255,255,255,0.92); backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--rule);
   }
-  .hero::after {
-    content: ""; position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
-    width: 140%; height: 80px; background: var(--bg); border-radius: 50% 50% 0 0;
+  .brand {
+    font-size: 12px; font-weight: 700; letter-spacing: 2.4px; color: var(--ink); text-transform: uppercase;
   }
-  .hero .badge {
-    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
-    border-radius: 999px; padding: 4px 16px; font-size: 13px; letter-spacing: 1px; margin-bottom: 18px;
-  }
-  .hero h1 { font-size: clamp(24px, 4.5vw, 38px); font-weight: 700; margin-bottom: 12px; }
-  .hero p.sub { opacity: 0.92; font-size: clamp(14px, 2.5vw, 17px); max-width: 760px; margin: 0 auto; }
-  .hero .meta {
-    margin-top: 22px; font-size: 13px; opacity: 0.85; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
-  }
-  .lang-switch {
-    position: absolute; top: 16px; right: 16px; display: flex;
-    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.35);
-    border-radius: 999px; overflow: hidden;
-  }
+  .brand span { color: var(--grey); font-weight: 500; }
+
+  .lang-switch { display: flex; border: 1px solid var(--ink); }
   .lang-switch button {
-    background: none; border: none; color: #fff; padding: 6px 16px; font-size: 13px; cursor: pointer; transition: background 0.2s;
+    background: none; border: none; color: var(--ink);
+    padding: 5px 14px; font-size: 12px; letter-spacing: .6px; cursor: pointer; transition: .15s;
   }
-  .lang-switch button.active { background: #fff; color: var(--xjtlu-blue); font-weight: 600; }
+  .lang-switch button + button { border-left: 1px solid var(--ink); }
+  .lang-switch button.active { background: var(--ink); color: var(--paper); font-weight: 600; }
 
-  /* ===== 布局 ===== */
-  .container { max-width: 980px; margin: -40px auto 0; padding: 0 16px; position: relative; z-index: 2; }
-  .card {
-    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
-    border: 1px solid var(--border); padding: 30px clamp(18px, 4vw, 40px); margin-bottom: 24px;
+  /* ===== 头版 ===== */
+  .masthead { padding: clamp(56px, 9vw, 108px) var(--gutter) clamp(40px, 6vw, 64px); }
+  .kicker {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 2.6px; text-transform: uppercase;
+    color: var(--grey); padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--ink);
   }
-  .section-title {
-    display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: var(--xjtlu-blue);
-    padding-bottom: 12px; border-bottom: 2px solid #EDF2F8; margin-bottom: 22px;
+  .display {
+    font-size: clamp(34px, 7.2vw, 82px);
+    line-height: 1.02; font-weight: 800; letter-spacing: -.035em; color: var(--ink);
   }
-  .section-title .num {
-    background: var(--xjtlu-blue); color: #fff; width: 28px; height: 28px; border-radius: 8px;
-    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
-  }
-  .section-title .en { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-left: auto; }
-
-  .sample-note {
-    background: #FFF8E6; border: 1px solid #F0E0B0; color: #8A6A14; border-radius: 10px;
-    padding: 10px 16px; font-size: 13.5px; margin-bottom: 14px; display: flex; gap: 8px; align-items: flex-start;
+  .lede {
+    margin-top: 26px; max-width: 58ch;
+    font-size: clamp(15px, 1.9vw, 18.5px); line-height: 1.7; color: var(--ink-2);
   }
 
-  /* ===== KPI 卡 ===== */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 26px; }
-  .kpi {
-    background: #F8FAFD; border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center;
+  /* ===== 关键参数（竖线分隔） ===== */
+  .facts {
+    margin-top: clamp(36px, 5vw, 56px);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    border-top: 1px solid var(--ink);
   }
-  .kpi .value { font-size: 30px; font-weight: 800; color: var(--xjtlu-blue); line-height: 1.2; }
-  .kpi .value small { font-size: 15px; font-weight: 600; }
-  .kpi .label { font-size: 13.5px; font-weight: 600; margin-top: 4px; }
-  .kpi .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .facts > div { padding: 18px 22px 18px 0; border-bottom: 1px solid var(--rule); }
+  .facts dt {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--grey); margin-bottom: 5px;
+  }
+  .facts dd { font-size: 14.5px; color: var(--ink); font-weight: 600; line-height: 1.5; }
+  @media (min-width: 761px) {
+    .facts > div + div { border-left: 1px solid var(--rule); padding-left: 22px; }
+  }
 
-  /* ===== 条形图 ===== */
-  .chart-block { margin-bottom: 26px; }
-  .chart-block:last-child { margin-bottom: 4px; }
-  .chart-block h3 { font-size: 16px; margin-bottom: 14px; color: var(--text); }
-  .bar-row { display: grid; grid-template-columns: 150px 1fr 52px; gap: 12px; align-items: center; margin-bottom: 10px; }
-  .bar-row .label { font-size: 13.5px; text-align: right; }
-  .bar-row .track { background: #EDF2F8; border-radius: 999px; height: 22px; overflow: hidden; }
-  .bar-row .fill {
-    height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--xjtlu-blue-light), var(--xjtlu-blue));
-    width: 0; transition: width 0.9s cubic-bezier(0.25, 0.8, 0.3, 1);
+  /* ===== 章节网格 ===== */
+  .doc { padding: 0 var(--gutter) 40px; max-width: 1240px; margin: 0 auto; }
+  .chapter {
+    display: grid; grid-template-columns: 152px 1fr; gap: clamp(20px, 4vw, 48px);
+    padding: clamp(48px, 7vw, 84px) 0; border-top: 1px solid var(--rule);
   }
-  .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--xjtlu-blue); }
+  .chapter:first-child { border-top: 1px solid var(--ink); }
+  .chapter-num { position: sticky; top: 78px; align-self: start; }
+  .chapter-num .n {
+    display: block; font-size: 58px; font-weight: 300;
+    line-height: 1; letter-spacing: -.045em; color: var(--ink);
+  }
+  .chapter-num .k {
+    display: block; margin-top: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--grey);
+  }
 
-  /* ===== 环形图 ===== */
-  .donut-wrap { display: flex; gap: 34px; align-items: center; flex-wrap: wrap; }
-  .donut {
-    width: 190px; height: 190px; border-radius: 50%; flex-shrink: 0; position: relative;
+  .chapter-body h2 {
+    font-size: clamp(23px, 3vw, 31px); font-weight: 700;
+    letter-spacing: -.02em; line-height: 1.25; color: var(--ink); margin-bottom: 18px;
   }
-  .donut::after {
-    content: attr(data-center); position: absolute; inset: 34px; background: #fff; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    font-size: 14px; font-weight: 700; color: var(--xjtlu-blue); padding: 8px; line-height: 1.4;
-  }
-  .legend { flex: 1; min-width: 240px; }
-  .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
-  .legend-item .dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
-  .legend-item .lpct { margin-left: auto; font-weight: 700; color: var(--xjtlu-blue); }
-
-  /* ===== 功能标签 ===== */
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-  .chip {
-    background: #EFF5FC; border: 1px solid #C9DCF0; color: var(--xjtlu-blue);
-    border-radius: 999px; padding: 6px 16px; font-size: 14px; font-weight: 500;
-  }
-  .topic-text { color: var(--text-muted); font-size: 15px; }
-
-  /* ===== 引用卡 ===== */
-  .quote {
-    background: #EFF5FC; border-left: 4px solid var(--xjtlu-blue); border-radius: 8px;
-    padding: 16px 20px; margin-top: 22px; font-size: 14.5px; color: var(--xjtlu-blue);
-  }
-  .quote b { display: block; margin-bottom: 4px; }
-
-  /* ===== 图片上传与画廊 ===== */
-  .dropzone {
-    border: 2px dashed #A9C4DE; border-radius: 12px; background: #F8FAFD;
-    padding: 34px 20px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
-  }
-  .dropzone:hover, .dropzone.dragover { background: #EFF5FC; border-color: var(--xjtlu-blue-light); }
-  .dropzone .icon { font-size: 34px; margin-bottom: 8px; }
-  .dropzone p { font-size: 14.5px; }
-  .dropzone .hint { font-size: 12.5px; color: var(--text-muted); margin-top: 6px; }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
-  .gallery figure {
-    background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; position: relative;
-    box-shadow: 0 2px 8px rgba(0,58,112,0.06);
-  }
-  .gallery img { width: 100%; height: 170px; object-fit: cover; display: block; }
-  .gallery figcaption {
-    padding: 8px 12px; font-size: 12.5px; color: var(--text-muted); border-top: 1px solid #EDF2F8;
-    display: flex; justify-content: space-between; align-items: center; gap: 8px;
-  }
-  .gallery .remove {
-    background: none; border: none; color: var(--accent); cursor: pointer; font-size: 15px; padding: 0 4px; flex-shrink: 0;
-  }
-  .upload-note { font-size: 13px; color: var(--text-muted); }
-  .upload-note code { background: #EDF2F8; border-radius: 4px; padding: 1px 6px; font-size: 12.5px; color: var(--xjtlu-blue); }
-
-  .footer { text-align: center; color: var(--text-muted); font-size: 12.5px; margin-top: 30px; }
-
-  /* ===== 统计检验表 ===== */
-  .stats-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
-  .stats-table th, .stats-table td {
-    border-bottom: 1px solid var(--border); padding: 11px 10px; text-align: left; vertical-align: top;
-  }
-  .stats-table thead th {
-    background: #F8FAFD; color: var(--xjtlu-blue); font-size: 12.5px;
-    text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--border);
-  }
-  .stats-table tbody tr:hover { background: #FAFCFF; }
-  .stats-table .test { font-weight: 700; color: var(--xjtlu-blue); white-space: nowrap; }
-  .stats-table .stat { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; white-space: nowrap; font-size: 13px; }
-  .stats-table .verdict { font-weight: 700; white-space: nowrap; }
-  .verdict.sig { color: #1B7A3E; }
-  .verdict.ns { color: var(--text-muted); }
-  .stats-note { font-size: 12.5px; color: var(--text-muted); margin-top: 14px; }
-  @media (max-width: 640px) {
-    .stats-table { font-size: 12.5px; }
-    .stats-table th, .stats-table td { padding: 9px 6px; }
+  .chapter-body p { max-width: var(--measure); }
+  .chapter-body p + p { margin-top: 14px; }
+  .chapter-body b { color: var(--ink); font-weight: 700; }
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: .92em; background: var(--wash); padding: 1px 6px; color: var(--ink);
   }
 
   /* ===== 小节标题 ===== */
   .sub-h {
-    font-size: 14.5px; font-weight: 700; color: var(--xjtlu-blue);
-    margin: 24px 0 8px; display: flex; align-items: center; gap: 8px;
+    margin: 44px 0 16px; padding-bottom: 9px; border-bottom: 1px solid var(--ink);
+    font-size: 10.5px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ink);
   }
-  .sub-h::before { content: ""; width: 3px; height: 15px; background: var(--xjtlu-blue); border-radius: 2px; }
+  .sub-h:first-of-type { margin-top: 34px; }
+
+  /* ===== 状态条 ===== */
+  .status-bar {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    margin: 0 auto; padding: 14px 20px;
+    max-width: 1240px;
+    border: 1px solid var(--ink); border-left: 4px solid var(--ink);
+    font-size: 13px; color: var(--ink);
+  }
+  .status-bar .tag {
+    background: var(--ink); color: var(--paper);
+    border-radius: 0; padding: 2px 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px; white-space: nowrap;
+  }
+  .status-bar .sep { color: var(--rule); }
+
+  /* ===== KPI ===== */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    border-top: 1px solid var(--ink); margin: 26px 0;
+  }
+  .kpi { padding: 20px 18px 20px 0; border-bottom: 1px solid var(--rule); background: none; }
+  @media (min-width: 701px) {
+    .kpi + .kpi { border-left: 1px solid var(--rule); padding-left: 18px; }
+  }
+  .kpi .value { font-size: 34px; font-weight: 300; line-height: 1.1; letter-spacing: -.03em; color: var(--ink); }
+  .kpi .value.pending { color: var(--c4); }
+  .kpi .label { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 6px; }
+  .kpi .sub { font-size: 12px; color: var(--grey); margin-top: 3px; line-height: 1.55; }
+
+  /* ===== 条形图（纯黑条 + 灰轨道，直角） ===== */
+  .chart-block { margin-bottom: 30px; }
+  .chart-block:last-child { margin-bottom: 0; }
+  .chart-block h3 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
+  .bar-row { display: grid; grid-template-columns: 158px 1fr 54px; gap: 14px; align-items: center; margin-bottom: 12px; }
+  .bar-row .label { font-size: 13.5px; text-align: right; color: var(--ink-2); }
+  .bar-row .track { background: var(--wash); height: 12px; overflow: hidden; }
+  .bar-row .fill { height: 100%; background: var(--ink); width: 0; transition: width .9s cubic-bezier(.25,.8,.3,1); }
+  .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .bar-row .pct.pending { color: var(--c4); }
+
+  /* ===== 占位卡 ===== */
+  .placeholder {
+    border: 1px solid var(--rule); background: var(--wash);
+    padding: 22px 20px; text-align: center; font-size: 12.5px; color: var(--grey); line-height: 1.75;
+  }
+  .ph-tag {
+    display: inline-block; border: 1px solid var(--ink); color: var(--ink);
+    padding: 2px 10px; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; margin-bottom: 8px;
+  }
+  .qr-box .ph-tag { margin-bottom: 0; }
+
+  /* ===== 环形图（灰阶） ===== */
+  .donut-wrap { display: flex; gap: 38px; align-items: center; flex-wrap: wrap; }
+  .donut { width: 186px; height: 186px; border-radius: 50%; flex-shrink: 0; position: relative; }
+  .donut::after {
+    content: attr(data-center); position: absolute; inset: 36px; background: var(--paper); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-size: 12px; font-weight: 700; letter-spacing: .6px; color: var(--ink); padding: 8px; line-height: 1.5;
+  }
+  .donut.pending::after { color: var(--c4); }
+  .legend { flex: 1; min-width: 240px; }
+  .legend-item {
+    display: flex; align-items: center; gap: 11px; padding: 9px 0;
+    font-size: 13.5px; border-bottom: 1px solid var(--rule);
+  }
+  .legend-item .dot { width: 11px; height: 11px; flex-shrink: 0; }
+  .legend-item .lpct { margin-left: auto; font-weight: 700; color: var(--ink); }
+  .legend-item .lpct.pending { color: var(--c4); }
+
+  /* ===== 功能标签（方角描边） ===== */
+  .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+  .chip {
+    border: 1px solid var(--ink); color: var(--ink); background: none;
+    padding: 4px 14px; font-size: 13.5px; font-weight: 500;
+  }
 
   /* ===== 研究问题 ===== */
-  .rq-list { list-style: none; padding: 0; margin: 4px 0 0; counter-reset: rq; }
+  .rq-list { list-style: none; padding: 0; margin: 0; counter-reset: rq; }
   .rq-list li {
-    position: relative; padding: 12px 0 12px 46px; counter-increment: rq;
-    border-bottom: 1px dashed var(--border); font-size: 14.5px; line-height: 1.65;
+    position: relative; padding: 17px 0 17px 54px; counter-increment: rq;
+    border-bottom: 1px solid var(--rule); max-width: var(--measure);
   }
   .rq-list li:last-child { border-bottom: none; }
   .rq-list li::before {
-    content: "RQ" counter(rq); position: absolute; left: 0; top: 13px;
-    min-width: 34px; height: 22px; line-height: 22px; padding: 0 5px;
-    text-align: center; background: var(--xjtlu-blue); color: #fff;
-    border-radius: 5px; font-size: 11px; font-weight: 700;
+    content: "RQ" counter(rq); position: absolute; left: 0; top: 18px;
+    min-width: 34px; height: 21px; line-height: 21px; padding: 0 5px;
+    text-align: center; background: var(--ink); color: var(--paper);
+    font-size: 10.5px; font-weight: 700; letter-spacing: .8px;
   }
 
-  /* ===== 调研流程 ===== */
-  .plan { list-style: none; padding: 0; margin: 6px 0 0; }
-  .plan li { position: relative; padding: 9px 0 9px 32px; font-size: 14px; line-height: 1.6; }
-  .plan li b { color: var(--xjtlu-blue); }
+  /* ===== 流程列表 ===== */
+  .plan { list-style: none; padding: 0; margin: 0; }
+  .plan li { position: relative; padding: 10px 0 10px 28px; font-size: 14.5px; max-width: var(--measure); }
+  .plan li b { color: var(--ink); font-weight: 700; }
   .plan li::before {
-    content: ""; position: absolute; left: 7px; top: 15px;
-    width: 9px; height: 9px; border-radius: 50%; background: var(--chart2);
+    content: ""; position: absolute; left: 0; top: 19px;
+    width: 7px; height: 7px; background: var(--ink);
   }
   .plan li:not(:last-child)::after {
-    content: ""; position: absolute; left: 11px; top: 24px; bottom: -2px;
-    width: 1px; background: var(--border);
+    content: ""; position: absolute; left: 3px; top: 28px; bottom: -2px;
+    width: 1px; background: var(--rule);
   }
 
-  /* ===== 文档块（信息表 / 同意书） ===== */
-  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
-  .doc {
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 18px 20px; background: #FCFDFE;
+  /* ===== 表格（仅横线） ===== */
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .stats-table thead th {
+    background: none; color: var(--grey); font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 0 12px 10px 0; border-bottom: 1px solid var(--ink); text-align: left;
   }
-  .doc h4 { margin: 0 0 10px; font-size: 14px; color: var(--xjtlu-blue); }
-  .doc ul { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.8; }
-  .doc .sign {
-    margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border);
-    font-size: 12.5px; color: var(--text-muted);
+  .stats-table th, .stats-table td {
+    border: none; border-bottom: 1px solid var(--rule);
+    padding: 14px 12px 14px 0; text-align: left; vertical-align: top;
   }
-  @media (max-width: 760px) { .doc-grid { grid-template-columns: 1fr; } }
+  .stats-table tbody tr:hover { background: #FAFAFA; }
+  .stats-table .test { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .stats-table .stat {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    white-space: nowrap; font-size: 13px;
+  }
+  .stats-table .verdict { font-weight: 700; white-space: nowrap; }
+  .verdict.sig { color: var(--ink); }
+  .verdict.ns { color: var(--grey); }
+  .stats-note { font-size: 12.5px; color: var(--grey); margin-top: 16px; max-width: var(--measure); }
+  @media (max-width: 640px) {
+    .stats-table { font-size: 12.5px; }
+    .stats-table th, .stats-table td { padding: 11px 8px 11px 0; }
+  }
+
+  /* ===== 引用块（左侧粗黑线） ===== */
+  .quote {
+    background: none; border: none; border-left: 4px solid var(--ink);
+    padding: 2px 0 2px 20px; margin-top: 30px;
+    font-size: 14.5px; color: var(--ink); max-width: var(--measure);
+  }
+  .quote b {
+    display: block; margin-bottom: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+  }
+
+  /* ===== 研究假设卡（上边线 + 大号编号） ===== */
+  .hyp-list { list-style: none; padding: 0; margin: 26px 0 0; }
+  .hyp-card {
+    border: none; border-top: 2px solid var(--ink); background: none;
+    padding: 16px 0 0; margin-bottom: 30px; max-width: var(--measure);
+  }
+  .hyp-card:last-child { margin-bottom: 0; }
+  .hyp-card .h-head { display: flex; align-items: baseline; gap: 11px; margin-bottom: 8px; flex-wrap: wrap; }
+  .hyp-card .h-id { font-weight: 800; color: var(--ink); font-size: 17px; letter-spacing: -.01em; }
+  .hyp-card .h-rq { font-size: 10px; font-weight: 700; color: var(--grey); letter-spacing: 1.4px; text-transform: uppercase; }
+  .hyp-card .h-text { font-size: 14.5px; color: var(--ink-2); line-height: 1.72; }
+  .hyp-card .h-test {
+    margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--rule);
+    font-size: 12.5px; color: var(--grey);
+  }
+
+  /* ===== 条件卡（A / B 对照） ===== */
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(20px, 3vw, 34px); margin-top: 6px; }
+  .cond { border-top: 2px solid var(--ink); padding: 16px 0 0; }
+  .cond h4 {
+    margin: 0 0 6px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase; color: var(--grey);
+  }
+  .cond .name { font-size: 16px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; margin-bottom: 10px; }
+  .cond p { font-size: 13.5px; line-height: 1.72; max-width: none; }
+  .cond .sample {
+    margin-top: 12px; padding: 12px 14px; background: var(--wash);
+    font-size: 13px; line-height: 1.7; color: var(--ink);
+  }
+  .cond .sample b { display: block; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--grey); margin-bottom: 5px; }
+  @media (max-width: 760px) { .cond-grid { grid-template-columns: 1fr; gap: 0; } .cond + .cond { margin-top: 28px; } }
+
+  /* ===== 待补充看板 ===== */
+  .todo-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0 clamp(20px, 3vw, 34px); margin-top: 4px;
+  }
+  .todo { border: none; border-top: 2px solid var(--ink); background: none; padding: 15px 0 0; }
+  .todo h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .todo p { font-size: 13px; color: var(--grey); line-height: 1.65; max-width: none; }
+  .todo .state {
+    display: inline-block; margin-top: 11px; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.2px; padding: 2px 10px; border: 1px solid var(--ink); color: var(--ink);
+  }
+
+  /* ===== 二维码 ===== */
+  .qr-card {
+    display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+    border: 1px solid var(--rule); background: none;
+    padding: 18px 20px; margin-top: 16px;
+  }
+  .qr-box {
+    width: 122px; height: 122px; flex-shrink: 0; border: 1px solid var(--rule);
+    background: var(--paper); display: flex; align-items: center; justify-content: center; padding: 8px;
+  }
+  .qr-box img { width: 100%; height: 100%; display: block; }
+  .qr-card .qr-meta { flex: 1; min-width: 230px; font-size: 13px; color: var(--grey); line-height: 1.7; }
+  .qr-card .qr-meta b { color: var(--ink); display: block; font-size: 13.5px; margin-bottom: 3px; }
 
   /* ===== 问卷题项 ===== */
-  .qlist { list-style: none; padding: 0; margin: 6px 0 0; counter-reset: q; }
+  .qlist { list-style: none; padding: 0; margin: 0; counter-reset: q; }
   .qlist li {
-    position: relative; padding: 10px 0 10px 34px; counter-increment: q;
-    border-bottom: 1px dashed var(--border); font-size: 14px; line-height: 1.6;
+    position: relative; padding: 11px 0 11px 32px; counter-increment: q;
+    border-bottom: 1px solid var(--rule); font-size: 14px; max-width: var(--measure);
   }
   .qlist li:last-child { border-bottom: none; }
   .qlist li::before {
     content: "Q" counter(q); position: absolute; left: 0; top: 11px;
-    font-weight: 700; color: var(--chart2); font-size: 12.5px;
+    font-weight: 700; color: var(--grey); font-size: 12px;
   }
-  .qlist .opts { display: block; color: var(--text-muted); font-size: 12.5px; margin-top: 3px; }
-  .qlist .tag {
-    display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 4px;
-    background: #EEF3F9; color: var(--xjtlu-blue); margin-left: 6px; font-weight: 600;
+  .qlist .opts { display: block; color: var(--grey); font-size: 12.5px; margin-top: 3px; }
+
+  /* ===== 文档块（信息表 / 同意书） ===== */
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(20px, 3vw, 34px); margin-top: 6px; }
+  .doc { border: none; border-top: 1px solid var(--ink); background: none; padding: 15px 0 0; }
+  .doc h4 {
+    margin: 0 0 10px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink);
+  }
+  .doc ul { margin: 0; padding-left: 19px; font-size: 13.5px; line-height: 1.8; }
+  .doc .sign {
+    margin-top: 13px; padding-top: 11px; border-top: 1px dashed var(--rule);
+    font-size: 12.5px; color: var(--grey);
+  }
+  @media (max-width: 760px) { .doc-grid { grid-template-columns: 1fr; gap: 0; } .doc + .doc { margin-top: 26px; } }
+
+  /* ===== 设计结构图（2×2 表格） ===== */
+  .design-grid {
+    display: grid; grid-template-columns: 120px 1fr 1fr;
+    margin-top: 6px; border-top: 2px solid var(--ink);
+  }
+  .design-grid > div { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
+  .design-grid .head {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--grey);
+  }
+  .design-grid .rowhead { font-weight: 700; color: var(--ink); }
+  @media (max-width: 640px) {
+    .design-grid { grid-template-columns: 1fr 1fr; }
+    .design-grid .rowhead { grid-column: 1 / -1; border-bottom: none; padding-bottom: 4px; }
   }
 
+  /* ===== 参考文献 ===== */
+  .refs { list-style: none; padding: 0; margin: 0; counter-reset: ref; }
+  .refs li { position: relative; padding: 14px 0 14px 40px; counter-increment: ref; border-bottom: 1px solid var(--rule); }
+  .refs li:last-child { border-bottom: none; }
+  .refs li::before {
+    content: "[" counter(ref) "]"; position: absolute; left: 0; top: 14px;
+    font-weight: 700; color: var(--grey); font-size: 12.5px;
+  }
+  .refs .src { display: block; color: var(--ink); font-size: 13.5px; }
+  .refs .why { display: block; color: var(--grey); font-size: 12.5px; margin-top: 3px; }
+
+  /* ===== 照片画廊 ===== */
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+  .gallery figure { background: none; border: 1px solid var(--rule); overflow: hidden; }
+  .gallery img { width: 100%; height: 170px; object-fit: cover; display: block; filter: grayscale(100%); }
+
+  .footer {
+    text-align: left; padding: 28px var(--gutter) 0; max-width: 1240px; margin: 0 auto;
+    border-top: 1px solid var(--ink); color: var(--grey); font-size: 12px; letter-spacing: .4px;
+  }
+
+  /* ===== 语言切换（默认只显示一种语言） ===== */
   html[lang="zh-CN"] [lang="en-only"], html[lang="en"] [lang="zh-only"] { display: none !important; }
+
+  /* ===== 窄屏：编号列改为行内标签 ===== */
+  @media (max-width: 860px) {
+    .chapter { grid-template-columns: 1fr; gap: 14px; padding: 44px 0; }
+    .chapter-num { position: static; display: flex; align-items: baseline; gap: 12px; }
+    .chapter-num .n { font-size: 30px; }
+    .chapter-num .k { margin-top: 0; }
+  }
   @media (max-width: 560px) {
-    .bar-row { grid-template-columns: 100px 1fr 44px; gap: 8px; }
+    .bar-row { grid-template-columns: 104px 1fr 44px; gap: 9px; }
     .donut-wrap { justify-content: center; }
+    .lede { margin-top: 20px; }
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<nav class="topbar">
+  <div class="brand">Smart Partner<span> / Evaluation Study</span></div>
   <div class="lang-switch" role="group" aria-label="Language / 语言">
     <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
     <button id="btn-en" onclick="setLang('en')">English</button>
   </div>
-  <div class="badge">Y1 EAP PROJECT · 调研统计</div>
-  <h1>
-    <span lang="zh-only">"Smart Partner" 智能体<br>使用情况调研统计</span>
-    <span lang="en-only">Research &amp; Statistics on the<br>"Smart Partner" Agent</span>
+</nav>
+
+<header class="masthead">
+  <div class="kicker">ADS401 · Evaluation Methods &amp; Statistics · Presentation 2</div>
+  <h1 class="display">
+    <span lang="zh-only">AI 反馈真的<br>改得动一篇<br>EAP 草稿吗？</span>
+    <span lang="en-only">Can AI feedback<br>actually improve<br>an EAP draft?</span>
   </h1>
-  <p class="sub">
-    <span lang="zh-only">针对帮助西浦大一学生顺利通过 EAP 考试的 AI 学习智能体 "Smart Partner" 的专题调研：主题、目标人群、使用情况与使用目的。</span>
-    <span lang="en-only">A study of "Smart Partner" — an AI learning agent that helps XJTLU Year 1 students pass their EAP exams: topic, target audience, usage and purposes.</span>
+  <p class="lede">
+    <span lang="zh-only">一项混合设计评估研究：让西浦大一学生带着自己写的草稿使用 Smart Partner，比较<b>直接纠错</b>与<b>引导提示</b>两种反馈方式在修订质量、迁移表现与认知负荷上的差异。</span>
+    <span lang="en-only">A mixed-design evaluation study: XJTLU Year 1 students bring their own draft to Smart Partner, and we compare <b>direct correction</b> with <b>guided scaffolding</b> on revision quality, transfer performance and cognitive load.</span>
   </p>
-  <div class="meta">
-    <span>📚 <span lang="zh-only">调研主题</span><span lang="en-only">Topic</span></span>
-    <span>🎯 <span lang="zh-only">目标人群</span><span lang="en-only">Audience</span></span>
-    <span>📈 <span lang="zh-only">使用情况</span><span lang="en-only">Usage</span></span>
-    <span>💡 <span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span></span>
-    <span>🧪 <span lang="zh-only">统计检验</span><span lang="en-only">Tests</span></span>
-    <span>🗂️ <span lang="zh-only">调研设计</span><span lang="en-only">Design</span></span>
-    <span>📋 <span lang="zh-only">调研工具</span><span lang="en-only">Instruments</span></span>
-    <span>🔍 <span lang="zh-only">研究反思</span><span lang="en-only">Reflection</span></span>
-  </div>
+
+  <!-- ★ 可编辑：关键参数 -->
+  <dl class="facts">
+    <div>
+      <dt><span lang="zh-only">设计</span><span lang="en-only">Design</span></dt>
+      <dd><span lang="zh-only">2×2 混合设计<br>（被试间 × 被试内）</span><span lang="en-only">2 × 2 mixed<br>(between × within)</span></dd>
+    </div>
+    <div>
+      <dt><span lang="zh-only">任务</span><span lang="en-only">Task</span></dt>
+      <dd><span lang="zh-only">35 分钟草稿修订任务</span><span lang="en-only">35-minute draft-revision task</span></dd>
+    </div>
+    <div>
+      <dt><span lang="zh-only">样本</span><span lang="en-only">Sample</span></dt>
+      <dd><span lang="zh-only">便利抽样 · 目标 40 人<br>（每组 20 人）</span><span lang="en-only">Convenience · target 40<br>(20 per cell)</span></dd>
+    </div>
+    <div>
+      <dt><span lang="zh-only">主要结局</span><span lang="en-only">Primary outcome</span></dt>
+      <dd><span lang="zh-only">修订后草稿质量（双盲评分）</span><span lang="en-only">Revised draft quality (double-blind)</span></dd>
+    </div>
+  </dl>
 </header>
 
-<div class="container">
+<div class="status-bar">
+  <span class="tag"><span lang="zh-only">尚未执行</span><span lang="en-only">Not run</span></span>
+  <span><span lang="zh-only">已完成 <b>—</b> / 40 人 · 有效数据 <b>—</b> 份</span><span lang="en-only">Completed <b>—</b>/40 · valid <b>—</b></span></span>
+  <span class="sep">|</span>
+  <span><span lang="zh-only">图表与检验结果均为占位，执行后填入第 6、7 部分</span><span lang="en-only">Charts and test results are placeholders, to be filled in Sections 6 and 7</span></span>
+</div>
 
-  <!-- ============ 1 调研主题 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">1</span><span lang="zh-only">调研主题</span><span lang="en-only">Research Topic</span><span class="en">Topic</span></h2>
+<main class="doc">
 
-    <div class="sample-note">
-      <span>📊</span>
-      <span><span lang="zh-only"><b>调研尚未开始</b>——问卷暂未发放：共发放问卷 <b>—</b> 份，回收 <b>—</b> 份，其中有效问卷 <b>—</b> 份（回收率 <b>—</b>%）。抽样对象为西浦大一在读学生，覆盖 EAP 全部四个层级：<b>A 基础班</b>、<b>B 与 C 核心班</b>、<b>High Level 高阶班</b>；其中 B、C 两班合计占 <b>—</b>。下列图表均尚未填入数据（显示为"—"），显著性检验见第 7 部分，调研设计与工具见第 3、4 部分。</span><span lang="en-only"><b>Survey not yet launched</b> — no questionnaire has been distributed: <b>—</b> distributed, <b>—</b> returned, <b>—</b> valid (response rate <b>—</b>%). Respondents are XJTLU Year 1 students spanning all four EAP levels: <b>A (foundation)</b>, <b>B and C (core)</b>, and <b>High Level (advanced)</b>. Groups B and C together make up <b>—</b>. None of the charts below carry data yet (shown as "—"); significance tests are in Section 7, and the study design and instruments in Sections 3 and 4.</span></span>
+  <!-- ============ 01 研究问题 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">01</span><span class="k">Research questions</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">我们评估的不是"喜不喜欢"，而是"改没改对"</span><span lang="en-only">We measure whether drafts improve, not whether users approve</span></h2>
+
+      <p>
+        <span lang="zh-only">"Smart Partner" 是面向西交利物浦大学大一学生的 AI 学习智能体，通过对话提供<b>语法专项练习</b>、写作批改反馈、词汇巩固与模拟测试，目标是帮助学生通过 EAP（学术英语）考试。市面上对这类工具的评价大多停留在"你觉得有用吗"，但<b>满意度不等于学习效果</b>：学生可能高度认可一个只替他改错、却不促使他思考的工具。因此本研究让参与者<b>先完成一个真实的学习任务</b>，再用任务表现来评估效果。</span>
+        <span lang="en-only">"Smart Partner" is an AI learning agent for Year 1 students at Xi'an Jiaotong-Liverpool University, offering <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, with the goal of helping students pass their EAP (English for Academic Purposes) exams. Evaluation of such tools usually stops at "did you find it useful" — but <b>satisfaction is not learning</b>: students may rate highly a tool that silently fixes their errors without making them think. This study therefore asks participants to <b>complete a real learning task first</b>, and judges effectiveness by what their work looks like afterwards.</span>
+      </p>
+
+      <div class="sub-h"><span lang="zh-only">为什么不能只发一份问卷</span><span lang="en-only">Why a questionnaire alone is not an evaluation</span></div>
+      <p>
+        <span lang="zh-only">把问卷当作主要证据有四个无法修复的缺陷：<b>① 没有客观锚点</b>——"你觉得进步了吗"无法与"你的草稿实际变好了多少"互相校验；<b>② 无法分离效应来源</b>——学生报告的提升可能来自练习本身、来自时间推移，而非 AI 的反馈方式；<b>③ 需求表述与有效设计脱节</b>——学生说"最想要"的功能，往往不是真正促成修订的功能；<b>④ 回忆偏差</b>——自陈的使用频率与时长系统性失真。本研究的处理方式：问卷<b>降级为任务后的辅助工具</b>，用于解释客观结果的成因（为什么某一条件下提升更大、认知负荷更高），而非作为效果证据本身。</span>
+        <span lang="en-only">Using questionnaires as primary evidence has four irreparable flaws: <b>(i) no objective anchor</b> — "do you feel you improved" cannot be checked against "how much your draft actually improved"; <b>(ii) effects cannot be attributed</b> — reported gains may come from practice itself or the passage of time, not from the AI's feedback style; <b>(iii) stated wants diverge from effective design</b> — the feature students say they most want is often not the one that drives revision; <b>(iv) recall bias</b> — self-reported frequency and duration are systematically distorted. Our response: the questionnaire is <b>demoted to a post-task supplementary instrument</b>, used to explain the objective results (why one condition produced larger gains or heavier load), never as the evidence of effectiveness itself.</span>
+      </p>
+
+      <div class="sub-h"><span lang="zh-only">研究问题</span><span lang="en-only">Research questions</span></div>
+      <ol class="rq-list">
+        <li><span lang="zh-only"><b>主效应（被试间）</b>：接受<b>直接纠错</b>与<b>引导提示</b>的参与者，修订后的草稿质量是否存在差异？</span><span lang="en-only"><b>Between-group main effect</b> — Does revised draft quality differ between participants receiving <b>direct correction</b> and <b>guided scaffolding</b>?</span></li>
+        <li><span lang="zh-only"><b>主效应（被试内）</b>：不论条件如何，参与者修订后的草稿质量相比初稿是否显著提升？</span><span lang="en-only"><b>Within-group main effect</b> — Regardless of condition, does draft quality improve significantly from first draft to revision?</span></li>
+        <li><span lang="zh-only"><b>交互作用（核心）</b>：反馈方式是否<b>调节</b>修订带来的提升幅度——即"反馈方式 × 时间"是否存在交互？</span><span lang="en-only"><b>Interaction (core)</b> — Does feedback style <b>moderate</b> the size of the gain, i.e. is there a feedback × time interaction?</span></li>
+        <li><span lang="zh-only"><b>过程机制</b>：修订行为（交互轮次、建议采纳率、自主修正数）能否预测提升幅度？</span><span lang="en-only"><b>Process mechanism</b> — Do revision behaviours (turns, adoption rate, self-corrections) predict the size of the gain?</span></li>
+        <li><span lang="zh-only"><b>一致性检验</b>：参与者的主观评价（有用性、信任、认知负荷）与客观修订质量是否一致？</span><span lang="en-only"><b>Correspondence check</b> — Do subjective ratings (usefulness, trust, cognitive load) agree with objective revision quality?</span></li>
+      </ol>
     </div>
-
-    <!-- ★ 可编辑：主题介绍文字 -->
-    <p class="topic-text">
-      <span lang="zh-only">"Smart Partner" 是一个面向西交利物浦大学大一学生的 AI 学习智能体，旨在帮助学生顺利通过 EAP（学术英语）考试。它以对话方式为学生提供个性化辅导，包括但不限于<b>语法专项练习</b>、写作批改反馈、词汇巩固与模拟测试等功能。本次调研将通过问卷与访谈，考察该智能体在一年级学生中的真实使用情况、使用目的及其对 EAP 学习的帮助程度。</span>
-      <span lang="en-only">"Smart Partner" is an AI learning agent designed for Year 1 students at Xi'an Jiaotong-Liverpool University, aiming to help them pass their EAP (English for Academic Purposes) exams. Through conversational tutoring, it offers personalised support including — but not limited to — <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests. This study will survey how Year 1 students actually use the agent, why they use it, and how much it helps their EAP learning.</span>
-    </p>
-
-    <!-- ★ 可编辑：功能标签 -->
-    <div class="chips">
-      <span class="chip"><span lang="zh-only">语法专项练习</span><span lang="en-only">Grammar practice</span></span>
-      <span class="chip"><span lang="zh-only">写作批改反馈</span><span lang="en-only">Writing feedback</span></span>
-      <span class="chip"><span lang="zh-only">词汇巩固</span><span lang="en-only">Vocabulary training</span></span>
-      <span class="chip"><span lang="zh-only">EAP 模拟测试</span><span lang="en-only">Mock EAP tests</span></span>
-      <span class="chip"><span lang="zh-only">学术英语答疑</span><span lang="en-only">Academic English Q&amp;A</span></span>
-      <span class="chip"><span lang="zh-only">考前复习规划</span><span lang="en-only">Exam revision plans</span></span>
-    </div>
-
-    <div class="sub-h"><span lang="zh-only">研究问题</span><span lang="en-only">Research questions</span></div>
-    <ol class="rq-list">
-      <li><span lang="zh-only">西浦大一学生中，Smart Partner 的<b>使用广度</b>（是否使用过）与<b>使用深度</b>（每周次数、单次时长）分别如何？</span><span lang="en-only">Among XJTLU Year 1 students, what is the <b>breadth</b> (ever used?) and <b>depth</b> (sessions per week, minutes per session) of Smart Partner use?</span></li>
-      <li><span lang="zh-only">四个 EAP 层级（A 基础 / B、C 核心 / High Level 高阶）的学生，在<b>使用率与周使用频率</b>上是否存在显著差异？</span><span lang="en-only">Do the four EAP levels (A, B, C, High Level) differ significantly in <b>adoption rate and weekly use frequency</b>?</span></li>
-      <li><span lang="zh-only">学生的<b>使用频率</b>与其<b>自评 EAP 信心</b>之间是否存在相关关系？</span><span lang="en-only">Is students' <b>use frequency</b> correlated with their <b>self-rated EAP confidence</b>?</span></li>
-      <li><span lang="zh-only">学生使用 Smart Partner 的主要目的是<b>应试冲刺</b>，还是<b>长期学习习惯的养成</b>？</span><span lang="en-only">Do students use Smart Partner mainly as an <b>exam-sprint tool</b>, or to build <b>long-term study habits</b>?</span></li>
-    </ol>
   </section>
 
-  <!-- ============ 2 目标人群 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">2</span><span lang="zh-only">目标人群</span><span lang="en-only">Target Audience</span><span class="en">Audience</span></h2>
+  <!-- ============ 02 评估设计 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">02</span><span class="k">Evaluation design</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">2×2 混合设计</span><span lang="en-only">A 2 × 2 mixed design</span></h2>
 
-    <!-- ★ 可编辑：KPI 数据在页面底部 DATA.kpiAudience 中 -->
-    <div class="kpi-grid" id="kpi-audience"></div>
+      <p>
+        <span lang="zh-only">本研究采用<b>混合因子设计</b>（mixed / split-plot design），同时包含一个被试间因子与一个被试内因子。这样做的好处是：既能比较两种 AI 反馈方式的<b>相对优劣</b>，又能确认每位参与者<b>自身</b>是否真的进步，并且可以检验"哪种方式让人进步更多"这一最有设计价值的问题。</span>
+        <span lang="en-only">This study uses a <b>mixed (split-plot) factorial design</b> containing one between-subjects factor and one within-subjects factor. The advantage is threefold: we can compare the <b>relative merit</b> of two AI feedback styles, confirm whether each participant <b>individually</b> improved, and test the question with the greatest design value — which style produces the larger gain.</span>
+      </p>
 
-    <div class="chart-block">
-      <h3><span lang="zh-only">调研对象构成（按 EAP 班级）</span><span lang="en-only">Respondents by EAP group</span></h3>
-      <div class="donut-wrap">
-        <div class="donut" id="donut"></div>
-        <div class="legend" id="donut-legend"></div>
+      <div class="sub-h"><span lang="zh-only">变量结构</span><span lang="en-only">Variable structure</span></div>
+
+      <div class="design-grid">
+        <div class="head"><span lang="zh-only">条件</span><span lang="en-only">Cell</span></div>
+        <div class="head"><span lang="zh-only">T1 · 前测（修订前）</span><span lang="en-only">T1 · pre-revision</span></div>
+        <div class="head"><span lang="zh-only">T2 · 后测（修订后）</span><span lang="en-only">T2 · post-revision</span></div>
+
+        <div class="rowhead"><span lang="zh-only">A · 直接纠错</span><span lang="en-only">A · direct correction</span></div>
+        <div><span lang="zh-only">初稿：150–180 词议论文段落（无 AI）</span><span lang="en-only">First draft: 150–180-word argumentative paragraph (no AI)</span></div>
+        <div><span lang="zh-only">终稿：据 AI 反馈修订后提交</span><span lang="en-only">Final draft: revised using AI feedback</span></div>
+
+        <div class="rowhead"><span lang="zh-only">B · 引导提示</span><span lang="en-only">B · guided scaffolding</span></div>
+        <div><span lang="zh-only">初稿：同题同要求（无 AI）</span><span lang="en-only">First draft: same prompt, same requirements (no AI)</span></div>
+        <div><span lang="zh-only">终稿：据 AI 反馈修订后提交</span><span lang="en-only">Final draft: revised using AI feedback</span></div>
       </div>
+
+      <p style="margin-top:24px">
+        <span lang="zh-only"><b>被试间因子（Feedback style）</b>：参与者被随机分配到 A（直接纠错）或 B（引导提示），<b>每人只接受一种</b>——避免同一人先后体验两种反馈带来的顺序效应与需求特征。<br>
+        <b>被试内因子（Time）</b>：所有参与者都经历 T1（初稿）与 T2（终稿）两个测量时点，<b>每个人都是自己的对照</b>，从而抵消个体写作水平差异这一最大的混淆变量。<br>
+        <b>分层变量（EAP level）</b>：A / B / C / High Level 作为分层依据参与随机化，保证两个条件在各层级上的分布均衡。</span>
+        <span lang="en-only"><b>Between-subjects factor (Feedback style)</b> — participants are randomised to A (direct correction) or B (guided scaffolding) and <b>receive only one</b>, avoiding order effects and demand characteristics from experiencing both.<br>
+        <b>Within-subjects factor (Time)</b> — all participants are measured at T1 (first draft) and T2 (final draft), so <b>each person serves as their own control</b>, cancelling out individual writing proficiency, the largest confound.<br>
+        <b>Stratifying variable (EAP level)</b> — A / B / C / High Level is used to stratify randomisation so that the two conditions stay balanced across levels.</span>
+      </p>
+
+      <div class="sub-h"><span lang="zh-only">随机化与盲法</span><span lang="en-only">Randomisation and blinding</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only"><b>分层区组随机化</b>：按 EAP 层级分层，层内以 4 为区组长度随机分配 A / B，由不参与施测的成员生成分配序列。</span><span lang="en-only"><b>Stratified block randomisation</b> — stratify by EAP level, randomise A/B within stratum using blocks of 4, with the sequence generated by a member not involved in data collection.</span></li>
+        <li><span lang="zh-only"><b>评分者盲法</b>：终稿去除条件标识与交互记录后送评，两名评分者独立打分，不知其所属条件。</span><span lang="en-only"><b>Rater blinding</b> — final drafts are stripped of condition labels and interaction logs before scoring; two raters score independently without knowing the condition.</span></li>
+        <li><span lang="zh-only"><b>评分者一致性</b>：以 <code>ICC(2,2)</code> 检验，目标 &gt; 0.75；不一致条目由第三人仲裁。</span><span lang="en-only"><b>Inter-rater reliability</b> — assessed with <code>ICC(2,2)</code>, target &gt; 0.75; disagreements are adjudicated by a third rater.</span></li>
+        <li><span lang="zh-only"><b>任务材料固定</b>：所有参与者使用同一写作题目、同一时间限制与同一评分量表，仅反馈方式不同。</span><span lang="en-only"><b>Held-constant materials</b> — all participants use the same prompt, the same time limit and the same scoring rubric; only the feedback style differs.</span></li>
+      </ol>
     </div>
-
-    <!-- ★ 可编辑：目标人群说明 -->
-    <p class="topic-text" style="margin-top:20px">
-      <span lang="zh-only">调研对象为西浦大一各专业学生，覆盖 EAP 四个层级：A 为基础班，B、C 为核心班（学生人数最多），High Level 为高阶班。抽样同时兼顾文理工不同专业，以反映智能体在整体一年级群体中的使用图景。</span>
-      <span lang="en-only">Respondents are Year 1 students across all majors at XJTLU, covering the four EAP levels: A is the foundation stream, B and C are the core streams (where most students are placed), and High Level is the advanced stream. Sampling also spans arts, science and engineering programmes to reflect usage across the whole Year 1 cohort.</span>
-    </p>
-
-    <div class="sub-h"><span lang="zh-only">抽样方法</span><span lang="en-only">Sampling method</span></div>
-    <p class="topic-text" style="margin-top:4px">
-      <span lang="zh-only">本次采用<b>便利抽样</b>（convenience sampling）：通过各 EAP 班级群与年级群发放问卷链接，属于<b>非概率抽样</b>。选择它是因为大一学生规模大、且无法获得完整抽样框；代价是各层级样本量不均（A 班 <b>—</b> 人、High Level <b>—</b> 人），因此我们在推断时补充了非参数检验，并在结论中明确标注这一局限。</span>
-      <span lang="en-only">We used <b>convenience sampling</b>: the questionnaire link was distributed through EAP class groups and year-group chats, a <b>non-probability</b> method. It was chosen because the Year 1 cohort is large and no complete sampling frame was available; the cost is uneven cell sizes across levels (<b>—</b> in A, <b>—</b> in High Level), which is why non-parametric tests were added and the limitation is stated openly in our conclusions.</span>
-    </p>
-    <table class="stats-table">
-      <thead><tr>
-        <th><span lang="zh-only">抽样环节</span><span lang="en-only">Stage</span></th>
-        <th><span lang="zh-only">具体做法</span><span lang="en-only">What we did</span></th>
-      </tr></thead>
-      <tbody>
-        <tr><td><span lang="zh-only">研究总体</span><span lang="en-only">Population</span></td><td><span lang="zh-only">西浦大一在读、正在修读 EAP 的学生</span><span lang="en-only">XJTLU Year 1 students currently taking EAP</span></td></tr>
-        <tr><td><span lang="zh-only">抽样方法</span><span lang="en-only">Method</span></td><td><span lang="zh-only">便利抽样（非概率抽样）</span><span lang="en-only">Convenience sampling (non-probability)</span></td></tr>
-        <tr><td><span lang="zh-only">发放 / 回收 / 有效</span><span lang="en-only">Sent / returned / valid</span></td><td><span lang="zh-only">— / — / —（回收率 —%，剔除 — 份）</span><span lang="en-only">— / — / — (—% response rate, — discarded)</span></td></tr>
-        <tr><td><span lang="zh-only">分层处理</span><span lang="en-only">Stratification</span></td><td><span lang="zh-only">按四个 EAP 层级分别统计，B、C 合计 —%</span><span lang="en-only">Reported separately for the four EAP levels; B + C = —%</span></td></tr>
-      </tbody>
-    </table>
   </section>
 
-  <!-- ============ 3 调研设计 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">3</span><span lang="zh-only">调研设计</span><span lang="en-only">Study Design</span><span class="en">Design</span></h2>
+  <!-- ============ 03 任务设计 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">03</span><span class="k">The task</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">参与者具体要做什么</span><span lang="en-only">What participants actually do</span></h2>
 
-    <p class="topic-text">
-      <span lang="zh-only">本研究为<b>横断面调查</b>（cross-sectional survey），在单一时间点采集使用情况与态度数据，属于<b>非实验性设计</b>——我们不对变量做操控，只测量自然状态下的差异与关联，因此所有结论均为相关而非因果。</span>
-      <span lang="en-only">This is a <b>cross-sectional survey</b>: usage and attitude data were collected at a single time point under a <b>non-experimental design</b>. No variable was manipulated — we only measure differences and associations as they occur naturally — so all findings are correlational rather than causal.</span>
-    </p>
+      <p>
+        <span lang="zh-only">任务为<b>一次完整的 EAP 段落写作与修订</b>，总时长约 35 分钟，分三个阶段连续进行。任务来自真实的 EAP 训练场景——写一段议论性文字并根据反馈修改——因此参与者的行为就是他们平时备考时的行为，而非针对实验设计的表演。</span>
+        <span lang="en-only">The task is <b>one complete cycle of EAP paragraph writing and revision</b>, lasting about 35 minutes and run continuously in three stages. It is drawn from a genuine EAP practice scenario — write an argumentative paragraph, then revise it in response to feedback — so what participants do is what they would normally do while preparing for the exam, rather than a performance staged for the study.</span>
+      </p>
 
-    <div class="sub-h"><span lang="zh-only">实验计划</span><span lang="en-only">Experiment plan</span></div>
-    <ol class="plan">
-      <li><span lang="zh-only"><b>阶段 1 · 背景调研</b>：梳理 Smart Partner 的功能定位与 EAP 分班制度，明确研究问题。</span><span lang="en-only"><b>Stage 1 · Background</b> — review Smart Partner's positioning and the EAP streaming system; fix the research questions.</span></li>
-      <li><span lang="zh-only"><b>阶段 2 · 工具设计</b>：编制结构化问卷（封闭题 + 开放题）与半结构化访谈提纲。</span><span lang="en-only"><b>Stage 2 · Instrument design</b> — build a structured questionnaire (closed + open items) and a semi-structured interview guide.</span></li>
-      <li><span lang="zh-only"><b>阶段 3 · 预测试</b>：邀请 — 名大一学生试填，据此修改 — 处表述歧义，平均填答时间 — 分 — 秒。</span><span lang="en-only"><b>Stage 3 · Pilot</b> — — Year 1 students trialled the questionnaire; — ambiguous wordings were revised and mean completion time was — min — s.</span></li>
-      <li><span lang="zh-only"><b>阶段 4 · 正式发放</b>：通过班级群投放，两周内回收 — 份。</span><span lang="en-only"><b>Stage 4 · Fieldwork</b> — distributed via class groups; — responses returned within two weeks.</span></li>
-      <li><span lang="zh-only"><b>阶段 5 · 数据清洗</b>：剔除作答不完整或逻辑矛盾的 — 份，保留 — 份。</span><span lang="en-only"><b>Stage 5 · Cleaning</b> — — incomplete or logically inconsistent responses were discarded, leaving —.</span></li>
-      <li><span lang="zh-only"><b>阶段 6 · 统计分析</b>：描述统计 → 假设检验（卡方、ANOVA、相关、Wilcoxon）。</span><span lang="en-only"><b>Stage 6 · Analysis</b> — descriptive statistics, then inferential tests (chi-square, ANOVA, correlation, Wilcoxon).</span></li>
-      <li><span lang="zh-only"><b>阶段 7 · 呈现与反思</b>：结果可视化并汇报，反思执行中的偏差与改进方向。</span><span lang="en-only"><b>Stage 7 · Reporting</b> — visualise results, present, and reflect on bias and improvements.</span></li>
-    </ol>
+      <div class="sub-h"><span lang="zh-only">阶段 1 · 前测写作（10 分钟，无 AI）</span><span lang="en-only">Stage 1 · Baseline writing (10 min, no AI)</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only">阅读固定写作题目（argumentative prompt，见下方材料）。</span><span lang="en-only">Read the fixed writing prompt (argumentative; see materials below).</span></li>
+        <li><span lang="zh-only">在 10 分钟内独立写出 <b>150–180 词</b>的议论段落，<b>不允许使用任何 AI 工具或词典</b>。</span><span lang="en-only">Independently write a <b>150–180-word</b> argumentative paragraph within 10 minutes, <b>without any AI tool or dictionary</b>.</span></li>
+        <li><span lang="zh-only">提交初稿，并立即填写前测自评（信心 1–10、任务难度感知）。</span><span lang="en-only">Submit the first draft and immediately complete the pre-test self-ratings (confidence 1–10, perceived task difficulty).</span></li>
+      </ol>
 
-    <div class="sub-h"><span lang="zh-only">采集的数据类型</span><span lang="en-only">Data types collected</span></div>
-    <table class="stats-table">
-      <thead><tr>
-        <th><span lang="zh-only">测量水平</span><span lang="en-only">Measurement level</span></th>
-        <th><span lang="zh-only">变量举例</span><span lang="en-only">Example variables</span></th>
-        <th><span lang="zh-only">对应分析方法</span><span lang="en-only">Analysis used</span></th>
-      </tr></thead>
-      <tbody>
-        <tr><td><span lang="zh-only">名义（Nominal）</span><span lang="en-only">Nominal</span></td><td><span lang="zh-only">EAP 层级、是否使用过、专业类别</span><span lang="en-only">EAP level, ever used, faculty</span></td><td><span lang="zh-only">频数、百分比、卡方检验</span><span lang="en-only">Counts, percentages, chi-square</span></td></tr>
-        <tr><td><span lang="zh-only">等级（Ordinal）</span><span lang="en-only">Ordinal</span></td><td><span lang="zh-only">使用频率档位、自评信心（1–10）、Likert 满意度</span><span lang="en-only">Frequency band, self-rated confidence (1–10), Likert satisfaction</span></td><td><span lang="zh-only">中位数、Wilcoxon 符号秩</span><span lang="en-only">Median, Wilcoxon signed-rank</span></td></tr>
-        <tr><td><span lang="zh-only">等距 / 等比（Scale）</span><span lang="en-only">Scale / ratio</span></td><td><span lang="zh-only">周使用次数、单次时长（分钟）</span><span lang="en-only">Sessions per week, minutes per session</span></td><td><span lang="zh-only">均值、标准差、ANOVA、Pearson 相关</span><span lang="en-only">Mean, SD, ANOVA, Pearson r</span></td></tr>
-        <tr><td><span lang="zh-only">文本（Textual）</span><span lang="en-only">Textual</span></td><td><span lang="zh-only">开放题回答与访谈转录</span><span lang="en-only">Open-ended answers and interview transcripts</span></td><td><span lang="zh-only">主题编码（thematic coding）</span><span lang="en-only">Thematic coding</span></td></tr>
-      </tbody>
-    </table>
+      <div class="sub-h"><span lang="zh-only">阶段 2 · AI 辅助修订（15 分钟）</span><span lang="en-only">Stage 2 · AI-assisted revision (15 min)</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only">研究者按预先生成的随机序列，为该参与者启用<b>对应条件</b>的 Smart Partner 会话。</span><span lang="en-only">Following the pre-generated randomisation sequence, the researcher opens a Smart Partner session in the participant's <b>assigned condition</b>.</span></li>
+        <li><span lang="zh-only">参与者将自己的初稿提交给 Smart Partner 请求反馈，并据此修订。<b>交互过程全程记录</b>：轮次、时长、AI 给出的建议条目、实际被写入终稿的条目、参与者自己发现并修正的错误。</span><span lang="en-only">The participant submits their first draft to Smart Partner for feedback and revises accordingly. <b>The entire interaction is logged</b>: turns, duration, items of AI advice, items actually adopted into the final draft, and errors the participant detected and fixed unaided.</span></li>
+        <li><span lang="zh-only">研究者不介入、不提示，仅在时间结束时收取终稿。</span><span lang="en-only">The researcher does not intervene or prompt, and simply collects the final draft when time expires.</span></li>
+      </ol>
 
-    <div class="sub-h"><span lang="zh-only">为什么选这些评估方法</span><span lang="en-only">Why these evaluation methods</span></div>
-    <p class="topic-text" style="margin-top:4px">
-      <span lang="zh-only">方法选择遵循三条标准：<b>① 变量的测量水平</b>（分类变量用卡方，连续变量用 ANOVA / 相关）；<b>② 实验设计</b>（四组比较用单因素 ANOVA，前后测用配对检验）；<b>③ 参数检验假设是否满足</b>。自评信心为等级数据且未通过正态性检验，故改用 Wilcoxon 符号秩这一非参数替代；四个层级样本量不均衡，因此同时报告效应量（Cramér's V、η²），而不只看 p 值。</span>
-      <span lang="en-only">Methods were chosen on three criteria: <b>(i) measurement level</b> (chi-square for categorical, ANOVA/correlation for scale); <b>(ii) design</b> (one-way ANOVA for four groups, paired tests for pre/post); and <b>(iii) whether parametric assumptions hold</b>. Self-rated confidence is ordinal and failed the normality check, so the Wilcoxon signed-rank test was used instead; because cell sizes are uneven across the four levels, effect sizes (Cramér's V, η²) are reported alongside p values.</span>
-    </p>
-  </section>
+      <div class="sub-h"><span lang="zh-only">阶段 3 · 后测与延迟迁移</span><span lang="en-only">Stage 3 · Post-test and delayed transfer</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only"><b>即时后测（5 分钟）</b>：终稿提交后填写感知有用性、信任、认知负荷与后测信心。</span><span lang="en-only"><b>Immediate post-test (5 min)</b> — after submitting the final draft, complete perceived usefulness, trust, cognitive load and post-test confidence.</span></li>
+        <li><span lang="zh-only"><b>延迟迁移测验（1 周后，10 分钟）</b>：使用<b>同类型的新题目</b>再写一段，<b>全程无 AI</b>。这一阶段检验的不是"当次稿子改好没有"，而是"学到的东西还在不在"——这是区分两类反馈的关键。</span><span lang="en-only"><b>Delayed transfer test (1 week later, 10 min)</b> — write another paragraph on a <b>new prompt of the same type</b>, <b>with no AI available</b>. This stage tests not "was this draft fixed" but "does the learning persist" — the outcome on which the two feedback styles are expected to diverge.</span></li>
+      </ol>
 
-  <!-- ============ 4 调研工具 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">4</span><span lang="zh-only">调研工具</span><span lang="en-only">Instruments</span><span class="en">Instruments</span></h2>
-
-    <div class="sub-h"><span lang="zh-only">问卷脚本（节选）</span><span lang="en-only">Survey script (extract)</span></div>
-    <ol class="qlist">
-      <li><span lang="zh-only">你目前的 EAP 班级是？</span><span lang="en-only">Which EAP level are you in?</span><span class="opts"><span lang="zh-only">A / B / C / High Level</span><span lang="en-only">A / B / C / High Level</span></span></li>
-      <li><span lang="zh-only">你是否使用过 Smart Partner？</span><span lang="en-only">Have you used Smart Partner?</span><span class="opts"><span lang="zh-only">是 / 否（选"否"跳至第 8 题）</span><span lang="en-only">Yes / No (if No, skip to Q8)</span></span></li>
-      <li><span lang="zh-only">你平均每周使用几次？</span><span lang="en-only">How many times a week do you use it on average?</span><span class="opts"><span lang="zh-only">填空（数值）</span><span lang="en-only">Numeric entry</span></span></li>
-      <li><span lang="zh-only">单次使用时长约为？</span><span lang="en-only">How long is a typical session?</span><span class="opts"><span lang="zh-only">&lt;10 / 10–20 / 20–30 / 30–45 / &gt;45 分钟</span><span lang="en-only">&lt;10 / 10–20 / 20–30 / 30–45 / &gt;45 min</span></span></li>
-      <li><span lang="zh-only">你最常使用哪些功能？</span><span lang="en-only">Which features do you use most?</span><span class="opts"><span lang="zh-only">多选：语法练习 / 写作批改 / 词汇巩固 / 模拟测试 / 答疑 / 复习规划</span><span lang="en-only">Multiple choice: grammar / writing feedback / vocabulary / mock tests / Q&amp;A / revision planning</span></span></li>
-      <li><span lang="zh-only">你使用它的主要目的是？</span><span lang="en-only">What is your main purpose in using it?</span><span class="opts"><span lang="zh-only">多选（含"通过 EAP 考试""培养学习习惯"等 6 项）</span><span lang="en-only">Multiple choice (6 items, incl. "pass the EAP exam", "build study habits")</span></span></li>
-      <li><span lang="zh-only">你对通过 EAP 考试的信心是多少？</span><span lang="en-only">How confident are you about passing the EAP exam?</span><span class="opts"><span lang="zh-only">1（完全没信心）– 10（非常有信心）</span><span lang="en-only">1 (not at all) – 10 (extremely)</span></span></li>
-      <li><span lang="zh-only">（开放题）你认为 Smart Partner 最需要改进的地方是什么？</span><span lang="en-only">(Open) What is the single biggest improvement Smart Partner needs?</span></li>
-    </ol>
-
-    <div class="sub-h"><span lang="zh-only">访谈提纲（半结构化，节选）</span><span lang="en-only">Interview guide (semi-structured, extract)</span></div>
-    <ol class="qlist">
-      <li><span lang="zh-only">你第一次接触 Smart Partner 是在什么情境下？</span><span lang="en-only">In what context did you first come across Smart Partner?</span></li>
-      <li><span lang="zh-only">能描述一次你觉得它特别有帮助（或特别没用）的经历吗？</span><span lang="en-only">Describe one time it was especially helpful — or especially useless.</span></li>
-      <li><span lang="zh-only">你会把它推荐给同学吗？为什么？</span><span lang="en-only">Would you recommend it to a classmate? Why?</span></li>
-      <li><span lang="zh-only">它有没有改变你准备 EAP 的方式？具体是哪里？</span><span lang="en-only">Has it changed how you prepare for EAP? In what way?</span></li>
-      <li><span lang="zh-only">如果它能增加一项功能，你最希望是什么？</span><span lang="en-only">If one feature could be added, what would you want?</span></li>
-    </ol>
-
-    <div class="sub-h"><span lang="zh-only">参与者信息表与知情同意书</span><span lang="en-only">Information sheet &amp; consent form</span></div>
-    <div class="doc-grid">
-      <div class="doc">
-        <h4><span lang="zh-only">参与者信息表</span><span lang="en-only">Information sheet</span></h4>
-        <ul>
-          <li><span lang="zh-only"><b>研究目的</b>：了解大一学生对 AI 学习智能体 Smart Partner 的真实使用情况与需求。</span><span lang="en-only"><b>Purpose</b> — to understand how Year 1 students actually use and perceive Smart Partner.</span></li>
-          <li><span lang="zh-only"><b>参与方式</b>：在线问卷约 6–8 分钟；可自愿留下联系方式参加 15 分钟访谈。</span><span lang="en-only"><b>What is involved</b> — a 6–8 minute online questionnaire; participants may opt in to a 15-minute interview.</span></li>
-          <li><span lang="zh-only"><b>自愿与退出</b>：参与完全自愿，可随时退出且无需说明理由，不影响任何课程成绩。</span><span lang="en-only"><b>Voluntary</b> — participation is entirely voluntary; you may withdraw at any time without giving a reason and with no effect on any course grade.</span></li>
-          <li><span lang="zh-only"><b>匿名与保密</b>：数据匿名化处理，仅用于本次课程作业，结果以汇总形式呈现。</span><span lang="en-only"><b>Anonymity</b> — data are anonymised, used only for this coursework, and reported in aggregate only.</span></li>
-          <li><span lang="zh-only"><b>数据存储</b>：加密保存于研究者本地设备，课程结束后删除。</span><span lang="en-only"><b>Storage</b> — stored encrypted on the researcher's own device and deleted after the module ends.</span></li>
-        </ul>
-      </div>
-      <div class="doc">
-        <h4><span lang="zh-only">知情同意书</span><span lang="en-only">Consent form</span></h4>
-        <ul>
-          <li><span lang="zh-only">我已阅读并理解上述信息表内容。</span><span lang="en-only">I have read and understood the information sheet.</span></li>
-          <li><span lang="zh-only">我明白参与完全自愿，可随时退出。</span><span lang="en-only">I understand participation is voluntary and I may withdraw at any time.</span></li>
-          <li><span lang="zh-only">我同意我的匿名回答被用于本次研究分析。</span><span lang="en-only">I consent to my anonymised answers being used in this analysis.</span></li>
-          <li><span lang="zh-only">（可选）我同意参加后续访谈，并同意录音。</span><span lang="en-only">(Optional) I consent to a follow-up interview and to audio recording.</span></li>
-        </ul>
-        <div class="sign">
-          <span lang="zh-only">勾选框：□ 我同意以上条款并开始填写问卷</span>
-          <span lang="en-only">Checkbox: □ I agree to the above and wish to proceed</span>
+      <div class="sub-h"><span lang="zh-only">任务材料</span><span lang="en-only">Task materials</span></div>
+      <div class="cond-grid">
+        <div class="cond">
+          <h4><span lang="zh-only">写作题目（固定）</span><span lang="en-only">Writing prompt (fixed)</span></h4>
+          <p><span lang="zh-only">"Some people argue that universities should allow students to use AI tools in all assessed work. To what extent do you agree or disagree?"<br><span style="color:var(--grey)">要求：150–180 词，含一个明确立场与至少一个理由。</span></span><span lang="en-only">"Some people argue that universities should allow students to use AI tools in all assessed work. To what extent do you agree or disagree?"<br><span style="color:var(--grey)">Requirements: 150–180 words, one clear position and at least one supporting reason.</span></span></p>
+        </div>
+        <div class="cond">
+          <h4><span lang="zh-only">评分量表</span><span lang="en-only">Scoring rubric</span></h4>
+          <p><span lang="zh-only">采用 EAP 段落评分维度：语言准确性（0–40）、论证结构与衔接（0–30）、学术语体恰当性（0–30），合计 0–100。两名经训练的评分者独立打分，取均值。</span><span lang="en-only">EAP paragraph criteria: language accuracy (0–40), argument structure and cohesion (0–30), appropriateness of academic register (0–30); total 0–100. Two trained raters score independently and the mean is used.</span></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 5 使用情况 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">5</span><span lang="zh-only">使用情况</span><span lang="en-only">Usage</span><span class="en">Usage</span></h2>
+  <!-- ============ 04 干预条件 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">04</span><span class="k">Intervention</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">两种反馈方式</span><span lang="en-only">The two feedback styles</span></h2>
 
-    <!-- ★ 可编辑：KPI 数据在页面底部 DATA.kpiUsage 中 -->
-    <div class="kpi-grid" id="kpi-usage"></div>
+      <p>
+        <span lang="zh-only">干预就是 Smart Partner 回复草稿的方式。两个条件的<b>反馈内容量相同</b>（都指出全部错误），差别只在于<b>是否直接给出正确形式</b>。这一对照直接对应产品决策：AI 应该替用户改，还是逼用户自己想。</span>
+        <span lang="en-only">The intervention is simply how Smart Partner replies to the draft. Both conditions <b>flag the same set of errors</b>; the only difference is <b>whether the correct form is supplied</b>. This contrast maps directly onto a product decision: should the AI fix things for the user, or make the user work it out?</span>
+      </p>
 
-    <div class="chart-block">
-      <h3><span lang="zh-only">使用频率分布</span><span lang="en-only">Frequency of use</span></h3>
-      <div id="chart-freq"></div>
-    </div>
+      <div class="cond-grid">
+        <div class="cond">
+          <h4><span lang="zh-only">条件 A</span><span lang="en-only">Condition A</span></h4>
+          <div class="name"><span lang="zh-only">直接纠错</span><span lang="en-only">Direct correction</span></div>
+          <p><span lang="zh-only">直接给出修改后的文本，并逐条说明错误类型与正确形式。参与者只需照做即可完成修订。</span><span lang="en-only">Supplies the corrected text along with an itemised list of error types and correct forms. The participant can complete the revision by simply applying them.</span></p>
+          <div class="sample">
+            <b><span lang="zh-only">回复样例</span><span lang="en-only">Sample reply</span></b>
+            <span lang="zh-only">"第 2 句存在主谓一致错误：应为 <i>The results suggest</i> 而非 <i>The results suggests</i>。第 4 句的 <i>however</i> 用法不当，应改为 <i>whereas</i> 表示对比。以下是修改后的完整段落：……"</span>
+            <span lang="en-only">"Sentence 2 has a subject–verb agreement error: use <i>The results suggest</i>, not <i>The results suggests</i>. In sentence 4, <i>however</i> is misused; replace it with <i>whereas</i> to signal contrast. Here is the fully revised paragraph: …"</span>
+          </div>
+        </div>
+        <div class="cond">
+          <h4><span lang="zh-only">条件 B</span><span lang="en-only">Condition B</span></h4>
+          <div class="name"><span lang="zh-only">引导提示</span><span lang="en-only">Guided scaffolding</span></div>
+          <p><span lang="zh-only">只指出错误的<b>位置与类型</b>，以提问引导参与者自行修正，不给出正确形式。</span><span lang="en-only">Flags only the <b>location and type</b> of each error and prompts the participant to correct it, without supplying the correct form.</span></p>
+          <div class="sample">
+            <b><span lang="zh-only">回复样例</span><span lang="en-only">Sample reply</span></b>
+            <span lang="zh-only">"你的第 2 句有一个主谓一致问题——主语是复数，检查一下动词。第 4 句有个连接词用错了：你想表达的是对比，这里用的词合适吗？改完后再发给我看看。"</span>
+            <span lang="en-only">"Sentence 2 has a subject–verb agreement problem — the subject is plural, so check the verb. In sentence 4 a linker is misused: you mean to signal contrast, so is the word you chose right for that? Send it back when you have revised."</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="chart-block">
-      <h3><span lang="zh-only">各功能使用率</span><span lang="en-only">Feature adoption</span></h3>
-      <div id="chart-features"></div>
-    </div>
-
-    <!-- ★ 可编辑：使用情况小结 -->
-    <div class="quote">
-      <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
-      <span lang="zh-only">— 名受访者中 <b>—%</b>（— 人）使用过 Smart Partner；使用者周均使用 <b>— 次</b>（SD = —），单次约 <b>— 分钟</b>，<b>—%</b> 表示考前一周使用明显增多。<span style="color:var(--text-muted)">（调研尚未开始，以上数字待回收后填入。）</span>分班看，<b>基础班 A 用得最多</b>（使用率 —%，周均 — 次），<b>高阶班 High Level 用得最少</b>（—%，周均 — 次），B、C 两个核心班居中且彼此接近（—% / —%）——越需要补基础的学生，反而用得越勤。功能上以<b>语法专项练习（—%）</b>和<b>写作批改反馈（—%）</b>为主，而<b>考前复习规划（—%）</b>使用率最低，说明学生主要把它当作"练习与纠错工具"，而非"学习规划工具"。</span>
-      <span lang="en-only">Of — respondents, <b>—%</b> (—) had used Smart Partner. Users averaged <b>— sessions a week</b> (SD —) of about <b>— minutes</b>, and <b>—%</b> reported using it more in the week before an exam. <span style="color:var(--text-muted)">(Survey not yet launched — the figures above are pending collection.)</span> By level, the <b>foundation group A uses it most</b> (—% adoption, — sessions a week) and <b>High Level least</b> (—%, —), with the two core groups B and C in between and close to each other (—% / —%) — the students who most need to catch up are the ones leaning on it hardest. <b>Grammar practice (—%)</b> and <b>writing feedback (—%)</b> dominate, while <b>revision planning (—%)</b> is used least: students treat it as a practice-and-correction tool rather than a study-planning tool.</span>
+      <div class="quote">
+        <b><span lang="zh-only">操纵检验</span><span lang="en-only">Manipulation check</span></b>
+        <span lang="zh-only">任务结束后以两题确认干预生效：① "AI 是否直接给出了正确写法？"（是/否）；② "你在修改时多大程度上需要自己思考？"（1–7）。若 A 组在①上多数答"否"，或两组在②上无差异，则视为操纵失败，需重新执行。</span>
+        <span lang="en-only">Two items confirm the intervention landed: (i) "Did the AI give you the correct wording directly?" (yes/no); (ii) "How much did you have to think for yourself while revising?" (1–7). If most of condition A answer "no" to (i), or the two conditions do not differ on (ii), the manipulation is treated as failed and the run is repeated.</span>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 6 使用目的 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">6</span><span lang="zh-only">使用目的</span><span lang="en-only">Purposes</span><span class="en">Purposes</span></h2>
+  <!-- ============ 05 测量指标 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">05</span><span class="k">Measures</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">测什么，怎么测</span><span lang="en-only">What we measure, and how</span></h2>
 
-    <div class="chart-block">
-      <h3><span lang="zh-only">学生使用 Smart Partner 的目的占比</span><span lang="en-only">Why students use Smart Partner</span></h3>
-      <div id="chart-purposes"></div>
-    </div>
+      <p>
+        <span lang="zh-only">指标分三层：<b>主要结局</b>是学习者产出的客观质量，<b>过程指标</b>记录他实际做了什么，<b>次要结局</b>是任务后的主观评价。只有第一层能回答"有没有效果"，第二层回答"效果是怎么发生的"，第三层回答"体验如何"。</span>
+        <span lang="en-only">Measures fall into three tiers: <b>primary outcomes</b> are the objective quality of what the learner produced, <b>process measures</b> record what the learner actually did, and <b>secondary outcomes</b> are subjective ratings collected after the task. Only the first tier can answer "did it work"; the second explains how; the third describes how it felt.</span>
+      </p>
 
-    <!-- ★ 可编辑：目的小结 -->
-    <div class="quote">
-      <b><span lang="zh-only">关键发现</span><span lang="en-only">Key finding</span></b>
-      <span lang="zh-only"><span style="color:var(--text-muted)">（调研尚未开始，以下占比待回收后填入。）</span>使用目的高度集中在<b>应试导向</b>：<b>—%</b> 的使用者首要目的是"顺利通过 EAP 考试"，其次是提高语法准确性（—%）与提升学术写作（—%）；而以"培养自主学习习惯"为目的的仅 <b>—%</b>。这说明 Smart Partner 目前被定位为<b>考前冲刺工具</b>，其长期学习支持价值尚未被充分使用。</span>
-      <span lang="en-only"><span style="color:var(--text-muted)">(Survey not yet launched — the shares below are pending collection.)</span> Motivation is strongly <b>exam-oriented</b>: <b>—%</b> of users say their main purpose is passing the EAP exam, followed by grammar accuracy (—%) and academic writing (—%); only <b>—%</b> use it to build study habits. Smart Partner is currently positioned as an <b>exam-sprint tool</b>, and its value for long-term learning support is not yet fully realised.</span>
+      <div class="sub-h"><span lang="zh-only">主要结局 · 客观表现</span><span lang="en-only">Primary outcomes · objective performance</span></div>
+      <table class="stats-table">
+        <thead><tr>
+          <th><span lang="zh-only">指标</span><span lang="en-only">Measure</span></th>
+          <th><span lang="zh-only">测量水平</span><span lang="en-only">Level</span></th>
+          <th><span lang="zh-only">采集方式</span><span lang="en-only">How collected</span></th>
+          <th><span lang="zh-only">时点</span><span lang="en-only">Timing</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only"><b>草稿质量总分</b></span><span lang="en-only"><b>Draft quality score</b></span></td>
+            <td><span lang="zh-only">等距（0–100）</span><span lang="en-only">Scale (0–100)</span></td>
+            <td><span lang="zh-only">双盲评分，取两名评分者均值</span><span lang="en-only">Double-blind scoring; mean of two raters</span></td>
+            <td>T1 · T2</td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only"><b>语法错误率</b></span><span lang="en-only"><b>Grammar error rate</b></span></td>
+            <td><span lang="zh-only">等比（错误数 / 百词）</td><span lang="en-only">Ratio (errors / 100 words)</span></td>
+            <td><span lang="zh-only">错误标注后计数</span><span lang="en-only">Counted after error annotation</span></td>
+            <td>T1 · T2</td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only"><b>迁移测验得分</b></span><span lang="en-only"><b>Transfer test score</b></span></td>
+            <td><span lang="zh-only">等距（0–100）</span><span lang="en-only">Scale (0–100)</span></td>
+            <td><span lang="zh-only">新题目写作，同量表盲评</td><span lang="en-only">New-prompt writing, same rubric, blind</span></td>
+            <td>T3（1 周后）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-h"><span lang="zh-only">过程指标 · 参与者实际做了什么</span><span lang="en-only">Process measures · what participants actually did</span></div>
+      <table class="stats-table">
+        <thead><tr>
+          <th><span lang="zh-only">指标</span><span lang="en-only">Measure</span></th>
+          <th><span lang="zh-only">定义</span><span lang="en-only">Definition</span></th>
+          <th><span lang="zh-only">采集方式</span><span lang="en-only">How collected</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only">交互轮次</span><span lang="en-only">Interaction turns</span></td>
+            <td><span lang="zh-only">参与者与 AI 的完整往返次数</span><span lang="en-only">Complete round trips between participant and AI</span></td>
+          <td><span lang="zh-only">后台日志</span><span lang="en-only">Server-side log</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">建议采纳率</span><span lang="en-only">Adoption rate</span></td>
+            <td><span lang="zh-only">被写入终稿的 AI 建议数 / AI 建议总数</span><span lang="en-only">AI suggestions written into final draft ÷ total AI suggestions</span></td>
+          <td><span lang="zh-only">初稿与终稿差异比对</span><span lang="en-only">First-draft vs. final-draft diff</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">自主修正数</span><span lang="en-only">Self-corrections</span></td>
+            <td><span lang="zh-only">AI 未指出、由参与者自行修正的错误数</span><span lang="en-only">Errors fixed by the participant that the AI did not flag</span></td>
+          <td><span lang="zh-only">错误标注编码</span><span lang="en-only">Error-annotation coding</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">任务停留时长</span><span lang="en-only">Time on task</span></td>
+            <td><span lang="zh-only">修订阶段的实际操作秒数</span><span lang="en-only">Active seconds spent in the revision stage</span></td>
+          <td><span lang="zh-only">后台日志</span><span lang="en-only">Server-side log</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-h"><span lang="zh-only">次要结局 · 任务后主观评价</span><span lang="en-only">Secondary outcomes · post-task subjective ratings</span></div>
+      <table class="stats-table">
+        <thead><tr>
+          <th><span lang="zh-only">构念</span><span lang="en-only">Construct</span></th>
+          <th><span lang="zh-only">工具</span><span lang="en-only">Instrument</span></th>
+          <th><span lang="zh-only">测量水平</span><span lang="en-only">Level</span></th>
+          <th><span lang="zh-only">作用</span><span lang="en-only">Role</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only">感知有用性</span><span lang="en-only">Perceived usefulness</span></td>
+            <td><span lang="zh-only">4 题 Likert 5 点</span><span lang="en-only">4 items, 5-point Likert</span></td>
+            <td><span lang="zh-only">等级</span><span lang="en-only">Ordinal</span></td>
+            <td><span lang="zh-only">与客观提升做一致性检验</span><span lang="en-only">Checked against objective gain</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">信任</span><span lang="en-only">Trust</span></td>
+            <td><span lang="zh-only">Jian 等（2000）信任量表节选</span><span lang="en-only">Adapted from Jian et al. (2000)</span></td>
+            <td><span lang="zh-only">等级</span><span lang="en-only">Ordinal</span></td>
+            <td><span lang="zh-only">检验"更顺手"是否等于"更信任"</span><span lang="en-only">Tests whether ease implies trust</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">认知负荷</span><span lang="en-only">Cognitive load</span></td>
+            <td><span lang="zh-only">Paas 等（2003）心理努力 9 点量表</span><span lang="en-only">Paas et al. (2003) mental-effort scale</span></td>
+            <td><span lang="zh-only">等级</span><span lang="en-only">Ordinal</span></td>
+            <td><span lang="zh-only">解释两类反馈的权衡代价</span><span lang="en-only">Explains the trade-off cost</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">感知共情</span><span lang="en-only">Perceived empathy</span></td>
+            <td><span lang="zh-only">PETS（Schmidmaier 等, 2024）</span><span lang="en-only">PETS (Schmidmaier et al., 2024)</span></td>
+            <td><span lang="zh-only">等级</span><span lang="en-only">Ordinal</span></td>
+            <td><span lang="zh-only">判断"温和语气"是否影响效果</span><span lang="en-only">Checks whether tone affects outcomes</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="quote">
+        <b><span lang="zh-only">问卷的定位</span><span lang="en-only">Role of the questionnaire</span></b>
+        <span lang="zh-only">问卷<b>不是证据，而是解释工具</b>。它在任务结束后发放，用来解释客观结果的成因——例如 B 组迁移更好但认知负荷更高，问卷可以说明参与者是否察觉到了这种"更难但更有效"的差异。问卷条目见第 8 部分。</span>
+        <span lang="en-only">The questionnaire is <b>not evidence but an explanatory instrument</b>. Administered after the task, it explains why the objective results look as they do — for instance, if condition B transfers better but costs more effort, the questionnaire shows whether participants noticed that "harder but more effective" difference. Items are listed in Section 8.</span>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 7 统计分析 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">7</span><span lang="zh-only">统计分析</span><span lang="en-only">Statistical Tests</span><span class="en">Tests</span></h2>
+  <!-- ============ 06 数据分析 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">06</span><span class="k">Analysis plan</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">每个 RQ 对应哪个检验</span><span lang="en-only">Which test answers which RQ</span></h2>
 
-    <p class="topic-text" style="margin-bottom:18px">
-      <span lang="zh-only">数据清洗后（剔除 — 份作答不完整或逻辑矛盾的问卷），我们按数据的实际情况逐条确定检验方法：<b>先看变量类型与测量水平，再看组间/组内设计与条件数，最后检查参数检验的前假设</b>（Shapiro–Wilk 正态性、Levene 方差齐性）。假设不满足时，改用对应的<b>非参数检验</b>作为替代。所有检验均为双尾，显著性水平 α = 0.05。</span>
-      <span lang="en-only">After cleaning (— incomplete or logically inconsistent responses were discarded), each test was matched to the shape of the data: <b>variable type and measurement level first, then between-/within-group design and number of conditions, then the assumptions behind the parametric tests</b> (Shapiro–Wilk normality, Levene homogeneity of variance). Where an assumption failed, the matching <b>non-parametric test</b> was used instead. All tests are two-tailed at α = 0.05.</span>
-    </p>
+      <p style="margin-bottom:22px">
+        <span lang="zh-only">分析方案在<b>数据回收之前</b>确定，避免看到结果后再挑检验方法。核心思路：主效应看差异，交互作用看调节，过程指标看机制，主客观一致性看效度。</span>
+        <span lang="en-only">The analysis plan is fixed <b>before</b> data collection, so that tests are not chosen after seeing the results. Main effects establish differences, the interaction tests moderation, process measures probe mechanism, and the subjective–objective check speaks to validity.</span>
+      </p>
 
-    <div class="chart-block">
       <table class="stats-table">
         <thead>
           <tr>
             <th><span lang="zh-only">研究问题</span><span lang="en-only">Research question</span></th>
+            <th><span lang="zh-only">设计</span><span lang="en-only">Design</span></th>
             <th><span lang="zh-only">检验方法</span><span lang="en-only">Test</span></th>
             <th><span lang="zh-only">统计量</span><span lang="en-only">Statistic</span></th>
             <th><span lang="zh-only">结论</span><span lang="en-only">Verdict</span></th>
@@ -510,198 +761,528 @@
         </thead>
         <tbody>
           <tr>
-            <td><span lang="zh-only">四个 EAP 层级与"是否使用过"是否独立？<br><span style="color:var(--text-muted)">分类 × 分类，4×2 列联表</span></span><span lang="en-only">Is EAP level independent of adoption?<br><span style="color:var(--text-muted)">categorical × categorical, 4×2</span></span></td>
-            <td class="test">Chi-square<br><span lang="zh-only" style="font-weight:400">卡方独立性检验</span><span lang="en-only" style="font-weight:400">test of independence</span></td>
-            <td class="stat">χ²(3) = —<br>V = —</td>
+            <td><span lang="zh-only"><b>RQ1</b> 两种反馈方式的修订质量是否有差异？</span><span lang="en-only"><b>RQ1</b> Does revision quality differ between feedback styles?</span></td>
+            <td><span lang="zh-only">被试间</span><span lang="en-only">Between</span></td>
+            <td class="test">Independent <i>t</i><br><span lang="zh-only" style="font-weight:400">独立样本 t 检验</span><span lang="en-only" style="font-weight:400">samples <i>t</i>-test</span></td>
+            <td class="stat">t(—) = —<br>d = —</td>
             <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
           </tr>
           <tr>
-            <td><span lang="zh-only">四个 EAP 层级的周使用次数是否有差异？<br><span style="color:var(--text-muted)">1 个自变量 · 4 个条件 · 组间设计</span></span><span lang="en-only">Does weekly use differ across the four EAP levels?<br><span style="color:var(--text-muted)">1 IV · 4 conditions · between-group</span></span></td>
-            <td class="test">One-way ANOVA<br><span lang="zh-only" style="font-weight:400">单因素方差分析</span><span lang="en-only" style="font-weight:400">(F test)</span></td>
-            <td class="stat">F(3, —) = —<br>η² = —<br><span style="color:var(--text-muted)">A — / B — / C — / High —</span></td>
+            <td><span lang="zh-only"><b>RQ2</b> 修订后的草稿相比初稿是否提升？</span><span lang="en-only"><b>RQ2</b> Does draft quality improve from first to final draft?</span></td>
+            <td><span lang="zh-only">被试内</span><span lang="en-only">Within</span></td>
+            <td class="test">Paired <i>t</i><br><span lang="zh-only" style="font-weight:400">配对样本 t 检验</span><span lang="en-only" style="font-weight:400">samples <i>t</i>-test</span></td>
+            <td class="stat">t(—) = —<br>d<sub>z</sub> = —</td>
             <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
           </tr>
           <tr>
-            <td><span lang="zh-only">使用频率与自评 EAP 信心是否相关？<br><span style="color:var(--text-muted)">两个连续/等级变量</span></span><span lang="en-only">Is use frequency related to self-rated EAP confidence?<br><span style="color:var(--text-muted)">two continuous/scale variables</span></span></td>
-            <td class="test">Pearson r<br><span lang="zh-only" style="font-weight:400">积差相关</span><span lang="en-only" style="font-weight:400">correlation</span></td>
+            <td><span lang="zh-only"><b>RQ3（核心）</b> 反馈方式是否调节提升幅度？</span><span lang="en-only"><b>RQ3 (core)</b> Does feedback style moderate the size of the gain?</span></td>
+            <td><span lang="zh-only">混合 2×2</span><span lang="en-only">Mixed 2×2</span></td>
+            <td class="test">Mixed ANOVA<br><span lang="zh-only" style="font-weight:400">混合方差分析</span><span lang="en-only" style="font-weight:400">split-plot</span></td>
+            <td class="stat">F(1, —) = —<br>η²<sub>p</sub> = —</td>
+            <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only"><b>RQ4</b> 修订行为能否预测提升幅度？</span><span lang="en-only"><b>RQ4</b> Do revision behaviours predict the gain?</span></td>
+            <td><span lang="zh-only">回归</span><span lang="en-only">Regression</span></td>
+            <td class="test">Multiple regression<br><span lang="zh-only" style="font-weight:400">多元回归</span><span lang="en-only" style="font-weight:400">analysis</span></td>
+            <td class="stat">R² = —<br>β = —</td>
+            <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only"><b>RQ5</b> 主观评价与客观质量是否一致？</span><span lang="en-only"><b>RQ5</b> Do subjective ratings agree with objective quality?</span></td>
+            <td><span lang="zh-only">相关</span><span lang="en-only">Correlation</span></td>
+            <td class="test">Pearson <i>r</i><br><span lang="zh-only" style="font-weight:400">积差相关</span><span lang="en-only" style="font-weight:400">correlation</span></td>
             <td class="stat">r = —<br>r² = —</td>
-            <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
-          </tr>
-          <tr>
-            <td><span lang="zh-only">使用前后自评信心是否提升？<br><span style="color:var(--text-muted)">组内设计 · 等级数据 · 正态性不满足</span></span><span lang="en-only">Did self-rated confidence rise after use?<br><span style="color:var(--text-muted)">within-group · ordinal · non-normal</span></span></td>
-            <td class="test">Wilcoxon<br><span lang="zh-only" style="font-weight:400">符号秩检验（非参数）</span><span lang="en-only" style="font-weight:400">signed-rank (non-parametric)</span></td>
-            <td class="stat">z = —<br>n = —</td>
-            <td class="verdict ns">p = —<br><span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
+            <td class="verdict ns">p = —<span lang="zh-only">待检验</span><span lang="en-only">Pending</span></td>
           </tr>
         </tbody>
       </table>
       <p class="stats-note">
-        <span lang="zh-only">注：χ² 的自由度 = (行数 − 1) × (列数 − 1) = 3；ANOVA 事后比较（Tukey HSD）显示基础班 A 与高阶班 High Level 差异显著（p = —），而 B、C 两个核心班之间并无差异（p = —）——真正的使用差距出现在基础班与高阶班之间。<span style="color:var(--text-muted)">（调研尚未开始，以上检验结果待回收后填入。）</span>相关仅说明<b>共变</b>，不能推断"使用智能体导致信心提升"——可能存在第三变量（如原本基础较好的学生更愿意尝试新工具）。</span>
-        <span lang="en-only">Notes: χ² degrees of freedom = (rows − 1) × (columns − 1) = 3. Tukey HSD post-hoc comparisons show that foundation group A differs significantly from High Level (p = —), while the two core groups B and C do not differ from each other (p = —) — the real gap sits between the foundation and the advanced stream. <span style="color:var(--text-muted)">(Survey not yet launched — the test results above are pending collection.)</span> Correlation indicates <b>co-variation only</b> — it does not license the claim that using the agent caused higher confidence; a third variable (e.g. stronger students being more willing to adopt the tool) may be at work.</span>
+        <span lang="zh-only">注：RQ3 的交互项自由度 = (2−1) × (2−1) = 1。被试内因子仅有两个水平，<b>球形假设自动满足</b>，无需 Mauchly 检验。若交互显著，进一步做<b>简单效应分析</b>：分别在 A、B 两个条件内做 T1 vs T2 配对检验，并以 Bonferroni 校正 α（0.05 / 2 = 0.025）。<span style="opacity:.75">（研究尚未执行，以上检验结果待填入。）</span></span>
+        <span lang="en-only">Notes: the RQ3 interaction has (2−1) × (2−1) = 1 degree of freedom. The within-subjects factor has only two levels, so <b>sphericity holds automatically</b> and no Mauchly test is required. If the interaction is significant, follow up with <b>simple-effects analysis</b>: paired T1 vs T2 tests within each of conditions A and B, with a Bonferroni-corrected α (0.05 / 2 = 0.025). <span style="opacity:.75">(Study not yet run — test results above are pending.)</span></span>
+      </p>
+
+      <div class="sub-h"><span lang="zh-only">前提检验与非参数替代</span><span lang="en-only">Assumption checks and non-parametric fallbacks</span></div>
+      <table class="stats-table">
+        <thead><tr>
+          <th><span lang="zh-only">前提</span><span lang="en-only">Assumption</span></th>
+          <th><span lang="zh-only">检验</span><span lang="en-only">Check</span></th>
+          <th><span lang="zh-only">不满足时的替代</span><span lang="en-only">Fallback if violated</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span lang="zh-only">正态性</span><span lang="en-only">Normality</span></td>
+            <td class="stat">Shapiro–Wilk</td>
+            <td><span lang="zh-only">配对：Wilcoxon 符号秩<br>独立：Mann–Whitney <i>U</i></span><span lang="en-only">paired: Wilcoxon signed-rank<br>independent: Mann–Whitney <i>U</i></span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">方差齐性</span><span lang="en-only">Homogeneity</span></td>
+            <td class="stat">Levene</td>
+            <td><span lang="zh-only">Welch <i>t</i> 检验</span><span lang="en-only">Welch's <i>t</i>-test</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">评分者一致性</span><span lang="en-only">Rater agreement</span></td>
+            <td class="stat">ICC(2,2)</td>
+            <td><span lang="zh-only">目标 &gt; 0.75，否则重新培训评分者</span><span lang="en-only">Target &gt; 0.75; otherwise retrain raters</span></td>
+          </tr>
+          <tr>
+            <td><span lang="zh-only">量表内部一致性</span><span lang="en-only">Scale reliability</span></td>
+            <td class="stat">Cronbach's α</td>
+            <td><span lang="zh-only">目标 &gt; 0.70，否则删除该题项</span><span lang="en-only">Target &gt; 0.70; otherwise drop the item</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-h"><span lang="zh-only">假设（执行前预设）</span><span lang="en-only">Hypotheses (pre-registered)</span></div>
+      <ul class="hyp-list">
+        <li class="hyp-card">
+          <div class="h-head">
+            <span class="h-id">H1</span>
+            <span class="h-rq"><span lang="zh-only">对应 RQ1 · 被试间</span><span lang="en-only">RQ1 · between</span></span>
+          </div>
+          <div class="h-text">
+            <span lang="zh-only"><b>即时修订质量上，A（直接纠错）优于 B（引导提示）</b>，效应量中小（d ≈ 0.3–0.5）。直接给出正确形式降低了修订任务的难度，参与者更少出错。</span>
+            <span lang="en-only"><b>On immediate revision quality, A (direct correction) outperforms B (guided scaffolding)</b>, with a small-to-medium effect (d ≈ 0.3–0.5). Supplying the correct form lowers the difficulty of the revision task, so participants make fewer residual errors.</span>
+          </div>
+          <div class="h-test"><span lang="zh-only">检验：<code>独立样本 t</code>（或 <code>Mann–Whitney U</code>），效应量 <code>Cohen's d</code></span><span lang="en-only">Test: <code>independent-samples t</code> (or <code>Mann–Whitney U</code>), effect size <code>Cohen's d</code></span></div>
+        </li>
+        <li class="hyp-card">
+          <div class="h-head">
+            <span class="h-id">H2</span>
+            <span class="h-rq"><span lang="zh-only">对应 RQ2 · 被试内</span><span lang="en-only">RQ2 · within</span></span>
+          </div>
+          <div class="h-text">
+            <span lang="zh-only"><b>两组修订后的质量均显著高于初稿</b>，且提升幅度为中等以上（d<sub>z</sub> ≥ 0.5）。这是"AI 辅助确实有效"的最基本证据。</span>
+            <span lang="en-only"><b>Both groups score significantly higher on the revision than on the first draft</b>, with a gain of at least medium size (d<sub>z</sub> ≥ 0.5). This is the most basic evidence that AI assistance works at all.</span>
+          </div>
+          <div class="h-test"><span lang="zh-only">检验：<code>配对样本 t</code>（或 <code>Wilcoxon 符号秩</code>），效应量 <code>d<sub>z</sub></code></span><span lang="en-only">Test: <code>paired-samples t</code> (or <code>Wilcoxon signed-rank</code>), effect size <code>d<sub>z</sub></code></span></div>
+        </li>
+        <li class="hyp-card">
+          <div class="h-head">
+            <span class="h-id">H3</span>
+            <span class="h-rq"><span lang="zh-only">对应 RQ3 · 交互作用</span><span lang="en-only">RQ3 · interaction</span></span>
+          </div>
+          <div class="h-text">
+            <span lang="zh-only"><b>存在"反馈方式 × 时间"交互作用：B 组在延迟迁移测验上优于 A 组</b>，尽管其即时修订表现不占优。引导式反馈迫使学习者主动加工错误，形成的知识更持久——这正是"只发问卷"永远测不出的结论。</span>
+            <span lang="en-only"><b>There is a feedback × time interaction: condition B outperforms A on the delayed transfer test</b>, despite not leading on immediate revision. Guided feedback forces learners to process errors actively, producing more durable knowledge — a conclusion a questionnaire could never reach.</span>
+          </div>
+          <div class="h-test"><span lang="zh-only">检验：<code>混合 ANOVA</code>，交互项 <code>F(1, —)</code>，效应量 <code>偏 η²</code>；显著后做简单效应分析</span><span lang="en-only">Test: <code>mixed ANOVA</code>, interaction <code>F(1, —)</code>, effect size <code>partial η²</code>; simple effects if significant</span></div>
+        </li>
+        <li class="hyp-card">
+          <div class="h-head">
+            <span class="h-id">H4</span>
+            <span class="h-rq"><span lang="zh-only">对应 RQ4 · 过程机制</span><span lang="en-only">RQ4 · mechanism</span></span>
+          </div>
+          <div class="h-text">
+            <span lang="zh-only"><b>自主修正数与迁移表现正相关，而建议采纳率与迁移表现弱相关甚至负相关</b>：全盘照收 AI 建议能快速改好当次稿子，却无助于长期掌握。</span>
+            <span lang="en-only"><b>Self-corrections correlate positively with transfer, whereas adoption rate correlates weakly or even negatively</b>: accepting AI suggestions wholesale fixes the draft at hand but does little for durable learning.</span>
+          </div>
+          <div class="h-test"><span lang="zh-only">检验：<code>Pearson r</code> + <code>多元回归</code>（自主修正数、采纳率、轮次 → 迁移得分），报告 <code>R²</code></span><span lang="en-only">Test: <code>Pearson r</code> + <code>multiple regression</code> (self-corrections, adoption, turns → transfer), report <code>R²</code></span></div>
+        </li>
+        <li class="hyp-card">
+          <div class="h-head">
+            <span class="h-id">H5</span>
+            <span class="h-rq"><span lang="zh-only">对应 RQ5 · 一致性检验</span><span lang="en-only">RQ5 · correspondence</span></span>
+          </div>
+          <div class="h-text">
+            <span lang="zh-only"><b>主观有用性评分与客观修订质量仅弱相关（r ≈ 0.2–0.3）</b>。这一假设若成立，就直接证明：把问卷当作评估依据是无效的，必须测量真实的任务产出。</span>
+            <span lang="en-only"><b>Subjective usefulness ratings correlate only weakly with objective revision quality (r ≈ 0.2–0.3)</b>. If supported, this directly demonstrates that questionnaires are invalid as sole evaluation evidence and that real task output must be measured.</span>
+          </div>
+          <div class="h-test"><span lang="zh-only">检验：<code>Pearson r</code>；同时报告两组在认知负荷上的差异（<code>独立样本 t</code>）</span><span lang="en-only">Test: <code>Pearson r</code>; also report between-group cognitive-load difference (<code>independent t</code>)</span></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 07 结果与图表 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">07</span><span class="k">Results &amp; charts</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">结果</span><span lang="en-only">Results</span></h2>
+
+      <p>
+        <span lang="zh-only">研究尚未执行，本节不呈现任何结果数据。上方 H1–H5 已预先绑定检验方法与效应量指标；执行后只需填入统计量，结论按预设的判定规则给出，不再事后挑选分析方法。</span>
+        <span lang="en-only">The study has not been run, so this section presents no result data. H1–H5 above are already bound to specific tests and effect-size indices; once data are in, only the statistics need filling in, and verdicts follow the pre-registered decision rule rather than a method chosen after the fact.</span>
+      </p>
+
+      <div class="sub-h"><span lang="zh-only">样本构成</span><span lang="en-only">Sample composition</span></div>
+      <div class="kpi-grid" id="kpi-sample" style="margin-top:18px"></div>
+      <div class="chart-block" style="margin-top:22px">
+        <div class="donut-wrap">
+          <div class="donut" id="donut"></div>
+          <div class="legend" id="donut-legend"></div>
+        </div>
+      </div>
+
+      <div class="sub-h"><span lang="zh-only">主要结局</span><span lang="en-only">Primary outcomes</span></div>
+      <div class="kpi-grid" id="kpi-outcome" style="margin-top:18px"></div>
+
+      <div class="sub-h"><span lang="zh-only">草稿质量：前测 → 后测 → 迁移</span><span lang="en-only">Draft quality: pre → post → transfer</span></div>
+      <div class="chart-block" style="margin-top:18px">
+        <div id="chart-quality"></div>
+      </div>
+
+      <div class="sub-h"><span lang="zh-only">修订行为（过程指标）</span><span lang="en-only">Revision behaviour (process)</span></div>
+      <div class="chart-block" style="margin-top:18px">
+        <div id="chart-behaviour"></div>
+      </div>
+
+      <div class="sub-h"><span lang="zh-only">任务后主观评价（辅助）</span><span lang="en-only">Post-task ratings (supplementary)</span></div>
+      <div class="chart-block" style="margin-top:18px">
+        <div id="chart-subjective"></div>
+      </div>
+
+      <div class="quote">
+        <b><span lang="zh-only">如何解读</span><span lang="en-only">How to read this</span></b>
+        <span lang="zh-only">若 H1 与 H3 同时成立（A 即时更好、B 迁移更好），则说明存在<b>典型的即时表现—长期学习权衡</b>：直接纠错让人"现在看起来更好"，引导提示让人"以后真的更好"。这一结论无法由任何满意度问卷得出，只能通过让参与者完成真实任务并测量产出变化来获得。</span>
+        <span lang="en-only">If H1 and H3 both hold (A better immediately, B better on transfer), there is a <b>classic performance–learning trade-off</b>: direct correction makes people "look better now", guided scaffolding makes them "actually better later". No satisfaction questionnaire could reach this conclusion; it requires having participants complete a real task and measuring how their output changes.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 工具与伦理 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">08</span><span class="k">Instruments &amp; ethics</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">工具、问卷与伦理</span><span lang="en-only">Instruments, questionnaire and ethics</span></h2>
+
+      <div class="sub-h"><span lang="zh-only">任务后问卷（节选）</span><span lang="en-only">Post-task questionnaire (extract)</span></div>
+      <ol class="qlist">
+        <li><span lang="zh-only">修改这段草稿时，你有多大程度需要自己思考？（操纵检验）</span><span lang="en-only">How much did you have to think for yourself while revising? (manipulation check)</span><span class="opts"><span lang="zh-only">1（完全不需要）– 7（完全靠自己）</span><span lang="en-only">1 (not at all) – 7 (entirely)</span></span></li>
+        <li><span lang="zh-only">AI 是否直接给出了正确的写法？（操纵检验）</span><span lang="en-only">Did the AI give you the correct wording directly? (manipulation check)</span><span class="opts"><span lang="zh-only">是 / 否</span><span lang="en-only">Yes / No</span></span></li>
+        <li><span lang="zh-only">这次反馈对你修改草稿有多大帮助？（感知有用性）</span><span lang="en-only">How much did this feedback help you revise your draft? (perceived usefulness)</span><span class="opts"><span lang="zh-only">Likert 5 点</span><span lang="en-only">5-point Likert</span></span></li>
+        <li><span lang="zh-only">你在多大程度上信任这个工具给出的修改建议？（信任）</span><span lang="en-only">To what extent do you trust this tool's suggestions? (trust)</span><span class="opts"><span lang="zh-only">Likert 5 点（Jian 等, 2000 节选）</span><span lang="en-only">5-point Likert (adapted from Jian et al., 2000)</span></span></li>
+        <li><span lang="zh-only">完成这次修订你投入了多少心理努力？（认知负荷）</span><span lang="en-only">How much mental effort did this revision take? (cognitive load)</span><span class="opts"><span lang="zh-only">1（极低）– 9（极高）（Paas 等, 2003）</span><span lang="en-only">1 (very low) – 9 (very high) (Paas et al., 2003)</span></span></li>
+        <li><span lang="zh-only">你对通过 EAP 考试的信心是多少？</span><span lang="en-only">How confident are you about passing the EAP exam?</span><span class="opts"><span lang="zh-only">1–10（前测与后测各一次）</span><span lang="en-only">1–10 (measured at pre and post)</span></span></li>
+        <li><span lang="zh-only">（开放题）修改过程中，AI 的哪一点最帮到你 / 最碍事？</span><span lang="en-only">(Open) What helped you most — or got in your way most — while revising?</span></li>
+      </ol>
+
+      <!-- ★ 可编辑：把 SURVEY_URL 换成你们真实的问卷链接，二维码会自动更新 -->
+      <div class="qr-card">
+        <div class="qr-box" id="qr-box"></div>
+        <div class="qr-meta">
+          <b><span lang="zh-only">扫描查看完整任务后问卷</span><span lang="en-only">Scan for the full post-task questionnaire</span></b>
+          <span lang="zh-only">上方为节选题项，完整版含信息表与知情同意书。填入链接后二维码自动更新。</span>
+          <span lang="en-only">Only selected items are shown above; the full version includes the information sheet and consent form. The code updates once the link is set.</span>
+        </div>
+      </div>
+
+      <div class="sub-h"><span lang="zh-only">访谈提纲（半结构化，节选）</span><span lang="en-only">Interview guide (semi-structured, extract)</span></div>
+      <ol class="qlist">
+        <li><span lang="zh-only">修改时，你是先自己想一遍，还是直接照 AI 说的改？</span><span lang="en-only">When revising, did you think it through first or simply apply what the AI said?</span></li>
+        <li><span lang="zh-only">有没有哪个地方 AI 提示了但你还是不会改？当时你怎么处理？</span><span lang="en-only">Was there anything the AI flagged that you still could not fix? What did you do then?</span></li>
+        <li><span lang="zh-only">一周后再写新题目时，有没有想起这次的修改？具体是哪一点？</span><span lang="en-only">Writing the new prompt a week later, did this revision come to mind? What exactly?</span></li>
+        <li><span lang="zh-only">如果让你选，你更愿意 AI 直接给答案，还是提示你自己改？为什么？</span><span lang="en-only">Given the choice, would you rather the AI gave the answer or prompted you to fix it? Why?</span></li>
+      </ol>
+
+      <div class="sub-h"><span lang="zh-only">参与者信息表与知情同意书</span><span lang="en-only">Information sheet &amp; consent form</span></div>
+      <div class="doc-grid">
+        <div class="doc">
+          <h4><span lang="zh-only">参与者信息表</span><span lang="en-only">Information sheet</span></h4>
+          <ul>
+            <li><span lang="zh-only"><b>研究目的</b>：评估 Smart Partner 两种 AI 反馈方式对 EAP 草稿修订与学习迁移的实际效果。</span><span lang="en-only"><b>Purpose</b> — to evaluate the actual effect of two Smart Partner feedback styles on EAP draft revision and learning transfer.</span></li>
+            <li><span lang="zh-only"><b>参与方式</b>：一次约 35 分钟的写作与修订任务；1 周后回访 10 分钟；可自愿参加 15 分钟访谈。</span><span lang="en-only"><b>What is involved</b> — one ~35-minute writing and revision session; a 10-minute follow-up one week later; optional 15-minute interview.</span></li>
+            <li><span lang="zh-only"><b>自愿与退出</b>：参与完全自愿，可随时退出且无需说明理由，不影响任何课程成绩。</span><span lang="en-only"><b>Voluntary</b> — participation is entirely voluntary; you may withdraw at any time without giving a reason and with no effect on any course grade.</span></li>
+            <li><span lang="zh-only"><b>匿名与保密</b>：草稿与交互记录以编号存储，不含姓名、学号；结果仅以汇总形式呈现。</span><span lang="en-only"><b>Anonymity</b> — drafts and interaction logs are stored under codes with no names or student IDs; results are reported in aggregate only.</span></li>
+            <li><span lang="zh-only"><b>数据存储</b>：加密保存于研究者本地设备，课程结束后删除。</span><span lang="en-only"><b>Storage</b> — stored encrypted on the researcher's own device and deleted after the module ends.</span></li>
+          </ul>
+        </div>
+        <div class="doc">
+          <h4><span lang="zh-only">知情同意书</span><span lang="en-only">Consent form</span></h4>
+          <ul>
+            <li><span lang="zh-only">我已阅读并理解上述信息表内容。</span><span lang="en-only">I have read and understood the information sheet.</span></li>
+            <li><span lang="zh-only">我明白参与完全自愿，可随时退出。</span><span lang="en-only">I understand participation is voluntary and I may withdraw at any time.</span></li>
+            <li><span lang="zh-only">我同意我的草稿与交互记录被用于本次研究分析。</span><span lang="en-only">I consent to my draft and interaction log being used in this analysis.</span></li>
+            <li><span lang="zh-only">（可选）我同意参加 1 周后的回访与后续访谈，并同意录音。</span><span lang="en-only">(Optional) I consent to the one-week follow-up and a further interview, including audio recording.</span></li>
+          </ul>
+          <div class="sign">
+            <span lang="zh-only">勾选框：□ 我同意以上条款并开始任务</span>
+            <span lang="en-only">Checkbox: □ I agree to the above and wish to begin the task</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 局限与反思 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">09</span><span class="k">Reflection</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">这个设计撑不住什么</span><span lang="en-only">What this design cannot carry</span></h2>
+
+      <div class="quote" style="margin-top:8px">
+        <b><span lang="zh-only">方法局限</span><span lang="en-only">Methodological limitations</span></b>
+        <span lang="zh-only">样本为<b>便利抽样</b>，预计集中在 B、C 两个核心班，A 班与 High Level 样本偏少；虽然按层级分层随机化可保证条件分配均衡，但<b>样本本身不代表整体一年级</b>。单次 35 分钟任务只覆盖一次写作—修订循环，无法判断长期使用后的效应衰减或累积。此外"延迟迁移"仅间隔 1 周，属于短期保持证据，不能推断学期尺度的学习成效。</span>
+        <span lang="en-only">The sample is one of <b>convenience</b>, likely concentrated in the two core groups B and C and thin in A and High Level; stratified randomisation balances condition assignment, but the <b>sample is not representative of the Year 1 cohort</b>. A single 35-minute session covers one writing–revision cycle only, so nothing can be said about decay or accumulation over sustained use. The transfer test sits just one week out — evidence of short-term retention, not of learning at the scale of a semester.</span>
+      </div>
+
+      <div class="sub-h"><span lang="zh-only">执行中预计会遇到的问题</span><span lang="en-only">What we expect to go wrong</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only"><b>条件污染</b>：同班参与者可能互相比较 AI 回复内容，从而猜到存在两种条件。拟将会谈安排在不同时段，并在任务后统一说明。</span><span lang="en-only"><b>Condition contamination</b> — participants in the same class may compare AI replies and notice two conditions exist. Sessions will be scheduled apart and the design debriefed only after the task.</span></li>
+        <li><span lang="zh-only"><b>修订努力不均</b>：B 组任务更难，参与者可能在时间未到时就放弃。拟记录放弃时刻并在分析时作为协变量检查。</span><span lang="en-only"><b>Unequal revision effort</b> — condition B is harder, so participants may give up early. Time of disengagement will be logged and checked as a covariate.</span></li>
+        <li><span lang="zh-only"><b>评分者漂移</b>：两名评分者在长时间评分后标准可能松动。拟随机化评分顺序并每隔 20 份做一致性复核。</span><span lang="en-only"><b>Rater drift</b> — standards may loosen over a long scoring session. Order will be randomised and agreement re-checked every 20 scripts.</span></li>
+        <li><span lang="zh-only"><b>迁移测验流失</b>：1 周后的回访预计有缺席。拟在招募时即说明两次参与，并对缺失数据做敏感性分析。</span><span lang="en-only"><b>Attrition at transfer</b> — some participants will not return after a week. Two-session commitment is stated at recruitment, and missing data will be handled with a sensitivity analysis.</span></li>
+      </ol>
+
+      <div class="sub-h"><span lang="zh-only">如果重做一次，我们会改什么</span><span lang="en-only">What we would change next time</span></div>
+      <ol class="plan">
+        <li><span lang="zh-only">改用<b>分层抽样</b>，按四个 EAP 层级设配额，保证每组每层至少 15 人。</span><span lang="en-only">Switch to <b>stratified sampling</b> with quotas across the four EAP levels, at least 15 per cell per level.</span></li>
+        <li><span lang="zh-only">增加<b>延迟后测时点</b>（1 周 + 1 个月），区分短期保持与长期迁移。</span><span lang="en-only">Add a <b>later follow-up</b> (1 week + 1 month) to separate short-term retention from long-term transfer.</span></li>
+        <li><span lang="zh-only">加入<b>无 AI 对照组</b>，把"AI 反馈的效应"与"单纯重写一遍的效应"分离开。</span><span lang="en-only">Add a <b>no-AI control arm</b> to separate the effect of AI feedback from the effect of simply rewriting once.</span></li>
+        <li><span lang="zh-only">对关键错误做<b>逐类编码</b>（主谓一致、冠词、衔接等），定位哪类错误最能从引导式反馈中获益。</span><span lang="en-only">Code errors <b>by category</b> (agreement, articles, cohesion, etc.) to identify which error types benefit most from guided feedback.</span></li>
+      </ol>
+
+      <div class="sub-h"><span lang="zh-only">研究伦理</span><span lang="en-only">Research ethics</span></div>
+      <p>
+        <span lang="zh-only">所有参与者在任务开始前均阅读信息表并勾选同意；草稿与交互记录以编号存储，不含姓名、学号等标识符；参与者可随时退出且不影响课程成绩；两种反馈方式均不会造成学业劣势——条件 B 的参与者在任务结束后会收到完整解析，确保不留知识缺口。分析结果仅以汇总形式呈现，不回溯到个人。</span>
+        <span lang="en-only">All participants read the information sheet and tick consent before the task begins; drafts and interaction logs are stored under codes with no names or student IDs; participants may withdraw at any time without affecting their grades; neither condition creates academic disadvantage — participants in condition B receive a full explanation once the task ends, so no knowledge gap is left behind. Results are reported in aggregate only and are not traceable to individuals.</span>
       </p>
     </div>
-
   </section>
 
-  <!-- ============ 8 研究反思 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">8</span><span lang="zh-only">研究反思</span><span lang="en-only">Reflection</span><span class="en">Reflection</span></h2>
+  <!-- ============ 10 参考文献 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n">10</span><span class="k">References</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">方法与工具的出处</span><span lang="en-only">Sources behind the methods</span></h2>
 
-    <div class="quote">
-      <b><span lang="zh-only">方法局限</span><span lang="en-only">Methodological limitations</span></b>
-      <span lang="zh-only">本次为<b>便利抽样</b>，样本集中在 B、C 两个核心班（合计 <b>—</b> 人，占 <b>—%</b>，与真实人数分布一致），但基础班 A 仅 <b>—</b> 人、高阶班 High Level <b>—</b> 人，各层级样本量不均衡会影响 ANOVA 的稳健性——这也是我们对等级变量补充非参数检验的原因。此外问卷为<b>自陈式</b>，使用次数与时长可能存在回忆偏差；后续可结合<b>后台使用日志</b>做交叉验证，并补访高阶班学生，弄清他们为什么用得最少。</span>
-      <span lang="en-only">This was a <b>convenience sample</b>, concentrated in the two core groups B and C (<b>—</b> respondents, <b>—%</b> — consistent with where students actually sit), but foundation group A contributed only <b>—</b> respondents and High Level only <b>—</b>. The unbalanced cell sizes affect the robustness of the ANOVA, which is why non-parametric tests were also run on the ordinal items. The questionnaire is <b>self-report</b>, so frequency and duration are subject to recall bias; next we would cross-validate against <b>server-side usage logs</b> and interview High Level students to find out why they use it least.</span>
+      <p style="margin-bottom:18px">
+        <span lang="zh-only">下列文献支撑本研究的实验设计、干预选择与分析方法。写作题目与评分量表参照西浦 EAP 课程要求制定；问卷主观条目由本组编制或改编自下列量表，尚未做独立信效度检验，这一点已计入第 9 部分的局限。</span>
+        <span lang="en-only">The sources below underpin the experimental design, the choice of intervention and the analysis plan. The writing prompt and scoring rubric follow XJTLU EAP course requirements; subjective items were written by our group or adapted from the scales listed below and have not been independently validated, as noted among the limitations in Section 9.</span>
+      </p>
+
+      <ol class="refs">
+        <li>
+          <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. https://doi.org/10.1017/S0272263106060141</span>
+          <span class="why"><span lang="zh-only">— 直接纠错与间接/引导式反馈的效果对比，是本实验条件设置的主要依据。</span><span lang="en-only">— Comparison of direct versus indirect/guided corrective feedback; the main basis for the two conditions.</span></span>
+        </li>
+        <li>
+          <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. https://doi.org/10.1177/1362168813509907</span>
+          <span class="why"><span lang="zh-only">— 书面反馈与修订对二语写作准确性的作用，支撑"前测 → 修订 → 后测"的任务结构。</span><span lang="en-only">— Effects of written feedback and revision on L2 writing accuracy; supports the pre → revision → post task structure.</span></span>
+        </li>
+        <li>
+          <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. https://doi.org/10.3102/003465430298487</span>
+          <span class="why"><span lang="zh-only">— 反馈层级理论：为何"指向过程的提示"比"指向答案的纠正"更利于学习。</span><span lang="en-only">— Feedback-level theory: why process-level prompts aid learning more than answer-level correction.</span></span>
+        </li>
+        <li>
+          <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. https://doi.org/10.1207/S15326985EP3801_8</span>
+          <span class="why"><span lang="zh-only">— 心理努力自评量表，用于测量两种反馈方式的认知代价。</span><span lang="en-only">— Mental-effort rating scale, used to measure the cognitive cost of each feedback style.</span></span>
+        </li>
+        <li>
+          <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. https://doi.org/10.1207/s15516709cog1202_4</span>
+          <span class="why"><span lang="zh-only">— 认知负荷理论，解释"更难但更有效"的权衡为何会出现。</span><span lang="en-only">— Cognitive load theory; explains why the "harder but more effective" trade-off arises.</span></span>
+        </li>
+        <li>
+          <span class="src">Jian, J.-Y., Bisantz, A. M., &amp; Drury, C. G. (2000). Foundations for an empirically determined scale of trust in automated systems. <i>International Journal of Cognitive Ergonomics, 4</i>(1), 53–71. https://doi.org/10.1207/S15327566IJCE0401_04</span>
+          <span class="why"><span lang="zh-only">— 自动化信任量表，检验"更顺手"是否等于"更信任"。</span><span lang="en-only">— Trust-in-automation scale; tests whether ease implies trust.</span></span>
+        </li>
+        <li>
+          <span class="src">Schmidmaier, M., Rupp, J., Cvetanova, D., &amp; Mayer, S. (2024). Perceived empathy of technology scale (PETS): Measuring empathy of systems toward the user. In <i>Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems</i>. ACM. https://doi.org/10.1145/3613904.3642035</span>
+          <span class="why"><span lang="zh-only">— 感知共情量表，判断AI 的"语气"是否独立于反馈结构影响效果。</span><span lang="en-only">— Perceived-empathy scale; checks whether tone affects outcomes independently of feedback structure.</span></span>
+        </li>
+        <li>
+          <span class="src">Field, A. (2018). <i>Discovering statistics using IBM SPSS Statistics</i> (5th ed.). SAGE.</span>
+          <span class="why"><span lang="zh-only">— 混合方差分析（split-plot ANOVA）、简单效应分析与前提检验的操作依据。</span><span lang="en-only">— Practical reference for mixed (split-plot) ANOVA, simple-effects analysis and assumption checks.</span></span>
+        </li>
+        <li>
+          <span class="src">Cohen, J. (1988). <i>Statistical power analysis for the behavioral sciences</i> (2nd ed.). Erlbaum.</span>
+          <span class="why"><span lang="zh-only">— 效应量基准（d、η²）与检验力分析，支撑"不只报 p 值"的做法。</span><span lang="en-only">— Effect-size benchmarks (d, η²) and power analysis; supports reporting more than p values.</span></span>
+        </li>
+        <li>
+          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
+          <span class="why"><span lang="en-only">— ICC 的选择与报告标准，用于检验两名评分者的一致性。</span><span lang="en-only">— Guidance on selecting and reporting ICCs, used to check agreement between the two raters.</span></span>
+        </li>
+        <li>
+          <span class="src">Fowler, F. J. (2014). <i>Survey research methods</i> (5th ed.). SAGE.</span>
+          <span class="why"><span lang="zh-only">— 问卷条目措辞与自陈偏差的来源，用于界定主观数据的解释边界。</span><span lang="en-only">— Item wording and sources of self-report bias; defines the limits of what subjective data can support.</span></span>
+        </li>
+        <li>
+          <span class="src">Braun, V., &amp; Clarke, V. (2006). Using thematic analysis in psychology. <i>Qualitative Research in Psychology, 3</i>(2), 77–101. https://doi.org/10.1191/1478088706qp063oa</span>
+          <span class="why"><span lang="zh-only">— 主题编码方法，用于分析开放题与访谈转录。</span><span lang="en-only">— Thematic coding procedure for open-ended answers and interview transcripts.</span></span>
+        </li>
+        <li>
+          <span class="src">Creswell, J. W., &amp; Creswell, J. D. (2018). <i>Research design: Qualitative, quantitative, and mixed methods approaches</i> (5th ed.). SAGE.</span>
+          <span class="why"><span lang="zh-only">— 混合方法研究的总体设计框架与效度威胁清单。</span><span lang="en-only">— Overall framework for mixed-methods design and a checklist of validity threats.</span></span>
+        </li>
+      </ol>
     </div>
-
-    <div class="sub-h"><span lang="zh-only">执行过程中遇到的问题</span><span lang="en-only">What went wrong in practice</span></div>
-    <ol class="plan">
-      <li><span lang="zh-only"><b>层级分布不可控</b>：便利抽样导致 A 班与 High Level 样本偏少，原先计划的"四组等额比较"无法实现，只能改为报告效应量并补充非参数检验。</span><span lang="en-only"><b>Uneven level sizes</b> — convenience sampling left groups A and High Level thin, so the planned equal-cell comparison was impossible; we switched to reporting effect sizes and adding non-parametric tests.</span></li>
-      <li><span lang="zh-only"><b>预测试暴露表述歧义</b>：初版"使用频率"一题有 <b>—</b> 名学生理解为"打开次数"而非"完整会话"，已改为按"次会话"定义并加注说明。</span><span lang="en-only"><b>Ambiguous wording</b> — in the pilot, <b>—</b> students read "use frequency" as app opens rather than full sessions; the item was redefined as "sessions" with a clarifying note.</span></li>
-      <li><span lang="zh-only"><b>自陈数据偏差</b>：部分学生把"考前一周"理解为"整个考试月"，导致时长估计偏高，因此我们在结论中只报告趋势而非精确值。</span><span lang="en-only"><b>Self-report bias</b> — some students read "the week before the exam" as "the whole exam month", inflating duration estimates; we therefore report trends rather than exact values.</span></li>
-      <li><span lang="zh-only"><b>因果推断受限</b>：横断面设计无法判断是"使用智能体提升了信心"，还是"本来更有信心的学生更愿意用"，故第 7 部分的相关结论明确标注为相关而非因果。</span><span lang="en-only"><b>No causal claim</b> — a cross-sectional design cannot tell whether using the agent raised confidence or more confident students were keener to use it, so the correlation in Section 7 is flagged explicitly as non-causal.</span></li>
-    </ol>
-
-    <div class="sub-h"><span lang="zh-only">如果重做一次，我们会改什么</span><span lang="en-only">What we would change next time</span></div>
-    <ol class="plan">
-      <li><span lang="zh-only">改用<b>分层抽样</b>，按四个 EAP 层级设定配额，保证每组至少 50 人。</span><span lang="en-only">Switch to <b>stratified sampling</b> with quotas across the four EAP levels, at least 50 per cell.</span></li>
-      <li><span lang="zh-only">接入<b>后台使用日志</b>，用客观数据交叉验证自陈的频率与时长。</span><span lang="en-only">Wire in <b>server-side usage logs</b> to cross-validate self-reported frequency and duration.</span></li>
-      <li><span lang="zh-only">追加<b>纵向设计</b>：在学期初与期末各测一次信心，用配对检验替代横断面的相关分析。</span><span lang="en-only">Add a <b>longitudinal design</b>: measure confidence at the start and end of term, replacing cross-sectional correlation with a paired test.</span></li>
-      <li><span lang="zh-only">对 High Level 学生做<b>专门访谈</b>，解释他们使用率最低的原因。</span><span lang="en-only">Run <b>targeted interviews</b> with High Level students to explain their lowest adoption.</span></li>
-    </ol>
-
-    <div class="sub-h"><span lang="zh-only">研究伦理</span><span lang="en-only">Research ethics</span></div>
-    <p class="topic-text" style="margin-top:4px">
-      <span lang="zh-only">所有参与者在填答前均看到信息表并勾选同意；数据匿名化处理，不含姓名、学号等标识符；参与者可随时退出且不影响课程成绩。分析结果仅以汇总形式呈现，不回溯到个人。</span>
-      <span lang="en-only">All participants saw the information sheet and ticked consent before answering; data were anonymised with no names or student IDs, and participants could withdraw at any time without affecting their grades. Results are reported in aggregate only and are not traceable to individuals.</span>
-    </p>
   </section>
 
-  <!-- ============ 9 调研图片 ============ -->
-  <section class="card">
-    <h2 class="section-title"><span class="num">9</span><span lang="zh-only">调研图片</span><span lang="en-only">Survey Images</span><span class="en">Images</span></h2>
+  <!-- ============ 待补充材料 ============ -->
+  <section class="chapter">
+    <div class="chapter-num"><span class="n" style="color:var(--c4)">—</span><span class="k">Pending</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">还差什么</span><span lang="en-only">What is still missing</span></h2>
 
-    <p class="upload-note" style="margin-bottom:14px">
-      <span lang="zh-only">点击下方区域或拖拽图片到此处，即可在<b>本地预览</b>调研照片/图表（刷新后会消失）。若要长期展示，请把图片放入项目的 <code>images</code> 文件夹并命名为 <code>1.jpg</code>、<code>2.jpg</code>…，页面会自动加载。</span>
-      <span lang="en-only">Click the area below or drag images in to <b>preview</b> your survey photos/charts locally (lost on refresh). For permanent display, put images in the <code>images</code> folder named <code>1.jpg</code>, <code>2.jpg</code>… and the page will load them automatically.</span>
-    </p>
+      <p style="margin-bottom:26px">
+        <span lang="zh-only">下列材料尚未就位。为避免评审误读为"已完成"，此处集中列出当前状态。</span>
+        <span lang="en-only">The materials below are not yet in place. They are listed here in one place so that nothing is mistaken for completed work.</span>
+      </p>
 
-    <div class="dropzone" id="dropzone" role="button" tabindex="0">
-      <div class="icon">🖼️</div>
-      <p><span lang="zh-only">点击上传 或 拖拽图片到此处</span><span lang="en-only">Click to upload, or drag images here</span></p>
-      <p class="hint"><span lang="zh-only">支持 jpg / png，可多选</span><span lang="en-only">Supports jpg / png, multiple files</span></p>
-      <input type="file" id="file-input" accept="image/*" multiple hidden>
+      <div class="todo-grid">
+        <div class="todo">
+          <h4><span lang="zh-only">随机化分配序列</span><span lang="en-only">Randomisation sequence</span></h4>
+          <p><span lang="zh-only">按 EAP 层级分层的区组随机表，由非施测成员生成并封存。</span><span lang="en-only">Stratified block randomisation table, generated and sealed by a member not involved in data collection.</span></p>
+          <span class="state"><span lang="zh-only">待生成</span><span lang="en-only">To generate</span></span>
+        </div>
+        <div class="todo">
+          <h4><span lang="zh-only">两种反馈的话术脚本</span><span lang="en-only">Feedback scripts</span></h4>
+          <p><span lang="zh-only">条件 A / B 的完整回复模板，确保错误覆盖一致。</span><span lang="en-only">Full reply templates for A and B, ensuring identical error coverage.</span></p>
+          <span class="state"><span lang="zh-only">待撰写</span><span lang="en-only">To write</span></span>
+        </div>
+        <div class="todo">
+          <h4><span lang="zh-only">评分量表与评分者培训</span><span lang="en-only">Rubric &amp; rater training</span></h4>
+          <p><span lang="zh-only">三维度量表、评分手册与一致性预演记录。</span><span lang="en-only">Three-dimension rubric, scoring manual and calibration records.</span></p>
+          <span class="state"><span lang="zh-only">待准备</span><span lang="en-only">To prepare</span></span>
+        </div>
+        <div class="todo">
+          <h4><span lang="zh-only">实测数据与统计分析</span><span lang="en-only">Data &amp; analysis</span></h4>
+          <p><span lang="zh-only">参与者草稿、交互日志与第 7 部分各图表数值。</span><span lang="en-only">Participant drafts, interaction logs and the figures behind the Section 7 charts.</span></p>
+          <span class="state"><span lang="zh-only">未开始</span><span lang="en-only">Not started</span></span>
+        </div>
+      </div>
     </div>
-
-    <div class="gallery" id="gallery"></div>
   </section>
 
-  <div class="footer">
-    <p><span lang="zh-only">Y1 EAP Project · Smart Partner 调研统计 · 数据仅用于学术目的</span><span lang="en-only">Y1 EAP Project · Smart Partner Research · For academic purposes only</span></p>
-  </div>
-</div>
+  <!-- ============ 调研现场照片（有图才显示） ============ -->
+  <section class="chapter" id="photo-section" style="display:none">
+    <div class="chapter-num"><span class="n" style="color:var(--c4)">—</span><span class="k">Fieldwork</span></div>
+    <div class="chapter-body">
+      <h2><span lang="zh-only">调研现场照片</span><span lang="en-only">Fieldwork photos</span></h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><span lang="zh-only">Y1 EAP Project · Smart Partner 评估研究 · 数据仅用于学术目的</span><span lang="en-only">Y1 EAP Project · Smart Partner Evaluation Study · For academic purposes only</span></p>
+</footer>
 
 <script>
   // ============================================================
-  // ★ 可编辑：全部调研数据集中在这里，改数字即可更新所有图表
-  // ★ EDITABLE: All survey data lives here — change numbers to
-  //   update every chart. Labels support zh / en.
+  // ★ 可编辑：全部实测数据集中在这里，改数字即可更新所有图表
+  // ★ EDITABLE: All collected data lives here — change numbers
+  //   to update every chart. Labels support zh / en.
   //
-  // 当前状态：调研尚未开始，问卷未发放，暂无任何真实数据。
-  // 所有数值均为占位符（"—" / 0），回收数据后直接把百分比与数字填回此处即可，
-  // 并同步更新 analysis/verify_stats.py 中的统计量。
+  // 当前状态：研究尚未执行，暂无任何真实数据。
+  // 所有数值均为占位符（0 / "—"），执行后直接把分数与数字
+  // 填回此处即可，并同步更新 analysis/verify_stats.py 中的统计量。
+  // 图表与 KPI 在数值为空时自动显示占位状态，不会渲染空坐标轴。
   // ============================================================
   const DATA = {
-    // --- 目标人群 KPI ---（问卷未发放，n 待填）
-    kpiAudience: [
-      { value: '—', zh: '有效样本', en: 'Valid responses', sub_zh: '发放 — 份，剔除 — 份无效', sub_en: '— distributed, — discarded' },
-      { value: '—', zh: '大一在读占比', en: 'Year 1 students', sub_zh: '— / — 为大一在读', sub_en: '— of — in Year 1' },
-      { value: '4', zh: '覆盖 EAP 层级', en: 'EAP levels covered', sub_zh: 'A 基础 · B/C 核心 · High Level 高阶', sub_en: 'A, B, C and High Level' },
-      { value: '—', zh: '问卷回收率', en: 'Response rate', sub_zh: '— / — 份回收', sub_en: '— of — returned' },
+    // --- 主要结局 KPI（0–100 评分；执行后填入）---
+    kpiOutcome: [
+      { value: '—', zh: '初稿均分', en: 'First-draft mean', sub_zh: 'T1 · 全部参与者 n = —', sub_en: 'T1 · all participants, n = —' },
+      { value: '—', zh: '终稿均分', en: 'Final-draft mean', sub_zh: 'T2 · 全部参与者 n = —', sub_en: 'T2 · all participants, n = —' },
+      { value: '—', zh: '平均提升', en: 'Mean gain (T2 − T1)', sub_zh: 'Δ = — 分（SD = —）', sub_en: 'Δ = — points (SD —)' },
+      { value: '—', zh: '迁移测验均分', en: 'Transfer mean', sub_zh: 'T3 · 1 周后 · n = —', sub_en: 'T3 · after 1 week · n = —' },
     ],
-    // --- 环形图：按 EAP 层级（问卷未发放，占比待填）---
+    // --- 样本构成（按 EAP 层级）---
+    kpiSample: [
+      { value: '—', zh: '有效参与者', en: 'Valid participants', sub_zh: '招募 — 人，剔除 — 人', sub_en: '— recruited, — excluded' },
+      { value: '2', zh: '实验条件', en: 'Conditions', sub_zh: 'A 直接纠错 / B 引导提示', sub_en: 'A direct / B guided' },
+      { value: '4', zh: 'EAP 层级', en: 'EAP levels', sub_zh: 'A · B · C · High Level', sub_en: 'A, B, C, High Level' },
+      { value: '—', zh: '回访保留率', en: 'Retention (T3)', sub_zh: '— / — 人完成回访', sub_en: '— of — returned' },
+    ],
     donut: [
-      { zh: 'EAP A 班（基础）', en: 'EAP A (foundation)', pct: 0, color: 'var(--chart1)' },
-      { zh: 'EAP B 班（核心）', en: 'EAP B (core)', pct: 0, color: 'var(--chart2)' },
-      { zh: 'EAP C 班（核心）', en: 'EAP C (core)', pct: 0, color: 'var(--chart3)' },
-      { zh: 'High Level（高阶）', en: 'High Level (advanced)', pct: 0, color: 'var(--chart4)' },
+      { zh: 'EAP A 班（基础）', en: 'EAP A (foundation)', pct: 0, color: 'var(--c1)' },
+      { zh: 'EAP B 班（核心）', en: 'EAP B (core)', pct: 0, color: 'var(--c2)' },
+      { zh: 'EAP C 班（核心）', en: 'EAP C (core)', pct: 0, color: 'var(--c3)' },
+      { zh: 'High Level（高阶）', en: 'High Level (advanced)', pct: 0, color: 'var(--c4)' },
     ],
     donutCenter: { zh: '尚未开始', en: 'Not started' },
-    // --- 使用情况 KPI ---（问卷未发放，使用者 n 待填）
-    kpiUsage: [
-      { value: '—', zh: '使用过 Smart Partner', en: 'Have used Smart Partner', sub_zh: '— / — 人曾使用', sub_en: '— of — have used it' },
-      { value: '—', zh: '周均使用次数', en: 'Uses per week (avg.)', sub_zh: 'M = —，SD = —', sub_en: 'M —, SD —' },
-      { value: '—', zh: '平均单次时长', en: 'Avg. session length', sub_zh: '约 — 分钟 / 次', sub_en: 'about — min per session' },
-      { value: '—', zh: '考前一周使用增多', en: 'Use more before exams', sub_zh: '— / — 名使用者', sub_en: '— of — users' },
+    // --- 条形图：草稿质量（0–100 量表分）---
+    qualityBars: [
+      { zh: 'A · 初稿 T1', en: 'A · first draft T1', pct: 0 },
+      { zh: 'A · 终稿 T2', en: 'A · final draft T2', pct: 0 },
+      { zh: 'A · 迁移 T3', en: 'A · transfer T3', pct: 0 },
+      { zh: 'B · 初稿 T1', en: 'B · first draft T1', pct: 0 },
+      { zh: 'B · 终稿 T2', en: 'B · final draft T2', pct: 0 },
+      { zh: 'B · 迁移 T3', en: 'B · transfer T3', pct: 0 },
     ],
-    // --- 条形图：使用频率（问卷未发放，单选，合计 100%）---
-    freqBars: [
-      { zh: '几乎每天', en: 'Almost daily', pct: 0 },
-      { zh: '每周 3 次及以上', en: '3+ times a week', pct: 0 },
-      { zh: '每周 1–2 次', en: '1–2 times a week', pct: 0 },
-      { zh: '偶尔使用', en: 'Occasionally', pct: 0 },
-      { zh: '基本不用', en: 'Rarely / never', pct: 0 },
+    // --- 条形图：修订行为（占比 / 比率）---
+    behaviourBars: [
+      { zh: 'A · 建议采纳率', en: 'A · adoption rate', pct: 0 },
+      { zh: 'B · 建议采纳率', en: 'B · adoption rate', pct: 0 },
+      { zh: 'A · 自主修正占比', en: 'A · self-correction share', pct: 0 },
+      { zh: 'B · 自主修正占比', en: 'B · self-correction share', pct: 0 },
     ],
-    // --- 条形图：各功能使用率（问卷未发放，多选，合计可超 100%）---
-    featureBars: [
-      { zh: '语法专项练习', en: 'Grammar practice', pct: 0 },
-      { zh: '写作批改反馈', en: 'Writing feedback', pct: 0 },
-      { zh: '词汇巩固训练', en: 'Vocabulary training', pct: 0 },
-      { zh: 'EAP 模拟测试', en: 'Mock EAP tests', pct: 0 },
-      { zh: '学术英语答疑', en: 'Academic English Q&A', pct: 0 },
-      { zh: '考前复习规划', en: 'Revision planning', pct: 0 },
-    ],
-    // --- 条形图：使用目的（问卷未发放，多选）---
-    purposeBars: [
-      { zh: '顺利通过 EAP 考试', en: 'Passing the EAP exam', pct: 0 },
-      { zh: '提高语法准确性', en: 'Improving grammar accuracy', pct: 0 },
-      { zh: '提升学术写作水平', en: 'Better academic writing', pct: 0 },
-      { zh: '扩大学术词汇量', en: 'Expanding academic vocabulary', pct: 0 },
-      { zh: '培养自主学习习惯', en: 'Building study habits', pct: 0 },
-      { zh: '服务其他课程英语需求', en: 'English for other modules', pct: 0 },
+    // --- 条形图：任务后主观评价（各维度标准化为 0–100）---
+    subjectiveBars: [
+      { zh: 'A · 感知有用性', en: 'A · perceived usefulness', pct: 0 },
+      { zh: 'B · 感知有用性', en: 'B · perceived usefulness', pct: 0 },
+      { zh: 'A · 信任', en: 'A · trust', pct: 0 },
+      { zh: 'B · 信任', en: 'B · trust', pct: 0 },
+      { zh: 'A · 认知负荷', en: 'A · cognitive load', pct: 0 },
+      { zh: 'B · 认知负荷', en: 'B · cognitive load', pct: 0 },
     ],
   };
-  // ============================================================
+
+  // ★ 可编辑：填入问卷链接后，第 8 部分的二维码会自动生成
+  const SURVEY_URL = '';
+
+  const TITLES = {
+    'zh-CN': 'Smart Partner 评估研究 | Y1 EAP Project',
+    'en': 'Smart Partner — Evaluation Study | Y1 EAP Project'
+  };
 
   const isZh = () => document.documentElement.lang.indexOf('zh') === 0;
 
   // ===== 语言切换 =====
   function setLang(lang) {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = htmlLang;
+    document.title = TITLES[htmlLang];
     document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    try { localStorage.setItem('sp-lang', lang); } catch (e) {}
     renderCharts();
+  }
+
+  // ===== 占位卡 =====
+  function placeholderHtml() {
+    const tag = isZh() ? '待执行' : 'Pending';
+    const body = isZh()
+      ? '研究尚未执行，此处暂无数据。<br>执行后填入页面底部 <code>DATA</code> 对应字段，图表将自动渲染。'
+      : 'No data yet — the study has not been run.<br>Fill in the matching <code>DATA</code> field at the bottom of the page and the chart renders automatically.';
+    return `<div class="placeholder"><span class="ph-tag">${tag}</span><div>${body}</div></div>`;
   }
 
   // ===== KPI 渲染 =====
   function renderKpis(elId, list) {
     const el = document.getElementById(elId);
+    const pending = v => (v === '—' || v === '' || v === 0) ? ' pending' : '';
     el.innerHTML = list.map(k => `
       <div class="kpi">
-        <div class="value">${k.value}</div>
+        <div class="value${pending(k.value)}">${k.value}</div>
         <div class="label">${isZh() ? k.zh : k.en}</div>
-        <div class="sub">${isZh() ? k.sub_zh : k.sub_en}</div>
+      <div class="sub">${isZh() ? k.sub_zh : k.sub_en}</div>
       </div>`).join('');
   }
 
-  // ===== 条形图渲染（pct 为 0 时显示「—」占位）=====
+  // ===== 条形图渲染（全部为 0 时显示占位卡，不渲染空轴）=====
   function renderBars(elId, rows) {
     const el = document.getElementById(elId);
+    const total = rows.reduce((s, b) => s + b.pct, 0);
+    if (total <= 0) { el.innerHTML = placeholderHtml(); return; }
     el.innerHTML = rows.map(b => `
       <div class="bar-row">
         <div class="label">${isZh() ? b.zh : b.en}</div>
         <div class="track"><div class="fill" data-pct="${b.pct}"></div></div>
-        <div class="pct">${b.pct > 0 ? b.pct + '%' : '—'}</div>
+        <div class="pct${b.pct > 0 ? '' : ' pending'}">${b.pct > 0 ? b.pct + '%' : '—'}</div>
       </div>`).join('');
     requestAnimationFrame(() => {
       el.querySelectorAll('.fill').forEach(f => { f.style.width = f.dataset.pct + '%'; });
     });
   }
 
-  // ===== 环形图渲染（数据为 0 时显示灰色待填状态）=====
+  // ===== 环形图渲染（数据为 0 时显示浅灰待填状态）=====
   function renderDonut() {
     const el = document.getElementById('donut');
     const segs = DATA.donut;
     const total = segs.reduce((s, x) => s + x.pct, 0);
+    el.classList.toggle('pending', total <= 0);
     if (total > 0) {
       let acc = 0;
       const stops = segs.map(s => {
@@ -710,84 +1291,62 @@
       }).join(', ');
       el.style.background = `conic-gradient(${stops})`;
     } else {
-      el.style.background = '#EDF2F8'; // 待填：灰色空环
+      el.style.background = 'var(--wash)'; // 待填：浅灰空环
     }
     el.setAttribute('data-center', isZh() ? DATA.donutCenter.zh : DATA.donutCenter.en);
     document.getElementById('donut-legend').innerHTML = segs.map(s => `
       <div class="legend-item">
         <span class="dot" style="background:${s.color}"></span>
         <span>${isZh() ? s.zh : s.en}</span>
-        <span class="lpct">${s.pct > 0 ? s.pct + '%' : '—'}</span>
+        <span class="lpct${s.pct > 0 ? '' : ' pending'}">${s.pct > 0 ? s.pct + '%' : '—'}</span>
       </div>`).join('');
+  }
+
+  // ===== 二维码渲染 =====
+  function renderQr() {
+    const box = document.getElementById('qr-box');
+    if (!SURVEY_URL) {
+      box.innerHTML = `<span class="ph-tag">${isZh() ? '待填写' : 'Awaiting'}</span>`;
+      return;
+    }
+    const src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data='
+      + encodeURIComponent(SURVEY_URL);
+    box.innerHTML = `<img src="${src}" alt="${isZh() ? '问卷二维码' : 'Questionnaire QR code'}">`;
+  }
+
+  // ===== 调研现场照片：images/1.jpg、2.jpg… 存在才显示区块 =====
+  function loadPhotos() {
+    const gallery = document.getElementById('gallery');
+    const section = document.getElementById('photo-section');
+    for (let i = 1; i <= 12; i++) {
+      const fig = document.createElement('figure');
+      const img = new Image();
+      img.onload = () => { section.style.display = ''; };
+      img.onerror = () => { fig.remove(); };
+      img.src = `images/${i}.jpg`;
+      img.alt = `${isZh() ? '调研现场照片' : 'Fieldwork photo'} ${i}`;
+      fig.appendChild(img);
+      gallery.appendChild(fig);
+    }
   }
 
   // ===== 总渲染 =====
   function renderCharts() {
-    renderKpis('kpi-audience', DATA.kpiAudience);
-    renderKpis('kpi-usage', DATA.kpiUsage);
+    renderKpis('kpi-outcome', DATA.kpiOutcome);
+    renderKpis('kpi-sample', DATA.kpiSample);
     renderDonut();
-    renderBars('chart-freq', DATA.freqBars);
-    renderBars('chart-features', DATA.featureBars);
-    renderBars('chart-purposes', DATA.purposeBars);
-  }
-  renderCharts();
-
-  // ===== 图片上传（本地预览）=====
-  const dropzone = document.getElementById('dropzone');
-  const fileInput = document.getElementById('file-input');
-  const gallery = document.getElementById('gallery');
-
-  dropzone.addEventListener('click', () => fileInput.click());
-  dropzone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
-  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-  dropzone.addEventListener('drop', e => {
-    e.preventDefault(); dropzone.classList.remove('dragover');
-    handleFiles(e.dataTransfer.files);
-  });
-  fileInput.addEventListener('change', () => { handleFiles(fileInput.files); fileInput.value = ''; });
-
-  function addImage(src, name, removable) {
-    const fig = document.createElement('figure');
-    fig.innerHTML = `<img src="${src}" alt="${name}">
-      <figcaption><span class="cap">${name}</span>${removable ? '<button class="remove" title="移除">×</button>' : ''}</figcaption>`;
-    if (removable) {
-      fig.querySelector('.remove').addEventListener('click', () => fig.remove());
-    }
-    gallery.appendChild(fig);
+    renderBars('chart-quality', DATA.qualityBars);
+    renderBars('chart-behaviour', DATA.behaviourBars);
+    renderBars('chart-subjective', DATA.subjectiveBars);
+    renderQr();
   }
 
-  function handleFiles(files) {
-    [...files].filter(f => f.type.startsWith('image/')).forEach(f => {
-      const reader = new FileReader();
-      reader.onload = e => addImage(e.target.result, f.name, true);
-      reader.readAsDataURL(f);
-    });
-  }
-
-  // ===== 自动加载 images/ 文件夹中的长期图片（1.jpg/1.png … 12）=====
-  (function loadStoredImages() {
-    let loaded = 0;
-    const tryLoad = i => {
-      if (i > 12) {
-        if (loaded === 0) {
-          const p = document.createElement('p');
-          p.className = 'upload-note';
-          p.style.gridColumn = '1/-1';
-          p.innerHTML = '<span lang="zh-only">（尚未放置长期图片：将调研图片放入 images 文件夹并命名为 1.jpg、2.jpg… 即可自动显示在此处）</span><span lang="en-only">(No stored images yet: put survey images in the images folder named 1.jpg, 2.jpg… to display them here)</span>';
-          gallery.appendChild(p);
-        }
-        return;
-      }
-      const img = new Image();
-      img.onload = () => { loaded++; addImage(img.src, `${i}`, false); tryLoad(i + 1); };
-      img.onerror = () => tryLoad(i + 1);
-      img.src = `images/${i}.jpg`;
-      const img2 = new Image();
-      img2.onload = () => { loaded++; addImage(img2.src, `${i}`, false); };
-      img2.src = `images/${i}.png`;
-    };
-    tryLoad(1);
+  // ===== 初始化：恢复上次选择的语言 =====
+  (function init() {
+    let saved = null;
+    try { saved = localStorage.getItem('sp-lang'); } catch (e) {}
+    setLang(saved === 'en' ? 'en' : 'zh');
+    loadPhotos();
   })();
 </script>
 </body>
