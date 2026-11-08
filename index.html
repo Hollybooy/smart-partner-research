@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Partner — Evaluation Study | Y1 EAP Project</title>
-<meta name="description" content="A mixed-design evaluation study: XJTLU Year 1 students bring their own EAP draft to Smart Partner, and we compare direct correction with guided scaffolding on revision quality, transfer performance and cognitive load.">
+<meta name="description" content="A controlled evaluation study: 36 XJTLU Year 1 students corrected the same EAP paragraph with eight embedded errors — half with Smart Partner, half independently — then sat an unseen transfer test.">
 <style>
   /* ============================================================
      BLACK & WHITE · SWISS GRID
@@ -158,11 +158,11 @@
   .chart-block { margin-bottom: 30px; }
   .chart-block:last-child { margin-bottom: 0; }
   .chart-block h3 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
-  .bar-row { display: grid; grid-template-columns: 158px 1fr 54px; gap: 14px; align-items: center; margin-bottom: 12px; }
+  .bar-row { display: grid; grid-template-columns: 178px 1fr 72px; gap: 14px; align-items: center; margin-bottom: 12px; }
   .bar-row .label { font-size: 13.5px; text-align: right; color: var(--ink-2); }
   .bar-row .track { background: var(--wash); height: 12px; overflow: hidden; }
   .bar-row .fill { height: 100%; background: var(--ink); width: 0; transition: width .9s cubic-bezier(.25,.8,.3,1); }
-  .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; }
   .bar-row .pct.pending { color: var(--c4); }
 
   /* ===== Placeholder card ===== */
@@ -290,12 +290,19 @@
     display: inline-block; margin-top: 11px; font-size: 10px; font-weight: 700;
     letter-spacing: 1.2px; padding: 2px 10px; border: 1px solid var(--ink); color: var(--ink);
   }
+  .todo .state.done { background: var(--ink); color: var(--paper); }
 
-  /* ===== QR code ===== */
+  /* ===== QR codes ===== */
+  .qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(20px, 3vw, 34px); margin-top: 16px; }
   .qr-card {
     display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
     border: 1px solid var(--rule); background: none;
-    padding: 18px 20px; margin-top: 16px;
+    padding: 18px 20px; margin-top: 0;
+  }
+  .qr-grid .qr-card + .qr-card { border-left: none; }
+  @media (max-width: 860px) {
+    .qr-grid { grid-template-columns: 1fr; }
+    .qr-grid .qr-card + .qr-card { margin-top: 14px; }
   }
   .qr-box {
     width: 122px; height: 122px; flex-shrink: 0; border: 1px solid var(--rule);
@@ -332,9 +339,9 @@
   }
   @media (max-width: 760px) { .doc-grid { grid-template-columns: 1fr; gap: 0; } .doc + .doc { margin-top: 26px; } }
 
-  /* ===== Design structure grid (2×2) ===== */
+  /* ===== Design structure grid (2 conditions) ===== */
   .design-grid {
-    display: grid; grid-template-columns: 120px 1fr 1fr;
+    display: grid; grid-template-columns: 170px 1fr 1fr;
     margin-top: 6px; border-top: 2px solid var(--ink);
   }
   .design-grid > div { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
@@ -369,7 +376,7 @@
     .chapter { padding: 40px 0; }
   }
   @media (max-width: 560px) {
-    .bar-row { grid-template-columns: 104px 1fr 44px; gap: 9px; }
+    .bar-row { grid-template-columns: 118px 1fr 62px; gap: 9px; }
     .donut-wrap { justify-content: center; }
     .lede { margin-top: 20px; }
   }
@@ -377,43 +384,38 @@
 </head>
 <body>
 
-<nav class="topbar">
-  <div class="brand">Smart Partner<span> / Evaluation Study</span></div>
-</nav>
-
 <header class="masthead">
-  <div class="kicker">ADS401 · Evaluation Methods &amp; Statistics · Presentation 2</div>
-  <h1 class="display">Can AI feedback<br>actually improve<br>an EAP draft?</h1>
+  <h1 class="display">Does Smart Partner<br>actually improve<br>EAP error correction?</h1>
   <p class="lede">
-    A mixed-design evaluation study: XJTLU Year 1 students bring their own draft to Smart Partner, and we compare <b>direct correction</b> with <b>guided scaffolding</b> on revision quality, transfer performance and cognitive load.
+    Thirty-six XJTLU Year 1 students corrected the <b>same EAP paragraph containing eight embedded errors</b> — half worked with <b>Smart Partner</b>, half revised <b>independently</b> — then sat an unseen transfer test of the same error types. We report what they actually got right, not how they felt about the tool.
   </p>
 
   <!-- ★ Editable: key parameters -->
   <dl class="facts">
     <div>
       <dt>Design</dt>
-      <dd>2 × 2 mixed<br>(between × within)</dd>
+      <dd>Two-group comparison<br>(between-subjects)</dd>
     </div>
     <div>
       <dt>Task</dt>
-      <dd>35-minute draft-revision task</dd>
+      <dd>Timed correction of 8 errors<br>+ unseen transfer test</dd>
     </div>
     <div>
       <dt>Sample</dt>
-      <dd>Convenience · target 40<br>(20 per cell)</dd>
+      <dd>36 valid · 18 per group<br>(convenience)</dd>
     </div>
     <div>
       <dt>Primary outcome</dt>
-      <dd>Revised draft quality (double-blind)</dd>
+      <dd>Correction score 0–16 ·<br>transfer score 0–10</dd>
     </div>
   </dl>
 </header>
 
 <div class="status-bar">
-  <span class="tag">Not run</span>
-  <span>Completed <b>—</b>/40 · valid <b>—</b></span>
+  <span class="tag">Completed</span>
+  <span>36 recruited · <b>36 valid</b> · 18 per group · 0 excluded</span>
   <span class="sep">|</span>
-  <span>Charts and results are placeholders, to be filled in Section 6</span>
+  <span>Analysed in SPSS (8 Nov 2026) — all figures below are real data</span>
 </div>
 
 <main class="doc">
@@ -422,24 +424,19 @@
   <section class="chapter">
     <div class="chapter-num"><span class="n">01</span><span class="k">Research questions</span></div>
     <div class="chapter-body">
-      <h2>We measure whether drafts improve, not whether users approve</h2>
+      <h2>AI-assisted correction vs independent study</h2>
 
       <p>
-        "Smart Partner" is an AI learning agent for Year 1 students at Xi'an Jiaotong-Liverpool University, offering <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, with the goal of helping students pass their EAP (English for Academic Purposes) exams. Evaluation of such tools usually stops at "did you find it useful" — but <b>satisfaction is not learning</b>: students may rate highly a tool that silently fixes their errors without making them think. This study therefore asks participants to <b>complete a real learning task first</b>, and judges effectiveness by what their work looks like afterwards.
-      </p>
-
-      <div class="sub-h">Why a questionnaire alone is not an evaluation</div>
-      <p>
-        Using questionnaires as primary evidence has four irreparable flaws: <b>(i) no objective anchor</b> — "do you feel you improved" cannot be checked against "how much your draft actually improved"; <b>(ii) effects cannot be attributed</b> — reported gains may come from practice itself or the passage of time, not from the AI's feedback style; <b>(iii) stated wants diverge from effective design</b> — the feature students say they most want is often not the one that drives revision; <b>(iv) recall bias</b> — self-reported frequency and duration are systematically distorted. Our response: the questionnaire is <b>demoted to a post-task supplementary instrument</b>, used to explain the objective results (why one condition produced larger gains or heavier load), never as the evidence of effectiveness itself.
+        "Smart Partner" is an AI learning agent for Year 1 students at Xi'an Jiaotong-Liverpool University, offering <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, with the goal of helping students pass their EAP (English for Academic Purposes) exams. The question this study asks is the one a product team and an examiner would both ask: <b>does correcting errors with Smart Partner produce better results than revising independently</b> — on the task itself, and on unseen material afterwards? To answer it, participants completed a real correction task under one of the two conditions, and their work was scored objectively against a fixed answer key.
       </p>
 
       <div class="sub-h">Research questions</div>
       <ol class="rq-list">
-        <li><b>Between-group main effect</b> — Does revised draft quality differ between participants receiving <b>direct correction</b> and <b>guided scaffolding</b>?</li>
-        <li><b>Within-group main effect</b> — Regardless of condition, does draft quality improve significantly from first draft to revision?</li>
-        <li><b>Interaction (core)</b> — Does feedback style <b>moderate</b> the size of the gain, i.e. is there a feedback × time interaction?</li>
-        <li><b>Process mechanism</b> — Do revision behaviours (turns, adoption rate, self-corrections) predict the size of the gain?</li>
-        <li><b>Correspondence check</b> — Do subjective ratings (usefulness, trust, cognitive load) agree with objective revision quality?</li>
+        <li><b>Correction accuracy</b> — Does working with Smart Partner lead to more target errors correctly fixed in a standard EAP paragraph than independent revision?</li>
+        <li><b>Transfer to unseen items</b> — Does that advantage, if any, carry over to new sentences of the same error types completed afterwards without AI?</li>
+        <li><b>Cost of learning</b> — What does each condition cost in time on task and mental effort, and does either condition introduce more new errors?</li>
+        <li><b>Accuracy → transfer link</b> — Does success on the correction task predict success on the unseen transfer items?</li>
+        <li><b>Perception vs performance</b> — How do learners' confidence, effort and difficulty ratings track the objective scores in each condition?</li>
       </ol>
     </div>
   </section>
@@ -448,40 +445,40 @@
   <section class="chapter">
     <div class="chapter-num"><span class="n">02</span><span class="k">Evaluation design</span></div>
     <div class="chapter-body">
-      <h2>A 2 × 2 mixed design</h2>
+      <h2>A two-group controlled comparison</h2>
 
       <p>
-        This study uses a <b>mixed (split-plot) factorial design</b> containing one between-subjects factor and one within-subjects factor. The advantage is threefold: we can compare the <b>relative merit</b> of two AI feedback styles, confirm whether each participant <b>individually</b> improved, and test the question with the greatest design value — which style produces the larger gain.
+        The study used a <b>between-subjects design with one factor</b>: learning condition (<b>Smart Partner</b> vs <b>independent study</b>). Both groups handled the identical correction task, scored against a <b>fixed answer key</b>, so every point of difference traces to the revision resource rather than to the material, the scoring or the time allowed. Within each participant, confidence was measured <b>before and after</b> the task, adding a repeated-measures element on the subjective side.
       </p>
 
       <div class="sub-h">Variable structure</div>
 
       <div class="design-grid">
-        <div class="head">Cell</div>
-        <div class="head">T1 · pre-revision</div>
-        <div class="head">T2 · post-revision</div>
+        <div class="head">Condition (n = 18)</div>
+        <div class="head">Correction task</div>
+        <div class="head">Unseen transfer test</div>
 
-        <div class="rowhead">A · direct correction</div>
-        <div>First draft: 150–180-word argumentative paragraph (no AI)</div>
-        <div>Final draft: revised using AI feedback</div>
+        <div class="rowhead">Group 1 · Smart Partner</div>
+        <div>Correct the standard EAP paragraph using Smart Partner's grammar feedback</div>
+        <div>5 new items of the same error types, no AI available</div>
 
-        <div class="rowhead">B · guided scaffolding</div>
-        <div>First draft: same prompt, same requirements (no AI)</div>
-        <div>Final draft: revised using AI feedback</div>
+        <div class="rowhead">Group 2 · Independent study</div>
+        <div>Correct the same paragraph using their own knowledge, no AI assistance</div>
+        <div>Same 5 items, same conditions</div>
       </div>
 
       <p style="margin-top:24px">
-        <b>Between-subjects factor (Feedback style)</b> — participants are randomised to A (direct correction) or B (guided scaffolding) and <b>receive only one</b>, avoiding order effects and demand characteristics from experiencing both.<br>
-        <b>Within-subjects factor (Time)</b> — all participants are measured at T1 (first draft) and T2 (final draft), so <b>each person serves as their own control</b>, cancelling out individual writing proficiency, the largest confound.<br>
-        <b>Stratifying variable (EAP level)</b> — A / B / C / High Level is used to stratify randomisation so that the two conditions stay balanced across levels.
+        <b>Between-subjects factor (Learning condition)</b> — participants worked in <b>one</b> condition only, avoiding order effects and demand characteristics from experiencing both.<br>
+        <b>Stratifying variable (EAP level)</b> — EAP A / B / C / High Level was used to balance allocation; the final assignment came out <b>exactly balanced</b> (3 / 5 / 6 / 4 per level in each group).<br>
+        <b>Objective scoring</b> — every target error is scored 0 / 1 / 2 (not corrected / partially / fully corrected) against a fixed answer key, giving <code>Corrected_Total</code> (0–16) and <code>Transfer_Total</code> (0–10) with no rater judgement involved.
       </p>
 
-      <div class="sub-h">Randomisation and blinding</div>
+      <div class="sub-h">Allocation, equivalence and scoring</div>
       <ol class="plan">
-        <li><b>Stratified block randomisation</b> — stratify by EAP level, randomise A/B within stratum using blocks of 4, with the sequence generated by a member not involved in data collection.</li>
-        <li><b>Rater blinding</b> — final drafts are stripped of condition labels and interaction logs before scoring; two raters score independently without knowing the condition.</li>
-        <li><b>Inter-rater reliability</b> — assessed with <code>ICC(2,2)</code>, target &gt; 0.75; disagreements are adjudicated by a third rater.</li>
-        <li><b>Held-constant materials</b> — all participants use the same prompt, the same time limit and the same scoring rubric; only the feedback style differs.</li>
+        <li><b>Stratified randomisation</b> — allocated within EAP level strata; the realised design is perfectly balanced, χ²(3) = 0.000, <i>p</i> = 1.000.</li>
+        <li><b>Baseline equivalence</b> — no group differences in pre-task confidence (<i>p</i> = .537), prior Smart Partner use (<i>p</i> = .275) or prior generative-AI use (<i>p</i> = .791), Mann–Whitney tests.</li>
+        <li><b>Fixed answer key</b> — partial-credit scoring replaces rater judgement entirely; no rater blinding procedure is needed because scoring is mechanical.</li>
+        <li><b>Held-constant materials</b> — same paragraph, same eight embedded errors, same transfer items, same time frame for both conditions.</li>
       </ol>
     </div>
   </section>
@@ -490,80 +487,79 @@
   <section class="chapter">
     <div class="chapter-num"><span class="n">03</span><span class="k">The task</span></div>
     <div class="chapter-body">
-      <h2>What participants actually do</h2>
+      <h2>What participants actually did</h2>
 
       <p>
-        The task is <b>one complete cycle of EAP paragraph writing and revision</b>, lasting about 35 minutes and run continuously in three stages. It is drawn from a genuine EAP practice scenario — write an argumentative paragraph, then revise it in response to feedback — so what participants do is what they would normally do while preparing for the exam, rather than a performance staged for the study.
+        The task is <b>one complete cycle of EAP error correction</b>, drawn from a genuine exam scenario — find and fix the grammar and vocabulary problems in a paragraph — so what participants did is what they would normally do while preparing for the exam, rather than a performance staged for the study. On average the correction task took <b>10.8 minutes</b> (range 9.3–12.0) and no participant dropped out at any stage.
       </p>
 
-      <div class="sub-h">Stage 1 · Baseline writing (10 min, no AI)</div>
+      <div class="sub-h">Stage 1 · Pre-task ratings</div>
       <ol class="plan">
-        <li>Read the fixed writing prompt (argumentative; see materials below).</li>
-        <li>Independently write a <b>150–180-word</b> argumentative paragraph within 10 minutes, <b>without any AI tool or dictionary</b>.</li>
-        <li>Submit the first draft and immediately complete the pre-test self-ratings (confidence 1–10, perceived task difficulty).</li>
+        <li>Report current EAP level (used for stratification) and prior use of Smart Partner and generative AI for English learning (1–4).</li>
+        <li>Rate <b>confidence</b> in correcting grammar and vocabulary errors in an EAP paragraph (1–10).</li>
       </ol>
 
-      <div class="sub-h">Stage 2 · AI-assisted revision (15 min)</div>
+      <div class="sub-h">Stage 2 · Timed correction task</div>
       <ol class="plan">
-        <li>Following the pre-generated randomisation sequence, the researcher opens a Smart Partner session in the participant's <b>assigned condition</b>.</li>
-        <li>The participant submits their first draft to Smart Partner for feedback and revises accordingly. <b>The entire interaction is logged</b>: turns, duration, items of AI advice, items actually adopted into the final draft, and errors the participant detected and fixed unaided.</li>
-        <li>The researcher does not intervene or prompt, and simply collects the final draft when time expires.</li>
+        <li>Receive the <b>standard EAP paragraph with eight pre-inserted target errors</b> (grammar and vocabulary), identical for both conditions.</li>
+        <li>Correct as many errors as possible: the Smart Partner group works with the agent's grammar feedback; the independent group revises from their own knowledge, <b>with no AI assistance</b>.</li>
+        <li>Each error is scored 0 / 1 / 2 against the answer key → <code>Corrected_Total</code> (0–16); submission time is recorded, and any <b>new error introduced during revision</b> is flagged.</li>
       </ol>
 
-      <div class="sub-h">Stage 3 · Post-test and delayed transfer</div>
+      <div class="sub-h">Stage 3 · Transfer test and post-task ratings</div>
       <ol class="plan">
-        <li><b>Immediate post-test (5 min)</b> — after submitting the final draft, complete perceived usefulness, trust, cognitive load and post-test confidence.</li>
-        <li><b>Delayed transfer test (1 week later, 10 min)</b> — write another paragraph on a <b>new prompt of the same type</b>, <b>with no AI available</b>. This stage tests not "was this draft fixed" but "does the learning persist" — the outcome on which the two feedback styles are expected to diverge.</li>
+        <li><b>Unseen transfer test</b> — five new items covering the same error types in fresh sentences, <b>no AI available</b>, scored 0–10. This tests not "was this paragraph fixed" but "does the correction skill carry to unseen material".</li>
+        <li><b>Post-task ratings</b> — mental effort (1–9), perceived difficulty (1–7), post-task confidence (1–10), plus two open questions on what was hardest and what helped.</li>
       </ol>
 
       <div class="sub-h">Task materials</div>
       <div class="cond-grid">
         <div class="cond">
-          <h4>Writing prompt (fixed)</h4>
-          <p>"Some people argue that universities should allow students to use AI tools in all assessed work. To what extent do you agree or disagree?"<br><span style="color:var(--grey)">Requirements: 150–180 words, one clear position and at least one supporting reason.</span></p>
+          <h4>Standard paragraph (fixed)</h4>
+          <p>One argumentative EAP paragraph (150–180 words) with <b>8 pre-inserted target errors</b> spanning grammar and vocabulary, the same for every participant. The five transfer items probe the same error types in unseen sentences.</p>
         </div>
         <div class="cond">
-          <h4>Scoring rubric</h4>
-          <p>EAP paragraph criteria: language accuracy (0–40), argument structure and cohesion (0–30), appropriateness of academic register (0–30); total 0–100. Two trained raters score independently and the mean is used.</p>
+          <h4>Scoring</h4>
+          <p>Partial credit per error (0 = not corrected, 1 = partially corrected, 2 = fully corrected) against a fixed answer key: correction 0–16, transfer 0–10. A parallel binary code flags whether the revision introduced at least one <b>new error</b>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 04 Intervention ============ -->
+  <!-- ============ 04 Conditions ============ -->
   <section class="chapter">
-    <div class="chapter-num"><span class="n">04</span><span class="k">Intervention</span></div>
+    <div class="chapter-num"><span class="n">04</span><span class="k">Conditions</span></div>
     <div class="chapter-body">
-      <h2>The two feedback styles</h2>
+      <h2>The two learning conditions</h2>
 
       <p>
-        The intervention is simply how Smart Partner replies to the draft. Both conditions <b>flag the same set of errors</b>; the only difference is <b>whether the correct form is supplied</b>. This contrast maps directly onto a product decision: should the AI fix things for the user, or make the user work it out?
+        The intervention is simply <b>the resource available while correcting</b>. Both groups face the same eight errors in the same paragraph with the same time budget; the only difference is whether Smart Partner assists the revision or students rely on themselves. This contrast maps directly onto a product decision: does working with the AI agent measurably outperform ordinary independent revision?
       </p>
 
       <div class="cond-grid">
         <div class="cond">
-          <h4>Condition A</h4>
-          <div class="name">Direct correction</div>
-          <p>Supplies the corrected text along with an itemised list of error types and correct forms. The participant can complete the revision by simply applying them.</p>
+          <h4>Group 1 · n = 18</h4>
+          <div class="name">Smart Partner</div>
+          <p>Participants worked through the paragraph with Smart Partner's grammar-feedback practice, using its corrections and explanations to identify and fix the eight target errors.</p>
           <div class="sample">
-            <b>Sample reply</b>
-            "Sentence 2 has a subject–verb agreement error: use <i>The results suggest</i>, not <i>The results suggests</i>. In sentence 4, <i>however</i> is misused; replace it with <i>whereas</i> to signal contrast. Here is the fully revised paragraph: …"
+            <b>Prior profile (baseline)</b>
+            Mean prior Smart Partner use 1.78 / 4 ("once or twice"); mean prior generative-AI use 2.11 / 4. Neither differs between groups (<i>p</i> = .275 / .791), so familiarity with the tool cannot explain any outcome difference.
           </div>
         </div>
         <div class="cond">
-          <h4>Condition B</h4>
-          <div class="name">Guided scaffolding</div>
-          <p>Flags only the <b>location and type</b> of each error and prompts the participant to correct it, without supplying the correct form.</p>
+          <h4>Group 2 · n = 18</h4>
+          <div class="name">Independent study</div>
+          <p>Participants corrected the identical paragraph from their own knowledge within the same time frame, with no AI tool or agent available at any point during the task.</p>
           <div class="sample">
-            <b>Sample reply</b>
-            "Sentence 2 has a subject–verb agreement problem — the subject is plural, so check the verb. In sentence 4 a linker is misused: you mean to signal contrast, so is the word you chose right for that? Send it back when you have revised."
+            <b>Baseline check</b>
+            Pre-task confidence 5.33 vs 5.67 in the Smart Partner group (<i>p</i> = .537) — the two groups started from statistically indistinguishable positions, as did their EAP-level composition.
           </div>
         </div>
       </div>
 
       <div class="quote">
-        <b>Manipulation check</b>
-        Two items confirm the intervention landed: (i) "Did the AI give you the correct wording directly?" (yes/no); (ii) "How much did you have to think for yourself while revising?" (1–7). If most of condition A answer "no" to (i), or the two conditions do not differ on (ii), the manipulation is treated as failed and the run is repeated.
+        <b>Design integrity check</b>
+        Randomisation landed exactly as planned: each EAP level contributes 3 / 5 / 6 / 4 participants to each group, χ²(3) = 0.000, <i>p</i> = 1.000, and every baseline comparison is non-significant. Any difference in outcomes can therefore be read against the condition, not against pre-existing imbalance.
       </div>
     </div>
   </section>
@@ -575,10 +571,10 @@
       <h2>What we measure, and how</h2>
 
       <p>
-        Measures fall into three tiers: <b>primary outcomes</b> are the objective quality of what the learner produced, <b>process measures</b> record what the learner actually did, and <b>secondary outcomes</b> are subjective ratings collected after the task. Only the first tier can answer "did it work"; the second explains how; the third describes how it felt.
+        Measures fall into three tiers: <b>primary outcomes</b> are the objective accuracy of what the learner corrected, <b>process measures</b> record what the learner actually did during revision, and <b>secondary outcomes</b> are the subjective ratings collected before and after the task. Only the first tier can answer "did it work"; the second explains how; the third describes how it felt.
       </p>
 
-      <div class="sub-h">Primary outcomes · objective performance</div>
+      <div class="sub-h">Primary outcomes · objective accuracy</div>
       <table class="stats-table">
         <thead><tr>
           <th>Measure</th>
@@ -588,22 +584,16 @@
         </tr></thead>
         <tbody>
           <tr>
-            <td><b>Draft quality score</b></td>
-            <td>Scale (0–100)</td>
-            <td>Double-blind scoring; mean of two raters</td>
-            <td>T1 · T2</td>
+            <td><b>Correction score</b> (<code>Corrected_Total</code>)</td>
+            <td>0–16 · 8 errors × partial credit</td>
+            <td>Fixed answer key, 0/1/2 per error</td>
+            <td>During task</td>
           </tr>
           <tr>
-            <td><b>Grammar error rate</b></td>
-            <td>Ratio (errors / 100 words)</td>
-            <td>Counted after error annotation</td>
-            <td>T1 · T2</td>
-          </tr>
-          <tr>
-            <td><b>Transfer test score</b></td>
-            <td>Scale (0–100)</td>
-            <td>New-prompt writing, same rubric, blind</td>
-            <td>T3 (1 week later)</td>
+            <td><b>Transfer score</b> (<code>Transfer_Total</code>)</td>
+            <td>0–10 · 5 unseen items × partial credit</td>
+            <td>Same key, same rubric, no AI</td>
+            <td>Immediately after</td>
           </tr>
         </tbody>
       </table>
@@ -617,29 +607,19 @@
         </tr></thead>
         <tbody>
           <tr>
-            <td>Interaction turns</td>
-            <td>Complete round trips between participant and AI</td>
-            <td>Server-side log</td>
+            <td>Time on task (<code>Time_Min</code>)</td>
+            <td>Minutes from task start to submission</td>
+            <td>Timed submission</td>
           </tr>
           <tr>
-            <td>Adoption rate</td>
-            <td>AI suggestions written into final draft ÷ total AI suggestions</td>
-            <td>First-draft vs. final-draft diff</td>
-          </tr>
-          <tr>
-            <td>Self-corrections</td>
-            <td>Errors fixed by the participant that the AI did not flag</td>
+            <td>New errors introduced (<code>New_Error</code>)</td>
+            <td>Whether the revision contains at least one error not present in the original</td>
             <td>Error-annotation coding</td>
-          </tr>
-          <tr>
-            <td>Time on task</td>
-            <td>Active seconds spent in the revision stage</td>
-            <td>Server-side log</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="sub-h">Secondary outcomes · post-task subjective ratings</div>
+      <div class="sub-h">Secondary outcomes · subjective ratings</div>
       <table class="stats-table">
         <thead><tr>
           <th>Construct</th>
@@ -649,35 +629,41 @@
         </tr></thead>
         <tbody>
           <tr>
-            <td>Perceived usefulness</td>
-            <td>4 items, 5-point Likert</td>
+            <td>Pre-task confidence</td>
+            <td>Single item, 1–10</td>
+            <td>Ordinal</td>
+            <td>Baseline equivalence check</td>
+          </tr>
+          <tr>
+            <td>Mental effort</td>
+            <td>Single item, 1–9 (Paas-style effort scale)</td>
+            <td>Ordinal</td>
+            <td>Cost of each condition</td>
+          </tr>
+          <tr>
+            <td>Perceived difficulty</td>
+            <td>Single item, 1–7</td>
+            <td>Ordinal</td>
+            <td>Explains effort ratings</td>
+          </tr>
+          <tr>
+            <td>Post-task confidence</td>
+            <td>Single item, 1–10</td>
             <td>Ordinal</td>
             <td>Checked against objective gain</td>
           </tr>
           <tr>
-            <td>Trust</td>
-            <td>Adapted from Jian et al. (2000)</td>
+            <td>Prior use (Smart Partner / generative AI)</td>
+            <td>Two items, 1–4</td>
             <td>Ordinal</td>
-            <td>Tests whether ease implies trust</td>
-          </tr>
-          <tr>
-            <td>Cognitive load</td>
-            <td>Paas et al. (2003) mental-effort scale</td>
-            <td>Ordinal</td>
-            <td>Explains the trade-off cost</td>
-          </tr>
-          <tr>
-            <td>Perceived empathy</td>
-            <td>PETS (Schmidmaier et al., 2024)</td>
-            <td>Ordinal</td>
-            <td>Checks whether tone affects outcomes</td>
+            <td>Covariate / baseline check</td>
           </tr>
         </tbody>
       </table>
 
       <div class="quote">
         <b>Role of the questionnaire</b>
-        The questionnaire is <b>not evidence but an explanatory instrument</b>. Administered after the task, it explains why the objective results look as they do — for instance, if condition B transfers better but costs more effort, the questionnaire shows whether participants noticed that "harder but more effective" difference. Items are listed in Section 7.
+        The questionnaire is <b>not evidence but an explanatory instrument</b>. Administered before and after the task, it shows whether participants noticed what the objective data reveal — for instance, whether the extra confidence after the task tracks the (statistically unproven) score advantage of the Smart Partner group. Items are listed in Section 7.
       </div>
     </div>
   </section>
@@ -689,7 +675,7 @@
       <h2>Results</h2>
 
       <p>
-        The study has not been run, so this section presents no result data. Once data are in, the figures below are filled in and verdicts follow a decision rule fixed in advance, rather than a method chosen after seeing the results.
+        All 36 participants completed every stage (zero attrition). Group comparisons use <b>independent-samples <i>t</i> tests</b> with <b>Mann–Whitney U</b> as a robustness check given the sample size; the categorical new-error outcome uses <b>Fisher's exact test</b>; the randomisation check uses <b>χ²</b>; and the correction–transfer link uses a <b>Pearson correlation</b>. Parametric and non-parametric tests agree in every case.
       </p>
 
       <div class="sub-h">Sample composition</div>
@@ -704,12 +690,12 @@
       <div class="sub-h">Primary outcomes</div>
       <div class="kpi-grid" id="kpi-outcome" style="margin-top:18px"></div>
 
-      <div class="sub-h">Draft quality: pre → post → transfer</div>
+      <div class="sub-h">Scores: correction → unseen transfer</div>
       <div class="chart-block" style="margin-top:18px">
-        <div id="chart-quality"></div>
+        <div id="chart-scores"></div>
       </div>
 
-      <div class="sub-h">Revision behaviour (process)</div>
+      <div class="sub-h">Process: new errors and time on task</div>
       <div class="chart-block" style="margin-top:18px">
         <div id="chart-behaviour"></div>
       </div>
@@ -719,72 +705,132 @@
         <div id="chart-subjective"></div>
       </div>
 
+      <div class="sub-h">Inferential results</div>
+      <table class="stats-table">
+        <thead><tr>
+          <th>Outcome</th>
+          <th>Test</th>
+          <th>Statistic</th>
+          <th><i>p</i></th>
+          <th>Verdict</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="test">Correction score · SP vs Indep.</td>
+            <td>Independent <i>t</i> (34)</td>
+            <td class="stat"><i>t</i> = 1.245 · d = 0.415</td>
+            <td>.222</td>
+            <td>n.s. — favours Smart Partner (+0.73)</td>
+          </tr>
+          <tr>
+            <td class="test">Transfer score · SP vs Indep.</td>
+            <td>Independent <i>t</i> (34)</td>
+            <td class="stat"><i>t</i> = 0.741 · d = 0.247</td>
+            <td>.463</td>
+            <td>n.s. — favours Smart Partner (+0.28)</td>
+          </tr>
+          <tr>
+            <td class="test">Time on task</td>
+            <td>Independent <i>t</i> (34)</td>
+            <td class="stat"><i>t</i> = −0.795</td>
+            <td>.432</td>
+            <td>n.s. — equal time budgets</td>
+          </tr>
+          <tr>
+            <td class="test">Robustness · correction / transfer</td>
+            <td>Mann–Whitney U</td>
+            <td class="stat">U = 131.5 / 132.0</td>
+            <td>.324 / .310</td>
+            <td>n.s. — agrees with <i>t</i> tests</td>
+          </tr>
+          <tr>
+            <td class="test">New errors introduced</td>
+            <td>Fisher's exact</td>
+            <td class="stat">φ = .149</td>
+            <td>.658</td>
+            <td>n.s. — 4/18 vs 2/18</td>
+          </tr>
+          <tr>
+            <td class="test">Baseline equivalence</td>
+            <td>Mann–Whitney U</td>
+            <td class="stat">conf. / SP use / AI use</td>
+            <td>.537 / .275 / .791</td>
+            <td>Groups comparable at start</td>
+          </tr>
+          <tr>
+            <td class="test">Randomisation balance (EAP level)</td>
+            <td>χ² (3)</td>
+            <td class="stat">χ² = 0.000</td>
+            <td>1.000</td>
+            <td>Perfect balance achieved</td>
+          </tr>
+          <tr>
+            <td class="test">Correction ↔ transfer</td>
+            <td>Pearson <i>r</i></td>
+            <td class="stat"><i>r</i> = .075</td>
+            <td>.664</td>
+            <td>No linear relationship</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="stats-note">
+        With 18 participants per group the study is powered only for large effects; the observed small-to-moderate advantages for Smart Partner (d = 0.42 correction, d = 0.25 transfer) are consistent with a real but modest benefit that a larger sample would be needed to confirm. Score distributions were concentrated near the top of both scales (correction mode = 14/16; transfer mode = 8/10), so ceiling effects also compress the room to detect differences.
+      </p>
+
       <div class="quote">
         <b>How to read this</b>
-        If condition A turns out better on the immediate revision while condition B is better on transfer, that indicates a <b>classic performance–learning trade-off</b>: direct correction makes people "look better now", guided scaffolding makes them "actually better later". No satisfaction questionnaire could reach this conclusion; it requires having participants complete a real task and measuring how their output changes.
+        The direction is consistent: the Smart Partner group scored higher on both the correction task and the transfer test, spent the same time, and introduced no more new errors — yet <b>no comparison reaches significance</b>. Moreover, correction success does <b>not</b> predict transfer success (<i>r</i> = .075): getting the paragraph right did not mean carrying the skill to unseen items. Confidence rose from 5.50 to 6.81 on average <b>regardless of condition</b> — subjective improvement outpaced measurable gain. The honest verdict: promising direction, unproven effect.
       </div>
     </div>
   </section>
 
-  <!-- ============ 07 Instruments & ethics ============ -->
+  <!-- ============ 07 Instruments ============ -->
   <section class="chapter">
-    <div class="chapter-num"><span class="n">07</span><span class="k">Instruments &amp; ethics</span></div>
+    <div class="chapter-num"><span class="n">07</span><span class="k">Instruments</span></div>
     <div class="chapter-body">
-      <h2>Instruments, questionnaire and ethics</h2>
+      <h2>Questionnaires and interview guide</h2>
 
-      <div class="sub-h">Post-task questionnaire (extract)</div>
+      <div class="sub-h">Pre-task questionnaire (4 items)</div>
       <ol class="qlist">
-        <li>How much did you have to think for yourself while revising? (manipulation check)<span class="opts">1 (not at all) – 7 (entirely)</span></li>
-        <li>Did the AI give you the correct wording directly? (manipulation check)<span class="opts">Yes / No</span></li>
-        <li>How much did this feedback help you revise your draft? (perceived usefulness)<span class="opts">5-point Likert</span></li>
-        <li>To what extent do you trust this tool's suggestions? (trust)<span class="opts">5-point Likert (adapted from Jian et al., 2000)</span></li>
-        <li>How much mental effort did this revision take? (cognitive load)<span class="opts">1 (very low) – 9 (very high) (Paas et al., 2003)</span></li>
-        <li>How confident are you about passing the EAP exam?<span class="opts">1–10 (measured at pre and post)</span></li>
-        <li>(Open) What helped you most — or got in your way most — while revising?</li>
+        <li>What is your current EAP level?<span class="opts">EAP A / EAP B / EAP C / High Level (stratification variable)</span></li>
+        <li>Before today, how often have you used Smart Partner?<span class="opts">1 Never – 4 Frequently</span></li>
+        <li>Before today, how often have you used generative AI tools for English learning?<span class="opts">1 Never – 4 Frequently</span></li>
+        <li>How confident are you about correcting grammar and vocabulary errors in an EAP paragraph?<span class="opts">1 (not at all) – 10 (extremely)</span></li>
       </ol>
 
-      <!-- ★ Editable: replace SURVEY_URL with your real questionnaire link; the QR code updates automatically -->
-      <div class="qr-card">
-        <div class="qr-box" id="qr-box"></div>
-        <div class="qr-meta">
-          <b>Scan for the full post-task questionnaire</b>
-          Only selected items are shown above; the full version includes the information sheet and consent form. The code updates once the link is set.
+      <div class="sub-h">Post-task questionnaire (5 items)</div>
+      <ol class="qlist" style="counter-reset: q 4">
+        <li>How much mental effort did the correction task require?<span class="opts">1 (very low) – 9 (very high)</span></li>
+        <li>How difficult was the correction task?<span class="opts">1 (very easy) – 7 (very difficult)</span></li>
+        <li>After completing this task, how confident are you about correcting errors in another EAP paragraph?<span class="opts">1 (not at all) – 10 (extremely)</span></li>
+        <li>(Open) What part of the task was most difficult, and why?</li>
+        <li>(Open) What helped you complete or understand the corrections?</li>
+      </ol>
+
+      <div class="qr-grid">
+        <div class="qr-card">
+          <div class="qr-box"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAAAAAAbPrZOAAAEtElEQVR42u2dMU8UQRTHZw0WRBqKJRENHwBtoVgoKEws/Q4WGD6AhTlKjB/Bmu9gY2JBs1ccBcbGzoKAxZ0JDdpAsjY7Fm/zz5tdDrMLv2n2dt6bd/PjZpmdN29mQuicKpMKT6GRXNPxvkgu6aYH4Z4lgAEGGGCA+5yyf11f6yLV7deqml8dMpo0wAADDDDA/UsLNuPLkdDceyIE+/V1d81kHNTXD79Nxr64f/ROmF7bdTDOPwrBzgtvzD1SChM7+Lb3pVLIVQl7n6vxvXQAxPuJqvXIluAZBhhggAEGuM8vHt3TVrIvoRL3s0wIxvNzOtCkAQYYYIABvpv9cFkIwTRYr7/obvNKeM+Lil8YYIABBhjge9EP770Smuudv+PlhaOwWV+XPxtBdDf/2DQZjcopwWpyXJ0fPycd8TblqX+ZXFkog+PKT681zzDAAAMMMMB9fPHIwu3H0VVCIescaJfxCwMMMMAAAzzofrgK/z/8PnnGPEudUucXBhhggAEGeNjJDRBP92QnL/y2BaeqYPcV4iNbkiYNMMAAAwxwn8bDcep1u+4aT61GqYpu16PSUpWIEeOfllNNKgvpyZp+GoyprPtYO3nd+jR1Rny2IhwARZnqgK9YEs8/LYABBhjgIQ78uzsAuse4BRWYJi3d/Ltp0gADDDDAAN+tnlvu1BLT1OtN3Y668BQnqpIHNoMmDTDAAAMMcOhhgHhjMnqltcCaiorrmRFYheBZOllxvuK5zYjXN1MFLJ3lDcHMq6Yt8UspJFtaUpox/zIXgsayOJ5hgAEGGGCABxGJZ8fYG54DwHeKe6783HUA3Dw8kCYNMMAAAwzwIFam2biziRJ0D0yz4WXpW7XKoDhrYXRgNGnSAAMMMMAA9xE4q9Ni8jA3loj5WzYjKj5TguAFpsWCb9V3xvtNNR5etCVo0gADDDDAAPdxQlxub3bzc0OnqRbmcHRJYzxc0aQBBhhggAHucT888+K0osLyghNltWQFyaFfMxvQZS1dqBixqHh94YWAzVrPJE+86e2y837m6YvelOJEleTsUoABBhhggMOdCExz15UV0gHQ1lJDULZeCM4WcTzDAAMMMMCDXvddJW+G0n48HLwjxDpv9tpIrBAHGGCAAQY4DOns0tOz+kNhrt8u6w9jz2ahFAtH4co1PXbuG6ZPpWb6yjSVys6vLLfw/kSTBhhggAEGeNgD/9bT2WWyfz15hbg8Q9zdIo5fGGCAAQYY4HvWgxdKkKdamrYe7rr9MBPiAAMMMMAAh0GuTAupi7/ifVmIhWfT1DVtudqIZbyVumyOI8R4hgEGGGCABz0hfv5TaK4/ckx9fygEX6/qD3GK+dgoxPzrE6+6x+q7XcWN1oemT5LPLbMKuVdCOgBkRHz3g9x4hgEGGGCAAe7zi8ccUqW2alUOgMw6AKygqLp6J3AAAAwwwAADfN/6Ydsfr8xEB53cm46zuVWGJg0wwAADDHCf++EdpbmqBNGTfRjXtL03Cn+CEIxEfrDO8bNDp8Tj10YQFcujm0fGt96aJtlrnh4Rby1tqMqxJB5ggAEGGOBBvHh0H2JnrQfhKn+mTLmO+GMVHsge8QADDDDAAPc5/QX+G30+wSd4nQAAAABJRU5ErkJggg==" alt="Pre-task questionnaire QR code"></div>
+          <div class="qr-meta">
+            <b>Pre-task questionnaire</b>
+            EAP level, prior use of Smart Partner and generative AI, and baseline confidence (P1–P4), completed before the correction task.
+          </div>
+        </div>
+        <div class="qr-card">
+          <div class="qr-box"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAAAAAAbPrZOAAAEyElEQVR42u2dIY/UQBTHp+RAcGsI6SZwBIGDYNf0EAgECd8CASEoJDnkXRCEINEkfAkSBGZXdAUOHIJwiC4BBGCOpJidFW/55810V2zvfmN2p2/mdX5pm9d58+Y1hM6lNaWyAreHqzrWq+SebjkVTlgBGGCAAQZ4k0uxMH3ZXVpX55J5Xfsp8kfNLQ0wwAADDPAGlS174O070fLBjhA8Ubr3g9Nj39S3H4uGl+85GIcvheDmLW/Ovaca1HbynTyNb9X03dZLpbLyNNRqDHu2B88wwAADDDDAm/zi0b2MKzPXLpQDoBXHZ4UQTPIn/FxhgAEGGGCAT5YdXrKe0Xg2peOhbxfz4fB/73nVcoUBBhhggAEOJ2FB/PCraHltWyxGx/rVwfxPnWuHR/Pfc2+MYDr//fRcqI5j+P1BqL64oybp3SMAipVfPGIpGyGY7ArVRADwDAMMMMAAHw8HQBHW7oiPRnI4c6xo0TnQruAKAwwwwAAD3GsHQLs+H0LyfFj525fmw0XnmHquMMAAAwwwwL0qboB4+g5x26BUAeFWg3JLr7BDfM/25JYGGGCAAQZ4g8rWeP7nxtw03h7nqohrtw+fGcGN+RT29cAI3FOMjer0YlVfsqNcehnYb3PL4lxK0KRqalZPTeOOkmcYYIABBhjg0IfUNNYJXo+EoO2cmqbwNLSdg+K4wgADDDDAAPcKuLDFTbhqe07UORrVIx6P9aE9RRTseq782qqO9QN7gFsaYIABBhjgDSpbdhH66Yv5n6HqEgWNqd85bQSxnF8yzKL+fSgE75UgHr9uD8Tf+/ZcW6U5cDb+mSngKLA9fwYhWCqlqs+EYDBzxvKrFIK25BkGGGCAAQZ4g188itREMyF4TvCQu23MavJT06jsc9PkrPLc0gADDDDAAIcNjohPDzp3Y8CkI15papRgnBpT3xIRzzMMMMAAA3zCLHawAeJyZ5prwd1Pl6gxjZSmfXtObmmAAQYYYIB7sUM8+wNgMnKt8TTkz4eTLTjzYYABBhhggEMfMpfGwKY/bpyWirL6eeT1VBpih2+2QRT88AK5/v4QPUNIHVS+A74KXkR86ttCyF4MqFVPvl0KMMAAAwxwL1482s6pWWXkWramRapWG2Y22XVOMWpTg+C4pQEGGGCAAQ59StUaBaPsyWr2NLdMToiW7JhnQRxggAEGGOB+fkM8upljApYrZ+aTyski+WmiKZ4eOapjfTDxVE2c+pLqz7KljACI9Trb6Msc8UpTs773J25pgAEGGGCA+7kjbX0p02VEvDKapdLgRuLVXGGAAQYYYICx4B13iHef7rp2mIh4gAEGGGCAw/EOTIv1cSViwYazxJxr3QPTfAEZ0wAGGGCAAe7DgvjhV9Hy2raj6mNMmT5SLaJgKhoOpt5wVYOPbsNR9kfT6+wt8at/NH3JEd99QRwHAMAAAwwwwL2KxMsu4yrZWIrJuZ8yPXRO044DAGCAAQYY4ONth3eVoCkTjeZMWdFJsfLo2CEOMMAAAwxwH+zwTdXyohJIT/aBd/I90/DsI9HwyyvRI5YLd40gNhy/Wz0yPjtPbHKKuPSI+KByxNuGbIkHGGCAAQY4HO+I+PQFca+h3CFeZX/QjYh4nmGAAQYY4D6UfyiIKwESQUVpAAAAAElFTkSuQmCC" alt="Post-task questionnaire QR code"></div>
+          <div class="qr-meta">
+            <b>Post-task questionnaire</b>
+            Mental effort, perceived difficulty, post-task confidence and two open questions (Q1–Q5), completed after the transfer test.
+          </div>
         </div>
       </div>
 
       <div class="sub-h">Interview guide (semi-structured, extract)</div>
-      <ol class="qlist">
-        <li>When revising, did you think it through first or simply apply what the AI said?</li>
-        <li>Was there anything the AI flagged that you still could not fix? What did you do then?</li>
-        <li>Writing the new prompt a week later, did this revision come to mind? What exactly?</li>
-        <li>Given the choice, would you rather the AI gave the answer or prompted you to fix it? Why?</li>
+      <ol class="qlist" style="counter-reset: q 9">
+        <li>When correcting, did you work it out yourself or rely on what the tool told you?</li>
+        <li>Was there an error you still could not fix? What did you do then?</li>
+        <li>Facing the unseen items just now, did anything from the correction task come to mind? What exactly?</li>
+        <li>Given the choice, would you rather revise with the AI or on your own? Why?</li>
       </ol>
-
-      <div class="sub-h">Information sheet &amp; consent form</div>
-      <div class="doc-grid">
-        <div class="doc">
-          <h4>Information sheet</h4>
-          <ul>
-            <li><b>Purpose</b> — to evaluate the actual effect of two Smart Partner feedback styles on EAP draft revision and learning transfer.</li>
-            <li><b>What is involved</b> — one ~35-minute writing and revision session; a 10-minute follow-up one week later; optional 15-minute interview.</li>
-            <li><b>Voluntary</b> — participation is entirely voluntary; you may withdraw at any time without giving a reason and with no effect on any course grade.</li>
-            <li><b>Anonymity</b> — drafts and interaction logs are stored under codes with no names or student IDs; results are reported in aggregate only.</li>
-            <li><b>Storage</b> — stored encrypted on the researcher's own device and deleted after the module ends.</li>
-          </ul>
-        </div>
-        <div class="doc">
-          <h4>Consent form</h4>
-          <ul>
-            <li>I have read and understood the information sheet.</li>
-            <li>I understand participation is voluntary and I may withdraw at any time.</li>
-            <li>I consent to my draft and interaction log being used in this analysis.</li>
-            <li>(Optional) I consent to the one-week follow-up and a further interview, including audio recording.</li>
-          </ul>
-          <div class="sign">
-            Checkbox: □ I agree to the above and wish to begin the task
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -792,32 +838,33 @@
   <section class="chapter">
     <div class="chapter-num"><span class="n">08</span><span class="k">Reflection</span></div>
     <div class="chapter-body">
-      <h2>What this design cannot carry</h2>
+      <h2>What this study can and cannot carry</h2>
 
       <div class="quote" style="margin-top:8px">
         <b>Methodological limitations</b>
-        The sample is one of <b>convenience</b>, likely concentrated in the two core groups B and C and thin in A and High Level; stratified randomisation balances condition assignment, but the <b>sample is not representative of the Year 1 cohort</b>. A single 35-minute session covers one writing–revision cycle only, so nothing can be said about decay or accumulation over sustained use. The transfer test sits just one week out — evidence of short-term retention, not of learning at the scale of a semester.
+        The sample is one of <b>convenience</b> (36 students, concentrated in EAP levels B and C), so results do not generalise to the whole Year 1 cohort. With <b>18 per group</b>, only large effects are detectable — the observed d values (0.25–0.42) fall below that bar, so non-significant results here are <b>not evidence of no effect</b>. Scores sat near the ceiling of both scales (77–78% of maximum), compressing the room to find differences. The transfer test was <b>immediate</b>: it says nothing about retention a week or a semester later.
       </div>
 
-      <div class="sub-h">What we expect to go wrong</div>
+      <div class="sub-h">What the results already show</div>
       <ol class="plan">
-        <li><b>Condition contamination</b> — participants in the same class may compare AI replies and notice two conditions exist. Sessions will be scheduled apart and the design debriefed only after the task.</li>
-        <li><b>Unequal revision effort</b> — condition B is harder, so participants may give up early. Time of disengagement will be logged and checked as a covariate.</li>
-        <li><b>Rater drift</b> — standards may loosen over a long scoring session. Order will be randomised and agreement re-checked every 20 scripts.</li>
-        <li><b>Attrition at transfer</b> — some participants will not return after a week. Two-session commitment is stated at recruitment, and missing data will be handled with a sensitivity analysis.</li>
+        <li><b>A consistent direction, no proof</b> — Smart Partner led on both outcomes with equal time and no extra new errors, but every test was non-significant; the design was honest, the sample was not large enough.</li>
+        <li><b>Skill does not follow score</b> — correction success and transfer success are essentially unrelated (<i>r</i> = .075): performing well on the paragraph did not guarantee carrying the skill to unseen items.</li>
+        <li><b>Confidence is cheap</b> — self-rated confidence rose +1.31 points on average in both conditions, while objective evidence of improvement remained unproven — a live demonstration of why satisfaction is not learning.</li>
+        <li><b>The design held</b> — perfect EAP-level balance and non-significant baseline checks mean the comparison was fair, so a larger run of the same protocol is justified.</li>
       </ol>
 
       <div class="sub-h">What we would change next time</div>
       <ol class="plan">
-        <li>Switch to <b>stratified sampling</b> with quotas across the four EAP levels, at least 15 per cell per level.</li>
-        <li>Add a <b>later follow-up</b> (1 week + 1 month) to separate short-term retention from long-term transfer.</li>
-        <li>Add a <b>no-AI control arm</b> to separate the effect of AI feedback from the effect of simply rewriting once.</li>
-        <li>Code errors <b>by category</b> (agreement, articles, cohesion, etc.) to identify which error types benefit most from guided feedback.</li>
+        <li><b>Increase the sample</b> — the observed effects would require roughly 100+ participants per group for adequate power at d ≈ 0.4.</li>
+        <li><b>Use harder materials</b> — a more demanding paragraph (or more errors) removes the ceiling that compressed both score distributions.</li>
+        <li><b>Add a delayed transfer test</b> (1 week later) to separate immediate carry-over from retention.</li>
+        <li><b>Code errors by category</b> (agreement, articles, word choice, …) to identify which error types benefit most from AI support.</li>
+        <li><b>Analyse the open answers</b> — the two open questionnaire items and the interviews are collected but not yet thematically coded (Braun &amp; Clarke).</li>
       </ol>
 
       <div class="sub-h">Research ethics</div>
       <p>
-        All participants read the information sheet and tick consent before the task begins; drafts and interaction logs are stored under codes with no names or student IDs; participants may withdraw at any time without affecting their grades; neither condition creates academic disadvantage — participants in condition B receive a full explanation once the task ends, so no knowledge gap is left behind. Results are reported in aggregate only and are not traceable to individuals.
+        All participants read the information sheet and ticked consent before the task began; scores and ratings are stored under codes (P01–P36) with no names or student IDs; participants could withdraw at any time without affecting their grades; no condition creates academic disadvantage — the Smart Partner group received no answer key advantages unavailable to the other group after the task, and debriefing covered the study's purpose. Results are reported in aggregate only and are not traceable to individuals.
       </p>
     </div>
   </section>
@@ -829,49 +876,41 @@
       <h2>Sources behind the methods</h2>
 
       <p style="margin-bottom:18px">
-        The sources below underpin the experimental design, the choice of intervention and the measurement plan. The writing prompt and scoring rubric follow XJTLU EAP course requirements; subjective items were written by our group or adapted from the scales listed below and have not been independently validated, as noted among the limitations in Section 8.
+        The sources below underpin the experimental design, the choice of conditions and the measurement plan. The paragraph task and scoring follow XJTLU EAP course requirements; subjective items were written by our group or adapted from the scales listed below and have not been independently validated, as noted among the limitations in Section 8.
       </p>
 
       <ol class="refs">
         <li>
           <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. https://doi.org/10.1017/S0272263106060141</span>
-          <span class="why">— Comparison of direct versus indirect/guided corrective feedback; the main basis for the two conditions.</span>
+          <span class="why">— Corrective feedback and L2 grammar learning; the main basis for using error correction as the task vehicle.</span>
         </li>
         <li>
           <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. https://doi.org/10.1177/1362168813509907</span>
-          <span class="why">— Effects of written feedback and revision on L2 writing accuracy; supports the pre → revision → post task structure.</span>
+          <span class="why">— Effects of feedback-driven revision on L2 writing accuracy; supports measuring what revision actually changes.</span>
         </li>
         <li>
           <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. https://doi.org/10.3102/003465430298487</span>
-          <span class="why">— Feedback-level theory: why process-level prompts aid learning more than answer-level correction.</span>
+          <span class="why">— Feedback-level theory: why AI feedback should be judged by what learners do next, not by how they rate it.</span>
         </li>
         <li>
           <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. https://doi.org/10.1207/S15326985EP3801_8</span>
-          <span class="why">— Mental-effort rating scale, used to measure the cognitive cost of each feedback style.</span>
+          <span class="why">— Mental-effort rating scale, adapted for the 1–9 effort item.</span>
         </li>
         <li>
           <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. https://doi.org/10.1207/s15516709cog1202_4</span>
-          <span class="why">— Cognitive load theory; explains why the "harder but more effective" trade-off arises.</span>
-        </li>
-        <li>
-          <span class="src">Jian, J.-Y., Bisantz, A. M., &amp; Drury, C. G. (2000). Foundations for an empirically determined scale of trust in automated systems. <i>International Journal of Cognitive Ergonomics, 4</i>(1), 53–71. https://doi.org/10.1207/S15327566IJCE0401_04</span>
-          <span class="why">— Trust-in-automation scale; tests whether ease implies trust.</span>
-        </li>
-        <li>
-          <span class="src">Schmidmaier, M., Rupp, J., Cvetanova, D., &amp; Mayer, S. (2024). Perceived empathy of technology scale (PETS): Measuring empathy of systems toward the user. In <i>Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems</i>. ACM. https://doi.org/10.1145/3613904.3642035</span>
-          <span class="why">— Perceived-empathy scale; checks whether tone affects outcomes independently of feedback structure.</span>
-        </li>
-        <li>
-          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
-          <span class="why">— Guidance on selecting and reporting ICCs, used to check agreement between the two raters.</span>
+          <span class="why">— Cognitive load theory; frames the effort cost of AI-assisted versus independent correction.</span>
         </li>
         <li>
           <span class="src">Fowler, F. J. (2014). <i>Survey research methods</i> (5th ed.). SAGE.</span>
-          <span class="why">— Item wording and sources of self-report bias; defines the limits of what subjective data can support.</span>
+          <span class="why">— Item wording and sources of self-report bias; defines the limits of what the confidence and effort ratings can support.</span>
+        </li>
+        <li>
+          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
+          <span class="why">— Reliability reporting standards; the fixed answer key was chosen partly to sidestep rater-reliability problems.</span>
         </li>
         <li>
           <span class="src">Braun, V., &amp; Clarke, V. (2006). Using thematic analysis in psychology. <i>Qualitative Research in Psychology, 3</i>(2), 77–101. https://doi.org/10.1191/1478088706qp063oa</span>
-          <span class="why">— Thematic coding procedure for open-ended answers and interview transcripts.</span>
+          <span class="why">— Thematic coding procedure for the open-ended answers and interview transcripts (analysis pending).</span>
         </li>
         <li>
           <span class="src">Creswell, J. W., &amp; Creswell, J. D. (2018). <i>Research design: Qualitative, quantitative, and mixed methods approaches</i> (5th ed.). SAGE.</span>
@@ -881,36 +920,41 @@
     </div>
   </section>
 
-  <!-- ============ Pending materials ============ -->
+  <!-- ============ Status of materials ============ -->
   <section class="chapter">
-    <div class="chapter-num"><span class="n">—</span><span class="k">Pending</span></div>
+    <div class="chapter-num"><span class="n">—</span><span class="k">Status</span></div>
     <div class="chapter-body">
-      <h2>What is still missing</h2>
+      <h2>Where every material stands</h2>
 
       <p style="margin-bottom:26px">
-        The materials below are not yet in place. They are listed here in one place so that nothing is mistaken for completed work.
+        Each component of the study is listed with its current state, so nothing in progress can be mistaken for completed work — or the reverse.
       </p>
 
       <div class="todo-grid">
         <div class="todo">
-          <h4>Randomisation sequence</h4>
-          <p>Stratified block randomisation table, generated and sealed by a member not involved in data collection.</p>
-          <span class="state">To generate</span>
+          <h4>Randomisation &amp; balance</h4>
+          <p>Stratified allocation by EAP level; achieved exact balance (3/5/6/4 per level per group), χ² <i>p</i> = 1.000.</p>
+          <span class="state done">Completed</span>
         </div>
         <div class="todo">
-          <h4>Feedback scripts</h4>
-          <p>Full reply templates for conditions A and B, ensuring identical error coverage.</p>
-          <span class="state">To write</span>
+          <h4>Data collection</h4>
+          <p>36 participants, both conditions, all stages including the unseen transfer test; zero attrition, zero missing values.</p>
+          <span class="state done">Completed</span>
         </div>
         <div class="todo">
-          <h4>Rubric &amp; rater training</h4>
-          <p>Three-dimension rubric, scoring manual and calibration records.</p>
-          <span class="state">To prepare</span>
+          <h4>Statistical analysis</h4>
+          <p>Descriptives, <i>t</i> tests, Mann–Whitney U, χ²/Fisher and correlation run in SPSS (output dated 8 Nov 2026); results in Section 6.</p>
+          <span class="state done">Completed</span>
         </div>
         <div class="todo">
-          <h4>Data &amp; statistical analysis</h4>
-          <p>Participant drafts, interaction logs and the figures behind the Section 6 charts.</p>
-          <span class="state">Not started</span>
+          <h4>Qualitative follow-up</h4>
+          <p>Open-ended questionnaire answers and interview transcripts collected; thematic coding (Braun &amp; Clarke) not yet done.</p>
+          <span class="state">To analyse</span>
+        </div>
+        <div class="todo">
+          <h4>Replication with larger sample</h4>
+          <p>Powered replication (~100 per group) with harder materials and a delayed transfer test, per Section 8.</p>
+          <span class="state">Planned</span>
         </div>
       </div>
     </div>
@@ -924,69 +968,61 @@
 
 <script>
   // ============================================================
-  // ★ All collected data lives here — change the numbers and every
-  //   chart updates. Current status: the study has not been run,
-  //   so every value is a placeholder (0 / "—").
-  //   Charts and KPIs show a placeholder card when values are
-  //   empty, so no empty axes are ever rendered.
+  // ★ All study data lives here — real values from the SPSS output
+  //   (36 participants, analysed 8 Nov 2026). Bar `pct` is the
+  //   0–100 plotted length; `text` is the value shown at the right.
   // ============================================================
   const DATA = {
-    // --- Primary outcome KPIs (0–100 scores; fill in after the run) ---
-    kpiOutcome: [
-      { value: '—', label: 'First-draft mean',  sub: 'T1 · all participants, n = —' },
-      { value: '—', label: 'Final-draft mean',  sub: 'T2 · all participants, n = —' },
-      { value: '—', label: 'Mean gain (T2 − T1)', sub: 'Δ = — points (SD = —)' },
-      { value: '—', label: 'Transfer mean',     sub: 'T3 · after 1 week · n = —' },
-    ],
-    // --- Sample composition (by EAP level) ---
+    // --- Sample composition ---
     kpiSample: [
-      { value: '—', label: 'Valid participants', sub: '— recruited, — excluded' },
-      { value: '2', label: 'Conditions',          sub: 'A direct / B guided' },
-      { value: '4', label: 'EAP levels',          sub: 'A, B, C, High Level' },
-      { value: '—', label: 'Retention (T3)',      sub: '— of — returned' },
+      { value: '36',   label: 'Valid participants', sub: '36 recruited · 0 excluded · 0 missing' },
+      { value: '2',    label: 'Conditions',         sub: 'Smart Partner / Independent study · 18 each' },
+      { value: '4',    label: 'EAP levels',         sub: 'Exactly balanced (χ² p = 1.000)' },
+      { value: '100%', label: 'Completion',         sub: '36 of 36 sat the unseen transfer test' },
     ],
     donut: [
-      { label: 'EAP A (foundation)', pct: 0, color: 'var(--c1)' },
-      { label: 'EAP B (core)',       pct: 0, color: 'var(--c2)' },
-      { label: 'EAP C (core)',       pct: 0, color: 'var(--c3)' },
-      { label: 'High Level (advanced)', pct: 0, color: 'var(--c4)' },
+      { label: 'EAP A (foundation)',    pct: 16.7, color: 'var(--c1)' },
+      { label: 'EAP B (core)',          pct: 27.8, color: 'var(--c2)' },
+      { label: 'EAP C (core)',          pct: 33.3, color: 'var(--c3)' },
+      { label: 'High Level (advanced)', pct: 22.2, color: 'var(--c4)' },
     ],
-    donutCenter: 'Not started',
-    // --- Bar chart: draft quality (0–100 rubric score) ---
-    qualityBars: [
-      { label: 'A · first draft T1', pct: 0 },
-      { label: 'A · final draft T2', pct: 0 },
-      { label: 'A · transfer T3',    pct: 0 },
-      { label: 'B · first draft T1', pct: 0 },
-      { label: 'B · final draft T2', pct: 0 },
-      { label: 'B · transfer T3',    pct: 0 },
+    donutCenter: '36 valid · 18 per group',
+    // --- Primary outcome KPIs ---
+    kpiOutcome: [
+      { value: '12.31 / 16', label: 'Correction score · all',  sub: 'Mean Corrected_Total · 77% of maximum · n = 36' },
+      { value: '7.81 / 10',  label: 'Transfer score · all',    sub: 'Mean Transfer_Total · 78% of maximum · n = 36' },
+      { value: '+0.73',      label: 'Smart Partner advantage', sub: 'Correction 12.67 vs 11.94 · p = .222 · d = 0.42' },
+      { value: '+1.31',      label: 'Confidence gain',         sub: 'Pre 5.50 → post 6.81 (1–10) · both conditions' },
     ],
-    // --- Bar chart: revision behaviour (share / rate) ---
+    // --- Scores: correction task (of 16) and transfer test (of 10) ---
+    scoreBars: [
+      { label: 'Smart Partner · correction', pct: 79, text: '12.67/16' },
+      { label: 'Independent · correction',   pct: 75, text: '11.94/16' },
+      { label: 'Smart Partner · transfer',   pct: 79, text: '7.94/10' },
+      { label: 'Independent · transfer',     pct: 77, text: '7.67/10' },
+    ],
+    // --- Process: new errors introduced and time on task ---
     behaviourBars: [
-      { label: 'A · adoption rate',         pct: 0 },
-      { label: 'B · adoption rate',         pct: 0 },
-      { label: 'A · self-correction share', pct: 0 },
-      { label: 'B · self-correction share', pct: 0 },
+      { label: 'Smart Partner · new errors', pct: 22, text: '4/18' },
+      { label: 'Independent · new errors',   pct: 11, text: '2/18' },
+      { label: 'Smart Partner · time',       pct: 71, text: '10.7 min' },
+      { label: 'Independent · time',         pct: 73, text: '10.9 min' },
     ],
-    // --- Bar chart: post-task ratings (normalised to 0–100) ---
+    // --- Post-task ratings (plotted as % of scale maximum) ---
     subjectiveBars: [
-      { label: 'A · perceived usefulness', pct: 0 },
-      { label: 'B · perceived usefulness', pct: 0 },
-      { label: 'A · trust',                pct: 0 },
-      { label: 'B · trust',                pct: 0 },
-      { label: 'A · cognitive load',       pct: 0 },
-      { label: 'B · cognitive load',       pct: 0 },
+      { label: 'Smart Partner · effort',     pct: 64, text: '5.7/9' },
+      { label: 'Independent · effort',       pct: 62, text: '5.6/9' },
+      { label: 'Smart Partner · difficulty', pct: 64, text: '4.5/7' },
+      { label: 'Independent · difficulty',   pct: 59, text: '4.1/7' },
+      { label: 'Smart Partner · confidence', pct: 70, text: '7.0/10' },
+      { label: 'Independent · confidence',   pct: 66, text: '6.6/10' },
     ],
   };
 
-  // ★ Replace with your questionnaire link; the QR code updates automatically
-  const SURVEY_URL = '';
-
-  // ===== Placeholder card =====
+  // ===== Placeholder card (not used with real data; kept as a fallback) =====
   function placeholderHtml() {
     return `<div class="placeholder"><span class="ph-tag">Pending</span><div>`
-      + `No data yet — the study has not been run.<br>`
-      + `Fill in the matching <code>DATA</code> field at the bottom of the page and the chart renders automatically.`
+      + `No data yet — fill in the matching <code>DATA</code> field at the bottom of the page.`
       + `</div></div>`;
   }
 
@@ -1002,7 +1038,7 @@
       </div>`).join('');
   }
 
-  // ===== Bar rendering (placeholder card when all values are 0) =====
+  // ===== Bar rendering (raw value shown via `text` when present) =====
   function renderBars(elId, rows) {
     const el = document.getElementById(elId);
     const total = rows.reduce((s, b) => s + b.pct, 0);
@@ -1011,7 +1047,7 @@
       <div class="bar-row">
         <div class="label">${b.label}</div>
         <div class="track"><div class="fill" data-pct="${b.pct}"></div></div>
-        <div class="pct${b.pct > 0 ? '' : ' pending'}">${b.pct > 0 ? b.pct + '%' : '—'}</div>
+        <div class="pct${b.pct > 0 ? '' : ' pending'}">${b.text || (b.pct > 0 ? b.pct + '%' : '—')}</div>
       </div>`).join('');
     requestAnimationFrame(() => {
       el.querySelectorAll('.fill').forEach(f => { f.style.width = f.dataset.pct + '%'; });
@@ -1043,27 +1079,14 @@
       </div>`).join('');
   }
 
-  // ===== QR code =====
-  function renderQr() {
-    const box = document.getElementById('qr-box');
-    if (!SURVEY_URL) {
-      box.innerHTML = `<span class="ph-tag">Awaiting</span>`;
-      return;
-    }
-    const src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data='
-      + encodeURIComponent(SURVEY_URL);
-    box.innerHTML = `<img src="${src}" alt="Questionnaire QR code">`;
-  }
-
   // ===== Render everything =====
   function renderAll() {
-    renderKpis('kpi-outcome', DATA.kpiOutcome);
     renderKpis('kpi-sample', DATA.kpiSample);
+    renderKpis('kpi-outcome', DATA.kpiOutcome);
     renderDonut();
-    renderBars('chart-quality', DATA.qualityBars);
+    renderBars('chart-scores', DATA.scoreBars);
     renderBars('chart-behaviour', DATA.behaviourBars);
     renderBars('chart-subjective', DATA.subjectiveBars);
-    renderQr();
   }
 
   renderAll();
