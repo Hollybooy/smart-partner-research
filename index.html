@@ -26,8 +26,10 @@
     --c4: #C6C6C6;
     --c5: #E4E4E4;
 
-    --measure: 66ch;       /* body measure */
+    --measure: 84ch;       /* body measure */
     --gutter: clamp(24px, 5vw, 64px);
+    --doc: 900px;          /* document column width */
+    --rail: 168px;         /* right-hand contents rail */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -55,7 +57,10 @@
   .brand span { color: var(--grey); font-weight: 500; }
 
   /* ===== Masthead ===== */
-  .masthead { padding: clamp(56px, 9vw, 108px) var(--gutter) clamp(40px, 6vw, 64px); }
+  .masthead {
+    padding: clamp(56px, 9vw, 108px) var(--gutter) clamp(40px, 6vw, 64px);
+    max-width: calc(var(--doc) + 2 * var(--gutter)); margin: 0 auto;
+  }
   .kicker {
     font-size: 10.5px; font-weight: 700; letter-spacing: 2.6px; text-transform: uppercase;
     color: var(--grey); padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--ink);
@@ -86,10 +91,11 @@
   }
 
   /* ===== Chapter sections ===== */
-  .doc { padding: 0 var(--gutter) 40px; max-width: 1240px; margin: 0 auto; }
+  .doc { padding: 0 var(--gutter) 40px; max-width: calc(var(--doc) + 2 * var(--gutter)); margin: 0 auto; }
   .chapter {
     padding: clamp(44px, 6vw, 78px) 0;
     border-top: 2px solid var(--ink);
+    scroll-margin-top: 20px;
   }
   .chapter-num {
     display: flex; align-items: center; gap: 14px;
@@ -129,7 +135,7 @@
   .status-bar {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     margin: 0 auto; padding: 14px 20px;
-    max-width: 1240px;
+    max-width: calc(var(--doc) + 2 * var(--gutter));
     border: 1px solid var(--ink); border-left: 4px solid var(--ink);
     font-size: 13px; color: var(--ink);
   }
@@ -326,20 +332,6 @@
   }
   .qlist .opts { display: block; color: var(--grey); font-size: 12.5px; margin-top: 3px; }
 
-  /* ===== Document blocks (information sheet / consent) ===== */
-  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(20px, 3vw, 34px); margin-top: 6px; }
-  .doc { border: none; border-top: 1px solid var(--ink); background: none; padding: 15px 0 0; }
-  .doc h4 {
-    margin: 0 0 10px; font-size: 10.5px; font-weight: 700;
-    letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink);
-  }
-  .doc ul { margin: 0; padding-left: 19px; font-size: 13.5px; line-height: 1.8; }
-  .doc .sign {
-    margin-top: 13px; padding-top: 11px; border-top: 1px dashed var(--rule);
-    font-size: 12.5px; color: var(--grey);
-  }
-  @media (max-width: 760px) { .doc-grid { grid-template-columns: 1fr; gap: 0; } .doc + .doc { margin-top: 26px; } }
-
   /* ===== Design structure grid (2 conditions) ===== */
   .design-grid {
     display: grid; grid-template-columns: 170px 1fr 1fr;
@@ -368,9 +360,42 @@
   .refs .why { display: block; color: var(--grey); font-size: 12.5px; margin-top: 3px; }
 
   .footer {
-    text-align: left; padding: 28px var(--gutter) 0; max-width: 1240px; margin: 0 auto;
+    text-align: left; padding: 28px var(--gutter) 0;
+    max-width: calc(var(--doc) + 2 * var(--gutter)); margin: 0 auto;
     border-top: 1px solid var(--ink); color: var(--grey); font-size: 12px; letter-spacing: .4px;
   }
+
+  /* ===== Right-hand contents rail ===== */
+  .rail {
+    position: fixed; right: 22px; top: 50%; transform: translateY(-50%);
+    width: var(--rail); z-index: 30;
+    display: none; flex-direction: column;
+    background: rgba(255,255,255,.94); backdrop-filter: saturate(180%) blur(8px);
+    border-left: 1px solid var(--ink); padding: 4px 0 4px 12px;
+  }
+  @media (min-width: 1100px) {
+    .rail { display: flex; }
+    body { padding-right: calc(var(--rail) + 44px); }   /* keep the rail out of the column */
+  }
+  .rail .rail-title {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 8px;
+  }
+  .rail a {
+    display: flex; gap: 8px; align-items: baseline;
+    padding: 3px 0; text-decoration: none; color: var(--ink-2);
+    font-size: 11.5px; line-height: 1.35; letter-spacing: .1px;
+    border-bottom: 1px solid transparent;
+  }
+  .rail a span {
+    font-size: 9.5px; font-weight: 700; color: var(--grey);
+    font-variant-numeric: tabular-nums; min-width: 16px;
+  }
+  .rail a:hover { color: var(--ink); }
+  .rail a:hover span { color: var(--ink); }
+  .rail a.on { color: var(--ink); font-weight: 700; }
+  .rail a.on span { color: var(--ink); }
+  @media (max-width: 1099px) { .rail { display: none; } }
 
   /* ===== Narrow screens ===== */
   @media (max-width: 860px) {
@@ -422,7 +447,7 @@
 <main class="doc">
 
   <!-- ============ 00 Abstract ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s00">
     <div class="chapter-num"><span class="n">00</span><span class="k">Abstract</span></div>
     <div class="chapter-body">
       <p>
@@ -432,7 +457,7 @@
   </section>
 
   <!-- ============ 01 Introduction ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s01">
     <div class="chapter-num"><span class="n">01</span><span class="k">Introduction</span></div>
     <div class="chapter-body">
       <h2>Background and rationale</h2>
@@ -450,7 +475,7 @@
   </section>
 
   <!-- ============ 02 Research questions ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s02">
     <div class="chapter-num"><span class="n">02</span><span class="k">Research questions</span></div>
     <div class="chapter-body">
       <h2>AI-assisted correction vs independent study</h2>
@@ -471,7 +496,7 @@
   </section>
 
   <!-- ============ 03 Evaluation design ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s03">
     <div class="chapter-num"><span class="n">03</span><span class="k">Evaluation design</span></div>
     <div class="chapter-body">
       <h2>A two-group controlled comparison</h2>
@@ -513,7 +538,7 @@
   </section>
 
   <!-- ============ 04 The task ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s04">
     <div class="chapter-num"><span class="n">04</span><span class="k">The task</span></div>
     <div class="chapter-body">
       <h2>What participants actually did</h2>
@@ -556,7 +581,7 @@
   </section>
 
   <!-- ============ 05 Conditions ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s05">
     <div class="chapter-num"><span class="n">05</span><span class="k">Conditions</span></div>
     <div class="chapter-body">
       <h2>The two learning conditions</h2>
@@ -594,7 +619,7 @@
   </section>
 
   <!-- ============ 06 Measures ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s06">
     <div class="chapter-num"><span class="n">06</span><span class="k">Measures</span></div>
     <div class="chapter-body">
       <h2>What we measure, and how</h2>
@@ -698,7 +723,7 @@
   </section>
 
   <!-- ============ 07 Results ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s07">
     <div class="chapter-num"><span class="n">07</span><span class="k">Results &amp; charts</span></div>
     <div class="chapter-body">
       <h2>Results</h2>
@@ -823,7 +848,7 @@
   </section>
 
   <!-- ============ 08 Instruments ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s08">
     <div class="chapter-num"><span class="n">08</span><span class="k">Instruments</span></div>
     <div class="chapter-body">
       <h2>Questionnaires and interview guide</h2>
@@ -873,7 +898,7 @@
   </section>
 
   <!-- ============ 09 Discussion ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s09">
     <div class="chapter-num"><span class="n">09</span><span class="k">Discussion</span></div>
     <div class="chapter-body">
       <h2>Interpreting the findings</h2>
@@ -896,7 +921,7 @@
   </section>
 
   <!-- ============ 10 Reflection ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s10">
     <div class="chapter-num"><span class="n">10</span><span class="k">Reflection</span></div>
     <div class="chapter-body">
       <h2>What this study can and cannot carry</h2>
@@ -931,7 +956,7 @@
   </section>
 
   <!-- ============ 11 Conclusion ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s11">
     <div class="chapter-num"><span class="n">11</span><span class="k">Conclusion</span></div>
     <div class="chapter-body">
       <h2>What this study concludes</h2>
@@ -949,7 +974,7 @@
   </section>
 
   <!-- ============ 12 References ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s12">
     <div class="chapter-num"><span class="n">12</span><span class="k">References</span></div>
     <div class="chapter-body">
       <h2>Sources behind the methods</h2>
@@ -1000,7 +1025,7 @@
   </section>
 
   <!-- ============ Status of materials ============ -->
-  <section class="chapter">
+  <section class="chapter" id="s-status">
     <div class="chapter-num"><span class="n">—</span><span class="k">Status</span></div>
     <div class="chapter-body">
       <h2>Where every material stands</h2>
@@ -1022,7 +1047,7 @@
         </div>
         <div class="todo">
           <h4>Statistical analysis</h4>
-          <p>Descriptives, <i>t</i> tests, Mann–Whitney U, χ²/Fisher and correlation run in SPSS (output dated 8 Nov 2026); results in Section 6.</p>
+          <p>Descriptives, <i>t</i> tests, Mann–Whitney U, χ²/Fisher and correlation run in SPSS (output dated 8 Nov 2026); results in Section 7.</p>
           <span class="state done">Completed</span>
         </div>
         <div class="todo">
@@ -1044,6 +1069,24 @@
 <footer class="footer">
   <p>Y1 EAP Project · Smart Partner Evaluation Study · For academic purposes only</p>
 </footer>
+
+<nav class="rail" aria-label="Contents">
+  <div class="rail-title">Contents</div>
+  <a href="#s00"><span>00</span>Abstract</a>
+  <a href="#s01"><span>01</span>Introduction</a>
+  <a href="#s02"><span>02</span>Research questions</a>
+  <a href="#s03"><span>03</span>Evaluation design</a>
+  <a href="#s04"><span>04</span>The task</a>
+  <a href="#s05"><span>05</span>Conditions</a>
+  <a href="#s06"><span>06</span>Measures</a>
+  <a href="#s07"><span>07</span>Results</a>
+  <a href="#s08"><span>08</span>Instruments</a>
+  <a href="#s09"><span>09</span>Discussion</a>
+  <a href="#s10"><span>10</span>Reflection</a>
+  <a href="#s11"><span>11</span>Conclusion</a>
+  <a href="#s12"><span>12</span>References</a>
+  <a href="#s-status"><span>—</span>Status</a>
+</nav>
 
 <script>
   // ============================================================
@@ -1143,6 +1186,20 @@
   }
 
   renderAll();
+
+  // ===== Contents rail: highlight the section in view =====
+  const railLinks = Array.from(document.querySelectorAll('.rail a'));
+  const railSections = railLinks.map(a => document.querySelector(a.getAttribute('href')));
+
+  function syncRail() {
+    const y = window.scrollY + 160;
+    let idx = 0;
+    railSections.forEach((s, i) => { if (s && s.offsetTop <= y) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle('on', i === idx));
+  }
+  window.addEventListener('scroll', syncRail, { passive: true });
+  window.addEventListener('resize', syncRail);
+  syncRail();
 </script>
 </body>
 </html>
