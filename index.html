@@ -162,6 +162,7 @@
   .bar-row .label { font-size: 13.5px; text-align: right; color: var(--ink-2); }
   .bar-row .track { background: var(--wash); height: 12px; overflow: hidden; }
   .bar-row .fill { height: 100%; background: var(--ink); width: 0; transition: width .9s cubic-bezier(.25,.8,.3,1); }
+  .bar-row .fill.ind { background: var(--c3); }
   .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; }
   .bar-row .pct.pending { color: var(--c4); }
 
@@ -703,35 +704,44 @@
       <h2>Results</h2>
 
       <p>
-        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The categorical new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case.
+        Smart Partner finished ahead on both scores, spent the same time, and introduced no more new errors. None of these differences is statistically significant. All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The categorical new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case.
       </p>
 
-      <div class="sub-h">Sample composition</div>
+      <div class="sub-h">Sample: 36 valid, 18 per group, EAP levels balanced</div>
       <div class="kpi-grid" id="kpi-sample" style="margin-top:18px"></div>
       <div class="chart-block" style="margin-top:22px">
-        <div class="donut-wrap">
-          <div class="donut" id="donut"></div>
-          <div class="legend" id="donut-legend"></div>
-        </div>
+        <div id="chart-eap"></div>
       </div>
+      <p class="stats-note">
+        Bars show each level's share of the 36 participants (count in brackets, split by condition). Every level divides evenly between the two groups, χ²(3) = 0.000, <i>p</i> = 1.000.
+      </p>
 
       <div class="sub-h">Primary outcomes</div>
       <div class="kpi-grid" id="kpi-outcome" style="margin-top:18px"></div>
 
-      <div class="sub-h">Scores: correction → unseen transfer</div>
+      <div class="sub-h">Scores: Smart Partner led both tasks, neither significantly</div>
       <div class="chart-block" style="margin-top:18px">
         <div id="chart-scores"></div>
       </div>
+      <p class="stats-note">
+        Bars are percentage of each task's maximum (16 for correction, 10 for transfer). The gaps of +0.73 and +0.28 points do not reach significance (<i>p</i> = .222 and .463; d = 0.42 and 0.25).
+      </p>
 
-      <div class="sub-h">Process: new errors and time on task</div>
+      <div class="sub-h">Process: same time, no extra errors</div>
       <div class="chart-block" style="margin-top:18px">
         <div id="chart-behaviour"></div>
       </div>
+      <p class="stats-note">
+        New errors: 4 of 18 participants vs 2 of 18 (Fisher <i>p</i> = .658). Time on task: 10.7 vs 10.9 minutes (<i>p</i> = .432). Neither separates the conditions.
+      </p>
 
-      <div class="sub-h">Post-task ratings (supplementary)</div>
+      <div class="sub-h">Ratings: confidence rose in both conditions</div>
       <div class="chart-block" style="margin-top:18px">
         <div id="chart-subjective"></div>
       </div>
+      <p class="stats-note">
+        Bars are percentage of each scale's maximum (effort 1–9, difficulty 1–7, confidence 1–10). The two conditions rate the task almost identically; the confidence gain is not tied to the condition.
+      </p>
 
       <div class="sub-h">Inferential results</div>
       <table class="stats-table">
@@ -1049,13 +1059,12 @@
       { value: '4',    label: 'EAP levels',         sub: 'Exactly balanced (χ² p = 1.000)' },
       { value: '100%', label: 'Completion',         sub: '36 of 36 sat the unseen transfer test' },
     ],
-    donut: [
-      { label: 'EAP A (foundation)',    pct: 16.7, color: 'var(--c1)' },
-      { label: 'EAP B (core)',          pct: 27.8, color: 'var(--c2)' },
-      { label: 'EAP C (core)',          pct: 33.3, color: 'var(--c3)' },
-      { label: 'High Level (advanced)', pct: 22.2, color: 'var(--c4)' },
+    eapBars: [
+      { label: 'EAP A (foundation)',    pct: 16.7, text: '6 · 3 + 3' },
+      { label: 'EAP B (core)',          pct: 27.8, text: '10 · 5 + 5' },
+      { label: 'EAP C (core)',          pct: 33.3, text: '12 · 6 + 6' },
+      { label: 'High Level (advanced)', pct: 22.2, text: '8 · 4 + 4' },
     ],
-    donutCenter: '36 valid · 18 per group',
     // --- Primary outcome KPIs ---
     kpiOutcome: [
       { value: '12.31 / 16', label: 'Correction score · all',  sub: 'Mean Corrected_Total · 77% of maximum · n = 36' },
@@ -1065,26 +1074,26 @@
     ],
     // --- Scores: correction task (of 16) and transfer test (of 10) ---
     scoreBars: [
-      { label: 'Smart Partner · correction', pct: 79, text: '12.67/16' },
-      { label: 'Independent · correction',   pct: 75, text: '11.94/16' },
-      { label: 'Smart Partner · transfer',   pct: 79, text: '7.94/10' },
-      { label: 'Independent · transfer',     pct: 77, text: '7.67/10' },
+      { label: 'Smart Partner · correction', pct: 79, text: '12.67/16', tone: 'sp' },
+      { label: 'Independent · correction',   pct: 75, text: '11.94/16', tone: 'ind' },
+      { label: 'Smart Partner · transfer',   pct: 79, text: '7.94/10',  tone: 'sp' },
+      { label: 'Independent · transfer',     pct: 77, text: '7.67/10',  tone: 'ind' },
     ],
     // --- Process: new errors introduced and time on task ---
     behaviourBars: [
-      { label: 'Smart Partner · new errors', pct: 22, text: '4/18' },
-      { label: 'Independent · new errors',   pct: 11, text: '2/18' },
-      { label: 'Smart Partner · time',       pct: 71, text: '10.7 min' },
-      { label: 'Independent · time',         pct: 73, text: '10.9 min' },
+      { label: 'Smart Partner · new errors', pct: 22, text: '4/18',     tone: 'sp' },
+      { label: 'Independent · new errors',   pct: 11, text: '2/18',     tone: 'ind' },
+      { label: 'Smart Partner · time',       pct: 71, text: '10.7 min', tone: 'sp' },
+      { label: 'Independent · time',         pct: 73, text: '10.9 min', tone: 'ind' },
     ],
     // --- Post-task ratings (plotted as % of scale maximum) ---
     subjectiveBars: [
-      { label: 'Smart Partner · effort',     pct: 64, text: '5.7/9' },
-      { label: 'Independent · effort',       pct: 62, text: '5.6/9' },
-      { label: 'Smart Partner · difficulty', pct: 64, text: '4.5/7' },
-      { label: 'Independent · difficulty',   pct: 59, text: '4.1/7' },
-      { label: 'Smart Partner · confidence', pct: 70, text: '7.0/10' },
-      { label: 'Independent · confidence',   pct: 66, text: '6.6/10' },
+      { label: 'Smart Partner · effort',     pct: 64, text: '5.7/9',  tone: 'sp' },
+      { label: 'Independent · effort',       pct: 62, text: '5.6/9',  tone: 'ind' },
+      { label: 'Smart Partner · difficulty', pct: 64, text: '4.5/7',  tone: 'sp' },
+      { label: 'Independent · difficulty',   pct: 59, text: '4.1/7',  tone: 'ind' },
+      { label: 'Smart Partner · confidence', pct: 70, text: '7.0/10', tone: 'sp' },
+      { label: 'Independent · confidence',   pct: 66, text: '6.6/10', tone: 'ind' },
     ],
   };
 
@@ -1115,7 +1124,7 @@
     el.innerHTML = rows.map(b => `
       <div class="bar-row">
         <div class="label">${b.label}</div>
-        <div class="track"><div class="fill" data-pct="${b.pct}"></div></div>
+        <div class="track"><div class="fill${b.tone === 'ind' ? ' ind' : ''}" data-pct="${b.pct}"></div></div>
         <div class="pct${b.pct > 0 ? '' : ' pending'}">${b.text || (b.pct > 0 ? b.pct + '%' : '—')}</div>
       </div>`).join('');
     requestAnimationFrame(() => {
@@ -1123,36 +1132,11 @@
     });
   }
 
-  // ===== Donut rendering (faint empty ring when data are absent) =====
-  function renderDonut() {
-    const el = document.getElementById('donut');
-    const segs = DATA.donut;
-    const total = segs.reduce((s, x) => s + x.pct, 0);
-    el.classList.toggle('pending', total <= 0);
-    if (total > 0) {
-      let acc = 0;
-      const stops = segs.map(s => {
-        const from = acc; acc += s.pct;
-        return `${s.color} ${from}% ${acc}%`;
-      }).join(', ');
-      el.style.background = `conic-gradient(${stops})`;
-    } else {
-      el.style.background = 'var(--wash)';
-    }
-    el.setAttribute('data-center', DATA.donutCenter);
-    document.getElementById('donut-legend').innerHTML = segs.map(s => `
-      <div class="legend-item">
-        <span class="dot" style="background:${s.color}"></span>
-        <span>${s.label}</span>
-        <span class="lpct${s.pct > 0 ? '' : ' pending'}">${s.pct > 0 ? s.pct + '%' : '—'}</span>
-      </div>`).join('');
-  }
-
   // ===== Render everything =====
   function renderAll() {
     renderKpis('kpi-sample', DATA.kpiSample);
     renderKpis('kpi-outcome', DATA.kpiOutcome);
-    renderDonut();
+    renderBars('chart-eap', DATA.eapBars);
     renderBars('chart-scores', DATA.scoreBars);
     renderBars('chart-behaviour', DATA.behaviourBars);
     renderBars('chart-subjective', DATA.subjectiveBars);
