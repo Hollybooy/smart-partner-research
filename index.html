@@ -26,6 +26,10 @@
     --c4: #C6C6C6;
     --c5: #E4E4E4;
 
+    /* Data marks only — two muted hues, one per condition */
+    --bar-sp:  #2B5A63;    /* Smart Partner · deep teal */
+    --bar-ind: #A96C4E;    /* Independent · warm clay, one step deeper */
+
     --measure: 84ch;       /* body measure */
     --gutter: clamp(24px, 5vw, 64px);
     --doc: 900px;          /* document column width */
@@ -175,8 +179,9 @@
   .bar-row { display: grid; grid-template-columns: 178px 1fr 72px; gap: 14px; align-items: center; margin-bottom: 12px; }
   .bar-row .label { font-size: 13.5px; text-align: right; color: var(--ink-2); }
   .bar-row .track { background: var(--wash); height: 12px; overflow: hidden; }
-  .bar-row .fill { height: 100%; background: var(--ink); width: 0; transition: width .9s cubic-bezier(.25,.8,.3,1); }
-  .bar-row .fill.ind { background: var(--c3); }
+  .bar-row .fill { height: 100%; background: var(--bar-sp); width: 0; transition: width .9s cubic-bezier(.25,.8,.3,1); }
+  .bar-row .fill.ind { background: var(--bar-ind); }
+  .bar-row .fill.neutral { background: var(--ink); }
   .bar-row .pct { font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; }
   .bar-row .pct.pending { color: var(--c4); }
 
@@ -1124,10 +1129,10 @@
       { value: '100%', label: 'Completion',         sub: '36 of 36 sat the unseen transfer test' },
     ],
     eapBars: [
-      { label: 'Low level',        pct: 16.7, text: '6 · 3 + 3' },
-      { label: 'Pre-intermediate', pct: 27.8, text: '10 · 5 + 5' },
-      { label: 'Intermediate',     pct: 33.3, text: '12 · 6 + 6' },
-      { label: 'Advanced',         pct: 22.2, text: '8 · 4 + 4' },
+      { label: 'Low level',        pct: 16.7, text: '6 · 3 + 3', tone: 'neutral' },
+      { label: 'Pre-intermediate', pct: 27.8, text: '10 · 5 + 5', tone: 'neutral' },
+      { label: 'Intermediate',     pct: 33.3, text: '12 · 6 + 6', tone: 'neutral' },
+      { label: 'Advanced',         pct: 22.2, text: '8 · 4 + 4', tone: 'neutral' },
     ],
     // --- Primary outcome KPIs ---
     kpiOutcome: [
@@ -1188,7 +1193,7 @@
     el.innerHTML = rows.map(b => `
       <div class="bar-row">
         <div class="label">${b.label}</div>
-        <div class="track"><div class="fill${b.tone === 'ind' ? ' ind' : ''}" data-pct="${b.pct}"></div></div>
+        <div class="track"><div class="fill${b.tone === 'ind' ? ' ind' : b.tone === 'neutral' ? ' neutral' : ''}" data-pct="${b.pct}"></div></div>
         <div class="pct${b.pct > 0 ? '' : ' pending'}">${b.text || (b.pct > 0 ? b.pct + '%' : '—')}</div>
       </div>`).join('');
     requestAnimationFrame(() => {
