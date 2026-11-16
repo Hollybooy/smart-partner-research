@@ -131,6 +131,14 @@
   }
   .sub-h:first-of-type { margin-top: 34px; }
 
+  /* ===== Standalone key sentence ===== */
+  p.key {
+    font-size: clamp(16.5px, 1.7vw, 19px);
+    line-height: 1.5; font-weight: 600; color: var(--ink);
+    margin: 26px 0 24px; padding-left: 16px;
+    border-left: 2px solid var(--ink);
+  }
+
   /* ===== Status bar ===== */
   .status-bar {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -451,7 +459,16 @@
     <div class="chapter-num"><span class="n">00</span><span class="k">Abstract</span></div>
     <div class="chapter-body">
       <p>
-        Smart Partner is an AI learning agent for EAP (English for Academic Purposes) at Xi'an Jiaotong-Liverpool University. This study asks whether correcting errors with it beats ordinary independent revision. Thirty-six Year 1 students corrected a standard argumentative paragraph containing eight embedded grammar and vocabulary errors, eighteen working with the agent and eighteen without, then took an unseen transfer test of the same error types. Every response was scored against a fixed answer key. The groups did not differ significantly on the correction task (12.67 vs 11.94 out of 16; <i>t</i>(34) = 1.245, <i>p</i> = .222, d = 0.42) or on transfer (7.94 vs 7.67 out of 10; <i>p</i> = .463, d = 0.25); time on task was equal, and neither group introduced more new errors. Correction success did not predict transfer success (<i>r</i> = .075). Self-rated confidence rose by 1.31 points in both conditions. Every comparison points the same way, towards Smart Partner, yet with 18 participants per group the study can only detect large effects, and scores near the ceiling of both scales leave little room for differences to show. A powered replication with harder materials and a delayed transfer test is planned.
+        Smart Partner is an AI learning agent for EAP (English for Academic Purposes) at Xi'an Jiaotong-Liverpool University. This study asks whether correcting errors with it beats ordinary independent revision.
+      </p>
+      <p>
+        Thirty-six Year 1 students corrected a standard argumentative paragraph containing eight embedded grammar and vocabulary errors, eighteen working with the agent and eighteen without. They then took an unseen transfer test of the same error types, and every response was scored against a fixed answer key.
+      </p>
+      <p>
+        The groups did not differ significantly on the correction task (12.67 vs 11.94 out of 16; <i>t</i>(34) = 1.245, <i>p</i> = .222, d = 0.42) or on transfer (7.94 vs 7.67 out of 10; <i>p</i> = .463, d = 0.25). Time on task was equal and neither group introduced more new errors.
+      </p>
+      <p>
+        Correction success did not predict transfer success (<i>r</i> = .075). Self-rated confidence rose by 1.31 points in both conditions. Every comparison points the same way, towards Smart Partner, yet with 18 participants per group the study can only detect large effects, and scores near the ceiling of both scales leave little room for differences to show. A powered replication with harder materials and a delayed transfer test is planned.
       </p>
     </div>
   </section>
@@ -463,13 +480,19 @@
       <h2>Background and rationale</h2>
 
       <p>
-        AI learning agents are quietly becoming part of exam preparation. Smart Partner is one of them, built for Year 1 students at Xi'an Jiaotong-Liverpool University: it offers <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, all aimed at the EAP examinations. Before recommending such a tool at scale, we wanted to know something narrower than "do students like it": does working with it change what they can actually do?
+        Smart Partner was built for Year 1 students at Xi'an Jiaotong-Liverpool University. It drills grammar, comments on writing, revisits vocabulary and runs mock tests, all of it pointed at the EAP exam. Most students in the cohort already use generative AI for English work in some form, and more will once the exam gets closer.
+      </p>
+
+      <p class="key">Whether the tools help is a separate question.</p>
+
+      <p>
+        Most evaluations stop at the rating form filled in after a session. A rating says how the session felt. It cannot separate the effect of the tool from the effect of half an hour of practice.
       </p>
       <p>
-        Most evaluations of study tools never get that far. They collect satisfaction ratings after use, which measure perception rather than performance, and they cannot tell an effect of the tool apart from an effect of practice itself. We took a more direct route. Participants corrected a real EAP paragraph under one of two conditions, with Smart Partner or without any AI, and everything they produced was scored against a fixed answer key, first on the task itself and then on unseen material covering the same error types.
+        So we asked for evidence of another kind. Thirty-six Year 1 students worked on the same paragraph, which carried eight planted errors. Half revised with Smart Partner open; half worked from their own knowledge. Everything they produced was scored against a fixed answer key, first on that paragraph and then on five unseen sentences of the same error types, completed without AI.
       </p>
       <p>
-        The remainder of this report presents the research questions (02), the evaluation design (03), the task participants completed (04), the two conditions (05), the measures (06), the results with full inferential statistics (07), the instruments used (08), a discussion of the findings (09), reflection on limitations (10) and the conclusion (11).
+        That arrangement tests two things at once: whether the agent helps with the task in front of you, and whether it leaves anything behind.
       </p>
     </div>
   </section>
@@ -481,7 +504,10 @@
       <h2>AI-assisted correction vs independent study</h2>
 
       <p>
-        "Smart Partner" is an AI learning agent for Year 1 students at Xi'an Jiaotong-Liverpool University, offering <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, with the goal of helping students pass their EAP (English for Academic Purposes) exams. The question we put to it is the one both a product team and an examiner would ask: does correcting errors with Smart Partner produce better results than revising independently, on the task itself and on unseen material afterwards? Participants completed a real correction task in one of the two conditions, and their work was scored against a fixed answer key.
+        "Smart Partner" is an AI learning agent for Year 1 students at Xi'an Jiaotong-Liverpool University, offering <b>targeted grammar practice</b>, writing feedback, vocabulary consolidation and mock tests, with the goal of helping students pass their EAP (English for Academic Purposes) exams.
+      </p>
+      <p>
+        The question we put to it is the one both a product team and an examiner would ask: does correcting errors with Smart Partner produce better results than revising independently, on the task itself and on unseen material afterwards? Participants completed a real correction task in one of the two conditions, and their work was scored against a fixed answer key.
       </p>
 
       <div class="sub-h">Research questions</div>
@@ -502,7 +528,13 @@
       <h2>A two-group controlled comparison</h2>
 
       <p>
-        The design is between-subjects with a single factor: learning condition, Smart Partner or independent study, 18 participants each. Both groups worked on the identical correction task and were scored against the same fixed answer key, so any difference in scores traces back to the revision resource rather than to the material, the scoring or the time allowed. Confidence was also measured before and after the task, which adds a small repeated-measures element on the subjective side.
+        The design is between-subjects with a single factor: learning condition, Smart Partner or independent study, 18 participants each.
+      </p>
+
+      <p class="key">Same paragraph, same answer key, same clock. Any difference in scores traces to the resource, not the material.</p>
+
+      <p>
+        Both groups worked on the identical correction task and were scored against the same fixed answer key. Confidence was also measured before and after the task, which adds a small repeated-measures element on the subjective side.
       </p>
 
       <div class="sub-h">Variable structure</div>
@@ -523,13 +555,13 @@
 
       <p style="margin-top:24px">
         <b>Between-subjects factor (Learning condition)</b> — participants worked in <b>one</b> condition only, avoiding order effects and demand characteristics from experiencing both.<br>
-        <b>Stratifying variable (EAP level)</b> — EAP A / B / C / High Level was used to balance allocation; the final assignment came out <b>exactly balanced</b> (3 / 5 / 6 / 4 per level in each group).<br>
+        <b>Stratifying variable (proficiency level)</b> — low, pre-intermediate, intermediate and advanced levels were used to balance allocation; the final assignment came out exactly balanced (3 / 5 / 6 / 4 per level in each group).<br>
         <b>Objective scoring</b> — every target error is scored 0 / 1 / 2 (not corrected / partially / fully corrected) against a fixed answer key, giving <code>Corrected_Total</code> (0–16) and <code>Transfer_Total</code> (0–10) with no rater judgement involved.
       </p>
 
       <div class="sub-h">Allocation, equivalence and scoring</div>
       <ol class="plan">
-        <li><b>Stratified randomisation</b> — allocated within EAP level strata; the realised design is perfectly balanced, χ²(3) = 0.000, <i>p</i> = 1.000.</li>
+        <li><b>Stratified randomisation</b> — allocated within level strata (low, pre-intermediate, intermediate, advanced); the realised design is perfectly balanced, χ²(3) = 0.000, <i>p</i> = 1.000.</li>
         <li><b>Baseline equivalence</b> — no group differences in pre-task confidence (<i>p</i> = .537), prior Smart Partner use (<i>p</i> = .275) or prior generative-AI use (<i>p</i> = .791), Mann–Whitney tests.</li>
         <li><b>Fixed answer key</b> — partial-credit scoring replaces rater judgement entirely; no rater blinding procedure is needed because scoring is mechanical.</li>
         <li><b>Held-constant materials</b> — same paragraph, same eight embedded errors, same transfer items, same time frame for both conditions.</li>
@@ -549,7 +581,7 @@
 
       <div class="sub-h">Stage 1 · Pre-task ratings</div>
       <ol class="plan">
-        <li>Report current EAP level (used for stratification) and prior use of Smart Partner and generative AI for English learning (1–4).</li>
+        <li>Report current level (low / pre-intermediate / intermediate / advanced, used for stratification) and prior use of Smart Partner and generative AI for English learning (1–4).</li>
         <li>Rate <b>confidence</b> in correcting grammar and vocabulary errors in an EAP paragraph (1–10).</li>
       </ol>
 
@@ -613,7 +645,7 @@
 
       <div class="quote">
         <b>Design integrity check</b>
-        Randomisation landed exactly as planned: each EAP level contributes 3 / 5 / 6 / 4 participants to each group, χ²(3) = 0.000, <i>p</i> = 1.000, and every baseline check came back non-significant. Whatever differences appear in the outcomes, they cannot be traced to pre-existing imbalance.
+        Randomisation landed exactly as planned: the low, pre-intermediate, intermediate and advanced levels contribute 3 / 5 / 6 / 4 participants to each group, χ²(3) = 0.000, <i>p</i> = 1.000, and every baseline check came back non-significant. Whatever differences appear in the outcomes, they cannot be traced to pre-existing imbalance.
       </div>
     </div>
   </section>
@@ -729,10 +761,16 @@
       <h2>Results</h2>
 
       <p>
-        Smart Partner finished ahead on both scores, spent the same time, and introduced no more new errors. None of these differences is statistically significant. All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The categorical new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case.
+        Smart Partner finished ahead on both scores, spent the same time, and introduced no more new errors.
       </p>
 
-      <div class="sub-h">Sample: 36 valid, 18 per group, EAP levels balanced</div>
+      <p class="key">None of these differences is statistically significant.</p>
+
+      <p>
+        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case.
+      </p>
+
+      <div class="sub-h">Sample: 36 valid, 18 per group, levels balanced</div>
       <div class="kpi-grid" id="kpi-sample" style="margin-top:18px"></div>
       <div class="chart-block" style="margin-top:22px">
         <div id="chart-eap"></div>
@@ -821,7 +859,7 @@
             <td>Groups comparable at start</td>
           </tr>
           <tr>
-            <td class="test">Randomisation balance (EAP level)</td>
+            <td class="test">Randomisation balance (level)</td>
             <td>χ² (3)</td>
             <td class="stat">χ² = 0.000</td>
             <td>1.000</td>
@@ -855,7 +893,7 @@
 
       <div class="sub-h">Pre-task questionnaire (4 items)</div>
       <ol class="qlist">
-        <li>What is your current EAP level?<span class="opts">EAP A / EAP B / EAP C / High Level (stratification variable)</span></li>
+        <li>What is your current level?<span class="opts">Low / Pre-intermediate / Intermediate / Advanced (stratification variable)</span></li>
         <li>Before today, how often have you used Smart Partner?<span class="opts">1 Never – 4 Frequently</span></li>
         <li>Before today, how often have you used generative AI tools for English learning?<span class="opts">1 Never – 4 Frequently</span></li>
         <li>How confident are you about correcting grammar and vocabulary errors in an EAP paragraph?<span class="opts">1 (not at all) – 10 (extremely)</span></li>
@@ -875,7 +913,7 @@
           <div class="qr-box"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAAAAAAbPrZOAAAEtElEQVR42u2dMU8UQRTHZw0WRBqKJRENHwBtoVgoKEws/Q4WGD6AhTlKjB/Bmu9gY2JBs1ccBcbGzoKAxZ0JDdpAsjY7Fm/zz5tdDrMLv2n2dt6bd/PjZpmdN29mQuicKpMKT6GRXNPxvkgu6aYH4Z4lgAEGGGCA+5yyf11f6yLV7deqml8dMpo0wAADDDDA/UsLNuPLkdDceyIE+/V1d81kHNTXD79Nxr64f/ROmF7bdTDOPwrBzgtvzD1SChM7+Lb3pVLIVQl7n6vxvXQAxPuJqvXIluAZBhhggAEGuM8vHt3TVrIvoRL3s0wIxvNzOtCkAQYYYIABvpv9cFkIwTRYr7/obvNKeM+Lil8YYIABBhjge9EP770Smuudv+PlhaOwWV+XPxtBdDf/2DQZjcopwWpyXJ0fPycd8TblqX+ZXFkog+PKT681zzDAAAMMMMB9fPHIwu3H0VVCIescaJfxCwMMMMAAAzzofrgK/z/8PnnGPEudUucXBhhggAEGeNjJDRBP92QnL/y2BaeqYPcV4iNbkiYNMMAAAwxwn8bDcep1u+4aT61GqYpu16PSUpWIEeOfllNNKgvpyZp+GoyprPtYO3nd+jR1Rny2IhwARZnqgK9YEs8/LYABBhjgIQ78uzsAuse4BRWYJi3d/Ltp0gADDDDAAN+tnlvu1BLT1OtN3Y668BQnqpIHNoMmDTDAAAMMcOhhgHhjMnqltcCaiorrmRFYheBZOllxvuK5zYjXN1MFLJ3lDcHMq6Yt8UspJFtaUpox/zIXgsayOJ5hgAEGGGCABxGJZ8fYG54DwHeKe6783HUA3Dw8kCYNMMAAAwzwIFam2biziRJ0D0yz4WXpW7XKoDhrYXRgNGnSAAMMMMAA9xE4q9Ni8jA3loj5WzYjKj5TguAFpsWCb9V3xvtNNR5etCVo0gADDDDAAPdxQlxub3bzc0OnqRbmcHRJYzxc0aQBBhhggAHucT888+K0osLyghNltWQFyaFfMxvQZS1dqBixqHh94YWAzVrPJE+86e2y837m6YvelOJEleTsUoABBhhggMOdCExz15UV0gHQ1lJDULZeCM4WcTzDAAMMMMCDXvddJW+G0n48HLwjxDpv9tpIrBAHGGCAAQY4DOns0tOz+kNhrt8u6w9jz2ahFAtH4co1PXbuG6ZPpWb6yjSVys6vLLfw/kSTBhhggAEGeNgD/9bT2WWyfz15hbg8Q9zdIo5fGGCAAQYY4HvWgxdKkKdamrYe7rr9MBPiAAMMMMAAh0GuTAupi7/ifVmIhWfT1DVtudqIZbyVumyOI8R4hgEGGGCABz0hfv5TaK4/ckx9fygEX6/qD3GK+dgoxPzrE6+6x+q7XcWN1oemT5LPLbMKuVdCOgBkRHz3g9x4hgEGGGCAAe7zi8ccUqW2alUOgMw6AKygqLp6J3AAAAwwwAADfN/6Ydsfr8xEB53cm46zuVWGJg0wwAADDHCf++EdpbmqBNGTfRjXtL03Cn+CEIxEfrDO8bNDp8Tj10YQFcujm0fGt96aJtlrnh4Rby1tqMqxJB5ggAEGGOBBvHh0H2JnrQfhKn+mTLmO+GMVHsge8QADDDDAAPc5/QX+G30+wSd4nQAAAABJRU5ErkJggg==" alt="Pre-task questionnaire QR code"></div>
           <div class="qr-meta">
             <b>Pre-task questionnaire</b>
-            EAP level, prior use of Smart Partner and generative AI, and baseline confidence (P1–P4), completed before the correction task.
+            Current level, prior use of Smart Partner and generative AI, and baseline confidence (P1–P4), completed before the correction task.
           </div>
         </div>
         <div class="qr-card">
@@ -904,13 +942,25 @@
       <h2>Interpreting the findings</h2>
 
       <p>
-        The headline result is a null result with a consistent direction. The Smart Partner group scored higher on correction accuracy (+0.73) and on transfer (+0.28), spent the same time (10.7 vs 10.9 min), and produced no more new errors (4 vs 2, itself non-significant, Fisher <i>p</i> = .658). None of these differences approaches significance. With 18 participants per group the design detects only large effects, roughly d ≥ 0.9 at conventional power, while the observed effects sit at d = 0.42 and 0.25. The fairest reading is that there may be a small benefit here; what the data prove is only the absence of harm.
+        The headline result is a null result with a consistent direction. The Smart Partner group scored higher on correction accuracy (+0.73) and on transfer (+0.28), spent the same time (10.7 vs 10.9 min), and produced no more new errors (4 vs 2, itself non-significant, Fisher <i>p</i> = .658).
+      </p>
+
+      <p class="key">None of these differences approaches significance.</p>
+
+      <p>
+        With 18 participants per group the design detects only large effects, roughly d ≥ 0.9 at conventional power, while the observed effects sit at d = 0.42 and 0.25. The fairest reading is that there may be a small benefit here; what the data prove is only the absence of harm.
       </p>
       <p>
-        What the scores say about learning is more interesting than the group comparison itself. Correction success on the practiced paragraph did not predict performance on the unseen items (<i>r</i> = .075, <i>p</i> = .664). Participants who fixed all eight target errors were no more likely to handle the same error types in fresh sentences. This echoes the distinction feedback researchers draw between performance on a practiced task and durable skill (Ellis et al., 2006; Hattie &amp; Timperley, 2007), and it cuts across both conditions: neither the AI group nor the independent group showed the link. Correcting a paragraph, with or without an agent, seems to be a different skill from generalising the rules behind the corrections.
+        What the scores say about learning is more interesting than the group comparison itself. Correction success on the practiced paragraph did not predict performance on the unseen items (<i>r</i> = .075, <i>p</i> = .664). Participants who fixed all eight target errors were no more likely to handle the same error types in fresh sentences.
       </p>
       <p>
-        The subjective data add a cautionary layer. Confidence rose by 1.31 points on average (5.50 → 6.81) in both conditions, and neither effort (5.7 vs 5.6 of 9) nor perceived difficulty (4.5 vs 4.1 of 7) separated the AI experience from independent study. Learners felt better after the task regardless of what had changed, which is why the study anchored its claims in scored work rather than ratings.
+        This echoes the distinction feedback researchers draw between performance on a practiced task and durable skill (Ellis et al., 2006; Hattie &amp; Timperley, 2007), and it cuts across both conditions: neither group showed the link. Correcting a paragraph, with or without an agent, seems to be a different skill from generalising the rules behind the corrections.
+      </p>
+      <p>
+        The subjective data add a cautionary layer. Confidence rose by 1.31 points on average (5.50 → 6.81) in both conditions, and neither effort (5.7 vs 5.6 of 9) nor perceived difficulty (4.5 vs 4.1 of 7) separated the AI experience from independent study.
+      </p>
+      <p>
+        Learners felt better after the task regardless of what had changed, which is why the study anchored its claims in scored work rather than ratings.
       </p>
 
       <div class="quote">
@@ -928,7 +978,7 @@
 
       <div class="quote" style="margin-top:8px">
         <b>Methodological limitations</b>
-        The sample is one of <b>convenience</b> (36 students, concentrated in EAP levels B and C), so results do not generalise to the whole Year 1 cohort. With 18 per group, only large effects are detectable, and the observed d values (0.25–0.42) fall below that bar; the non-significant results here are not evidence of no effect. Scores sat near the ceiling of both scales (77–78% of maximum), which compresses the room to find differences. The transfer test was also immediate: it says nothing about retention a week or a semester later.
+        The sample is one of <b>convenience</b> (36 students, mostly at pre-intermediate and intermediate level), so results do not generalise to the whole Year 1 cohort. With 18 per group, only large effects are detectable, and the observed d values (0.25–0.42) fall below that bar; the non-significant results here are not evidence of no effect. Scores sat near the ceiling of both scales (77–78% of maximum), which compresses the room to find differences. The transfer test was also immediate: it says nothing about retention a week or a semester later.
       </div>
 
       <div class="sub-h">What the results already show</div>
@@ -962,10 +1012,19 @@
       <h2>What this study concludes</h2>
 
       <p>
-        The question was practical: does correcting EAP errors with Smart Partner outperform ordinary independent revision? Thirty-six Year 1 students, randomly assigned in perfect balance across four EAP levels, corrected an identical paragraph, first with the agent and then without it on unseen items, and every response was scored against a fixed answer key.
+        The question was practical: does correcting EAP errors with Smart Partner outperform ordinary independent revision? Thirty-six Year 1 students, randomly assigned in perfect balance across four proficiency levels, corrected an identical paragraph, then the same error types on unseen items. Every response was scored against a fixed answer key.
       </p>
       <p>
-        Three conclusions. First, Smart Partner matched independent study everywhere and led it on both primary scores, yet nothing reached significance; the observed advantages (d = 0.42 correction, d = 0.25 transfer) would take roughly 100+ participants per group to verify. Second, success on the practiced paragraph did not carry to unseen items in either condition (<i>r</i> = .075). This is the clearest finding in the study, and it is a design signal for the agent as much as for the research. Third, confidence rose equally in both conditions while the objective evidence stayed unproven, which is why task-based, objectively scored evaluation should come before satisfaction-based claims.
+        Smart Partner matched independent study everywhere and led it on both primary scores, yet nothing reached significance. The observed advantages (d = 0.42 correction, d = 0.25 transfer) would take roughly 100+ participants per group to verify.
+      </p>
+
+      <p class="key">The data show that Smart Partner does no harm. They do not show that it teaches.</p>
+
+      <p>
+        Success on the practiced paragraph did not carry to unseen items in either condition (<i>r</i> = .075). That is the clearest finding here, and it is a design signal for the agent as much as for the research.
+      </p>
+      <p>
+        Confidence rose equally in both conditions while the objective evidence stayed unproven. Task-based, objectively scored evaluation should come before satisfaction-based claims.
       </p>
       <p>
         The immediate next steps are set out in Section 10: a powered replication with harder materials, a delayed transfer test to separate carry-over from retention, error-category coding, and thematic analysis of the open-ended answers and interviews already collected.
@@ -980,7 +1039,10 @@
       <h2>Sources behind the methods</h2>
 
       <p style="margin-bottom:18px">
-        The sources below underpin the experimental design, the choice of conditions and the measurement plan. The paragraph task and scoring follow XJTLU EAP course requirements; subjective items were written by our group or adapted from the scales listed below and have not been independently validated, as noted among the limitations in Section 8.
+        The sources below underpin the experimental design, the choice of conditions and the measurement plan. The paragraph task and scoring follow XJTLU EAP course requirements.
+      </p>
+      <p style="margin-bottom:18px">
+        Subjective items were written by our group or adapted from the scales listed below. They have not been independently validated, as noted among the limitations in Section 10.
       </p>
 
       <ol class="refs">
@@ -1024,46 +1086,6 @@
     </div>
   </section>
 
-  <!-- ============ Status of materials ============ -->
-  <section class="chapter" id="s-status">
-    <div class="chapter-num"><span class="n">—</span><span class="k">Status</span></div>
-    <div class="chapter-body">
-      <h2>Where every material stands</h2>
-
-      <p style="margin-bottom:26px">
-        Each component of the study is listed with its current state, so nothing in progress can be mistaken for completed work — or the reverse.
-      </p>
-
-      <div class="todo-grid">
-        <div class="todo">
-          <h4>Randomisation &amp; balance</h4>
-          <p>Stratified allocation by EAP level; achieved exact balance (3/5/6/4 per level per group), χ² <i>p</i> = 1.000.</p>
-          <span class="state done">Completed</span>
-        </div>
-        <div class="todo">
-          <h4>Data collection</h4>
-          <p>36 participants, both conditions, all stages including the unseen transfer test; zero attrition, zero missing values.</p>
-          <span class="state done">Completed</span>
-        </div>
-        <div class="todo">
-          <h4>Statistical analysis</h4>
-          <p>Descriptives, <i>t</i> tests, Mann–Whitney U, χ²/Fisher and correlation run in SPSS (output dated 8 Nov 2026); results in Section 7.</p>
-          <span class="state done">Completed</span>
-        </div>
-        <div class="todo">
-          <h4>Qualitative follow-up</h4>
-          <p>Open-ended questionnaire answers and interview transcripts collected; thematic coding (Braun &amp; Clarke) not yet done.</p>
-          <span class="state">To analyse</span>
-        </div>
-        <div class="todo">
-          <h4>Replication with larger sample</h4>
-          <p>Powered replication (~100 per group) with harder materials and a delayed transfer test, per Section 8.</p>
-          <span class="state">Planned</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <footer class="footer">
@@ -1085,7 +1107,6 @@
   <a href="#s10"><span>10</span>Reflection</a>
   <a href="#s11"><span>11</span>Conclusion</a>
   <a href="#s12"><span>12</span>References</a>
-  <a href="#s-status"><span>—</span>Status</a>
 </nav>
 
 <script>
@@ -1099,14 +1120,14 @@
     kpiSample: [
       { value: '36',   label: 'Valid participants', sub: '36 recruited · 0 excluded · 0 missing' },
       { value: '2',    label: 'Conditions',         sub: 'Smart Partner / Independent study · 18 each' },
-      { value: '4',    label: 'EAP levels',         sub: 'Exactly balanced (χ² p = 1.000)' },
+      { value: '4',    label: 'Proficiency levels', sub: 'Exactly balanced (χ² p = 1.000)' },
       { value: '100%', label: 'Completion',         sub: '36 of 36 sat the unseen transfer test' },
     ],
     eapBars: [
-      { label: 'EAP A (foundation)',    pct: 16.7, text: '6 · 3 + 3' },
-      { label: 'EAP B (core)',          pct: 27.8, text: '10 · 5 + 5' },
-      { label: 'EAP C (core)',          pct: 33.3, text: '12 · 6 + 6' },
-      { label: 'High Level (advanced)', pct: 22.2, text: '8 · 4 + 4' },
+      { label: 'Low level',        pct: 16.7, text: '6 · 3 + 3' },
+      { label: 'Pre-intermediate', pct: 27.8, text: '10 · 5 + 5' },
+      { label: 'Intermediate',     pct: 33.3, text: '12 · 6 + 6' },
+      { label: 'Advanced',         pct: 22.2, text: '8 · 4 + 4' },
     ],
     // --- Primary outcome KPIs ---
     kpiOutcome: [
