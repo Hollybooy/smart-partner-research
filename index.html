@@ -64,18 +64,34 @@
   .masthead {
     padding: clamp(56px, 9vw, 108px) var(--gutter) clamp(40px, 6vw, 64px);
     max-width: calc(var(--doc) + 2 * var(--gutter)); margin: 0 auto;
-  }
-  .kicker {
-    font-size: 10.5px; font-weight: 700; letter-spacing: 2.6px; text-transform: uppercase;
-    color: var(--grey); padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 184px;
+    column-gap: clamp(28px, 4vw, 60px);
+    align-items: start;
   }
   .display {
-    font-size: clamp(34px, 7.2vw, 82px);
-    line-height: 1.02; font-weight: 800; letter-spacing: -.035em; color: var(--ink);
+    grid-column: 1 / -1;
+    font-size: clamp(30px, 4.6vw, 58px);
+    line-height: 1.02; font-weight: 800; letter-spacing: -.03em; color: var(--ink);
+    margin-bottom: clamp(22px, 3vw, 34px);
   }
   .lede {
-    margin-top: 26px; max-width: 58ch;
-    font-size: clamp(15px, 1.9vw, 18.5px); line-height: 1.7; color: var(--ink-2);
+    grid-column: 1; max-width: 54ch;
+    font-size: clamp(15px, 1.4vw, 17px); line-height: 1.7; color: var(--ink-2);
+  }
+  .masthead .facts { grid-column: 1 / -1; }
+
+  /* QR card in the masthead */
+  .hero-qr { grid-column: 2; grid-row: 2; justify-self: end; width: 184px; }
+  .hero-qr .qr-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--grey); padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--ink);
+  }
+  .hero-qr img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+  .hero-qr .qr-cap { margin-top: 9px; font-size: 11px; line-height: 1.5; color: var(--grey); }
+  @media (max-width: 780px) {
+    .masthead { grid-template-columns: 1fr; }
+    .hero-qr { grid-column: 1; grid-row: auto; justify-self: start; width: 148px; margin-top: 26px; }
   }
 
   /* ===== Key parameters (rule-separated) ===== */
@@ -429,6 +445,12 @@
     Thirty-six XJTLU Year 1 students corrected the same EAP paragraph, which contained eight embedded grammar and vocabulary errors. Half worked with Smart Partner; the other half revised on their own. Afterwards everyone sat a transfer test on unseen items of the same error types. We report what they got right, not how they felt about the tool.
   </p>
 
+  <aside class="hero-qr">
+    <div class="qr-label">Smart Partner</div>
+    <img src="data:image/png;base64,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" alt="QR code that opens Smart Partner">
+    <div class="qr-cap">Scan with your phone to open the agent.</div>
+  </aside>
+
   <!-- ★ Editable: key parameters -->
   <dl class="facts">
     <div>
@@ -437,7 +459,7 @@
     </div>
     <div>
       <dt>Task</dt>
-      <dd>Timed correction of 8 errors<br>+ unseen transfer test</dd>
+      <dd>Timed · 8 errors<br>+ unseen transfer test</dd>
     </div>
     <div>
       <dt>Sample</dt>
@@ -445,7 +467,7 @@
     </div>
     <div>
       <dt>Primary outcome</dt>
-      <dd>Correction score 0–16 ·<br>transfer score 0–10</dd>
+      <dd>Correction 0–16<br>Transfer 0–10</dd>
     </div>
   </dl>
 </header>
