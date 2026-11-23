@@ -678,7 +678,7 @@
       <p style="margin-top:24px">
         <b>Between-subjects factor (Learning condition)</b> — participants worked in <b>one</b> condition only, avoiding order effects and demand characteristics from experiencing both.<br>
         <b>Stratifying variable (proficiency level)</b> — low, pre-intermediate, intermediate and advanced levels were used to balance allocation; the final assignment came out exactly balanced (3 / 5 / 6 / 4 per level in each group).<br>
-        <b>Objective scoring</b> — every target error is scored 0 / 1 / 2 (not corrected / partially / fully corrected) against a fixed answer key, giving <code>Corrected_Total</code> (0–16) and <code>Transfer_Total</code> (0–10) with no rater judgement involved.
+        <b>Objective scoring</b> — every target error is scored 0 / 1 / 2 (not found / found but not corrected / found and corrected) against a fixed answer key, giving <code>Corrected_Total</code> (0–16) and <code>Transfer_Total</code> (0–10) with no rater judgement involved.
       </p>
 
       <div class="sub-h">Allocation, equivalence and scoring</div>
@@ -728,7 +728,7 @@
         </div>
         <div class="cond">
           <h4>Scoring</h4>
-          <p>Partial credit per error (0 = not corrected, 1 = partially corrected, 2 = fully corrected) against a fixed answer key: correction 0–16, transfer 0–10. A parallel binary code flags whether the revision introduced at least one <b>new error</b>.</p>
+          <p>Partial credit per error (0 = error not found, 1 = found but not corrected, 2 = found and corrected) against a fixed answer key: correction 0–16, transfer 0–10. A parallel binary code flags whether the revision introduced at least one <b>new error</b>.</p>
         </div>
       </div>
     </div>
@@ -805,6 +805,38 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="sub-h">Scoring rubric · 0 / 1 / 2 per error</div>
+      <p>
+        Both objective scores come from the same three-point rubric, applied error by error against a fixed answer key. The rubric separates noticing from fixing, so a missed error and a half-corrected one do not receive the same credit.
+      </p>
+      <table class="stats-table" style="margin-top:16px">
+        <thead><tr>
+          <th>Points</th>
+          <th>Criterion</th>
+          <th>What counts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>0</b></td>
+            <td>Error not found</td>
+            <td>The wrong wording is left untouched, or rewritten without addressing the error.</td>
+          </tr>
+          <tr>
+            <td><b>1</b></td>
+            <td>Found, not corrected</td>
+            <td>The error is marked or altered, but the replacement is still non-standard.</td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td>Found and corrected</td>
+            <td>The replacement matches the answer key and reads correctly in context.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="stats-note">
+        Correction score = 8 errors × 0–2, range 0–16. Transfer score = 5 unseen items × 0–2, range 0–10: both conditions completed those five items with no tools, no AI and no access to the corrected paragraph, on items drawn from the same error types. Scoring is mechanical against the key, so no rater-reliability coefficient is involved.
+      </p>
 
       <div class="sub-h">Process measures · what participants actually did</div>
       <table class="stats-table">
