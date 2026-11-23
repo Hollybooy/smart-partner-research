@@ -414,6 +414,8 @@
   .refs li:last-child { border-bottom: none; }
   .refs .src { display: block; color: var(--ink); font-size: 13.5px; }
   .refs .why { display: block; color: var(--grey); font-size: 12px; margin-top: 3px; }
+  .refs a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); overflow-wrap: anywhere; }
+  .refs a:hover { border-bottom-color: var(--ink); }
 
   .footer {
     text-align: left; padding: 28px var(--gutter) 0;
@@ -593,7 +595,7 @@
       <h2>Background and rationale</h2>
 
       <p>
-        Smart Partner was built for Year 1 students at Xi'an Jiaotong-Liverpool University. It drills grammar, comments on writing, revisits vocabulary and runs mock tests, all of it pointed at the EAP exam. Most students in the cohort already use generative AI for English work in some form, and more will once the exam gets closer.
+        Smart Partner was built for Year 1 students at Xi'an Jiaotong-Liverpool University. It drills grammar, comments on writing, revisits vocabulary and runs mock tests, all of it pointed at the EAP exam. Most students in the cohort already use generative AI for English work in some form (Kohnke et al., 2023), and more will once the exam gets closer.
       </p>
 
       <p class="key">Whether the tools help is a separate question.</p>
@@ -689,7 +691,7 @@
       <h2>What participants actually did</h2>
 
       <p>
-        The task is one full cycle of EAP error correction, taken from a genuine exam scenario: find and fix the grammar and vocabulary problems in a paragraph. Revision of this kind is standard in L2 writing research (Shintani et al., 2014), and nothing about it was staged for the study; it is what students already do while preparing for the exam. The correction task took <b>10.8 minutes</b> on average (range 9.3–12.0), and nobody dropped out at any stage.
+        The task is one full cycle of EAP error correction, taken from a genuine exam scenario: find and fix the grammar and vocabulary problems in a paragraph. Revision of this kind is standard in L2 writing research (Shintani et al., 2014), and the correction it asks for is the direct, focused type that Ellis (2009) separates from written feedback in general; nothing about it was staged for the study: it is what students already do while preparing for the exam. The correction task took <b>10.8 minutes</b> on average (range 9.3–12.0), and nobody dropped out at any stage.
       </p>
 
       <div class="sub-h">Stage 1 · Pre-task ratings</div>
@@ -880,7 +882,7 @@
       <p class="key">None of these differences is statistically significant.</p>
 
       <p>
-        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case. Effort ratings are read as a cognitive-load measure (Sweller, 1988).
+        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation (Field, 2018). Parametric and non-parametric tests agree in every case. Effort ratings are read as a cognitive-load measure (Sweller, 1988).
       </p>
 
       <div class="sub-h">Sample: 36 valid, 18 per group, levels balanced</div>
@@ -1061,7 +1063,7 @@
       <p class="key">None of these differences approaches significance.</p>
 
       <p>
-        The observed effects sit at d = 0.42 and 0.25, and neither reached significance in this sample. The fairest reading is that there may be a small benefit here; what the data prove is only the absence of harm.
+        The observed effects sit at d = 0.42 and 0.25, small by conventional standards (Cohen, 1988), and neither reached significance in this sample. The fairest reading is that there may be a small benefit here; what the data prove is only the absence of harm. A gap of that size is also about what comparisons of tutoring systems would lead one to expect for an aid of this kind (VanLehn, 2011), so the null result is less surprising than it first looks.
       </p>
       <p>
         What the scores say about learning is more interesting than the group comparison itself. Correction success on the practiced paragraph did not predict performance on the unseen items (<i>r</i> = .075, <i>p</i> = .664). Participants who fixed all eight target errors were no more likely to handle the same error types in fresh sentences.
@@ -1091,7 +1093,7 @@
 
       <div class="quote" style="margin-top:8px">
         <b>Methodological limitations</b>
-        The sample is one of <b class="inline">convenience</b> (36 students, mostly at pre-intermediate and intermediate level), so results do not generalise to the whole Year 1 cohort. With 18 per group the effect estimates are imprecise: the 95% confidence intervals for Cohen's <i>d</i> run from −0.25 to 1.07 (correction) and −0.41 to 0.90 (transfer), so the non-significant results here are not evidence of no effect. Scores sat near the ceiling of both scales (77–78% of maximum), which compresses the room to find differences. The transfer test was also immediate: it says nothing about retention a week or a semester later.
+        The sample is one of <b class="inline">convenience</b> (36 students, mostly at pre-intermediate and intermediate level), so results do not generalise to the whole Year 1 cohort. With 18 per group the effect estimates are imprecise: the 95% confidence intervals for Cohen's <i>d</i> run from −0.25 to 1.07 (correction) and −0.41 to 0.90 (transfer), so the non-significant results here are not evidence of no effect. Scores sat near the ceiling of both scales (77–78% of maximum), which compresses the room to find differences. The transfer test was also immediate: it says nothing about retention a week or a semester later, although written-feedback gains have been tracked for up to ten months (Bitchener &amp; Knoch, 2010), so a delayed transfer test is the obvious next addition.
       </div>
 
       <div class="sub-h">What the results already show</div>
@@ -1160,11 +1162,11 @@
 
       <ol class="refs">
         <li>
-          <span class="src">Bitchener, J., &amp; Knoch, U. (2010). The contribution of written corrective feedback to language development: A ten month investigation. <i>Applied Linguistics, 31</i>(2), 193–214. https://doi.org/10.1093/applin/amp016</span>
+          <span class="src">Bitchener, J., &amp; Knoch, U. (2010). The contribution of written corrective feedback to language development: A ten month investigation. <i>Applied Linguistics, 31</i>(2), 193–214. <a href="https://doi.org/10.1093/applin/amp016">https://doi.org/10.1093/applin/amp016</a></span>
           <span class="why">— Written corrective feedback produces gains that persist over time; the case for a delayed transfer test in the next round.</span>
         </li>
         <li>
-          <span class="src">Braun, V., &amp; Clarke, V. (2006). Using thematic analysis in psychology. <i>Qualitative Research in Psychology, 3</i>(2), 77–101. https://doi.org/10.1191/1478088706qp063oa</span>
+          <span class="src">Braun, V., &amp; Clarke, V. (2006). Using thematic analysis in psychology. <i>Qualitative Research in Psychology, 3</i>(2), 77–101. <a href="https://doi.org/10.1191/1478088706qp063oa">https://doi.org/10.1191/1478088706qp063oa</a></span>
           <span class="why">— Thematic coding procedure for the open-ended answers and interview transcripts (analysis pending).</span>
         </li>
         <li>
@@ -1176,11 +1178,11 @@
           <span class="why">— Overall framework for mixed-methods design and a checklist of validity threats.</span>
         </li>
         <li>
-          <span class="src">Ellis, R. (2009). A typology of written corrective feedback types. <i>ELT Journal, 63</i>(2), 97–107. https://doi.org/10.1093/elt/ccn023</span>
+          <span class="src">Ellis, R. (2009). A typology of written corrective feedback types. <i>ELT Journal, 63</i>(2), 97–107. <a href="https://doi.org/10.1093/elt/ccn023">https://doi.org/10.1093/elt/ccn023</a></span>
           <span class="why">— Names the feedback types the study can and cannot claim to test; the paragraph task targets direct, focused correction only.</span>
         </li>
         <li>
-          <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. https://doi.org/10.1017/S0272263106060141</span>
+          <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. <a href="https://doi.org/10.1017/S0272263106060141">https://doi.org/10.1017/S0272263106060141</a></span>
           <span class="why">— Corrective feedback and L2 grammar learning; the main basis for using error correction as the task vehicle.</span>
         </li>
         <li>
@@ -1192,31 +1194,31 @@
           <span class="why">— Item wording and sources of self-report bias; defines the limits of what the confidence and effort ratings can support.</span>
         </li>
         <li>
-          <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. https://doi.org/10.3102/003465430298487</span>
+          <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. <a href="https://doi.org/10.3102/003465430298487">https://doi.org/10.3102/003465430298487</a></span>
           <span class="why">— Feedback-level theory: why AI feedback should be judged by what learners do next, not by how they rate it.</span>
         </li>
         <li>
-          <span class="src">Kohnke, L., Moorhouse, B. L., &amp; Zou, D. (2023). ChatGPT for language teaching and learning. <i>RELC Journal, 54</i>(2), 537–550. https://doi.org/10.1177/00336882231162868</span>
+          <span class="src">Kohnke, L., Moorhouse, B. L., &amp; Zou, D. (2023). ChatGPT for language teaching and learning. <i>RELC Journal, 54</i>(2), 537–550. <a href="https://doi.org/10.1177/00336882231162868">https://doi.org/10.1177/00336882231162868</a></span>
           <span class="why">— Positions Smart Partner as one instance of generative AI in language education, and sets out the risks (over-reliance, unverified output) this evaluation is designed to probe.</span>
         </li>
         <li>
-          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
+          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. <a href="https://doi.org/10.1016/j.jcm.2016.02.012">https://doi.org/10.1016/j.jcm.2016.02.012</a></span>
           <span class="why">— Reliability reporting standards; the fixed answer key was chosen partly to sidestep rater-reliability problems.</span>
         </li>
         <li>
-          <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. https://doi.org/10.1207/S15326985EP3801_8</span>
+          <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. <a href="https://doi.org/10.1207/S15326985EP3801_8">https://doi.org/10.1207/S15326985EP3801_8</a></span>
           <span class="why">— Mental-effort rating scale, adapted for the 1–20 effort item.</span>
         </li>
         <li>
-          <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. https://doi.org/10.1177/1362168813509907</span>
+          <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. <a href="https://doi.org/10.1177/1362168813509907">https://doi.org/10.1177/1362168813509907</a></span>
           <span class="why">— Effects of feedback-driven revision on L2 writing accuracy; supports measuring what revision actually changes.</span>
         </li>
         <li>
-          <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. https://doi.org/10.1207/s15516709cog1202_4</span>
+          <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. <a href="https://doi.org/10.1207/s15516709cog1202_4">https://doi.org/10.1207/s15516709cog1202_4</a></span>
           <span class="why">— Cognitive load theory; frames the effort cost of AI-assisted versus independent correction.</span>
         </li>
         <li>
-          <span class="src">VanLehn, K. (2011). The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems. <i>Educational Psychologist, 46</i>(4), 197–221. https://doi.org/10.1080/00461520.2011.611369</span>
+          <span class="src">VanLehn, K. (2011). The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems. <i>Educational Psychologist, 46</i>(4), 197–221. <a href="https://doi.org/10.1080/00461520.2011.611369">https://doi.org/10.1080/00461520.2011.611369</a></span>
           <span class="why">— Puts a realistic ceiling on what an AI tutor can be expected to add over unsupported practice, which is the scale against which the +0.73 gap should be read.</span>
         </li>
       </ol>
