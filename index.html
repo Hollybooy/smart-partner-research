@@ -379,12 +379,8 @@
 
   /* ===== References ===== */
   .refs { list-style: none; padding: 0; margin: 0; counter-reset: ref; }
-  .refs li { position: relative; padding: 14px 0 14px 40px; counter-increment: ref; border-bottom: 1px solid var(--rule); }
+  .refs li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
   .refs li:last-child { border-bottom: none; }
-  .refs li::before {
-    content: "[" counter(ref) "]"; position: absolute; left: 0; top: 14px;
-    font-weight: 700; color: var(--grey); font-size: 12.5px;
-  }
   .refs .src { display: block; color: var(--ink); font-size: 13.5px; }
   .refs .why { display: block; color: var(--grey); font-size: 12.5px; margin-top: 3px; }
 
@@ -555,7 +551,7 @@
       <h2>A two-group controlled comparison</h2>
 
       <p>
-        The design is between-subjects with a single factor: learning condition, Smart Partner or independent study, 18 participants each.
+        The design is a two-group between-subjects comparison with a single factor (Creswell &amp; Creswell, 2018): learning condition, Smart Partner or independent study, 18 participants each.
       </p>
 
       <p class="key">Same paragraph, same answer key, same clock. Any difference in scores traces to the resource, not the material.</p>
@@ -590,7 +586,7 @@
       <ol class="plan">
         <li><b>Stratified randomisation</b> — allocated within level strata (low, pre-intermediate, intermediate, advanced); the realised design is perfectly balanced, χ²(3) = 0.000, <i>p</i> = 1.000.</li>
         <li><b>Baseline equivalence</b> — no group differences in pre-task confidence (<i>p</i> = .537), prior Smart Partner use (<i>p</i> = .275) or prior generative-AI use (<i>p</i> = .791), Mann–Whitney tests.</li>
-        <li><b>Fixed answer key</b> — partial-credit scoring replaces rater judgement entirely; no rater blinding procedure is needed because scoring is mechanical.</li>
+        <li><b>Fixed answer key</b> — partial-credit scoring replaces rater judgement entirely; no rater blinding procedure is needed because scoring is mechanical, and no reliability coefficient has to be reported (cf. Koo &amp; Li, 2016).</li>
         <li><b>Held-constant materials</b> — same paragraph, same eight embedded errors, same transfer items, same time frame for both conditions.</li>
       </ol>
     </div>
@@ -603,7 +599,7 @@
       <h2>What participants actually did</h2>
 
       <p>
-        The task is one full cycle of EAP error correction, taken from a genuine exam scenario: find and fix the grammar and vocabulary problems in a paragraph. Nothing about it was staged for the study; it is what students already do while preparing for the exam. The correction task took <b>10.8 minutes</b> on average (range 9.3–12.0), and nobody dropped out at any stage.
+        The task is one full cycle of EAP error correction, taken from a genuine exam scenario: find and fix the grammar and vocabulary problems in a paragraph. Revision of this kind is standard in L2 writing research (Shintani et al., 2014), and nothing about it was staged for the study; it is what students already do while preparing for the exam. The correction task took <b>10.8 minutes</b> on average (range 9.3–12.0), and nobody dropped out at any stage.
       </p>
 
       <div class="sub-h">Stage 1 · Pre-task ratings</div>
@@ -749,7 +745,7 @@
           </tr>
           <tr>
             <td>Mental effort</td>
-            <td>Single item, 1–9 (Paas-style effort scale)</td>
+            <td>Single item, 1–9 (Paas et al., 2003)</td>
             <td>Ordinal</td>
             <td>Cost of each condition</td>
           </tr>
@@ -776,7 +772,7 @@
 
       <div class="quote">
         <b>Role of the questionnaire</b>
-        The questionnaire is not evidence; it is there to explain. Administered before and after the task, it shows whether participants noticed what the objective data show, for instance whether the extra confidence after the task tracks the Smart Partner group's statistically unproven score advantage. Items are listed in Section 8.
+        Self-report items carry known biases (Fowler, 2014), so the questionnaire is not evidence; it is there to explain. Administered before and after the task, it shows whether participants noticed what the objective data show, for instance whether the extra confidence after the task tracks the Smart Partner group's statistically unproven score advantage. Items are listed in Section 8.
       </div>
     </div>
   </section>
@@ -794,7 +790,7 @@
       <p class="key">None of these differences is statistically significant.</p>
 
       <p>
-        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case.
+        All 36 participants completed every stage; nobody dropped out. Group comparisons use independent-samples <i>t</i> tests, with Mann–Whitney U run alongside as a robustness check given the sample size. The new-error outcome uses Fisher's exact test, the randomisation check uses χ², and the correction–transfer link uses a Pearson correlation. Parametric and non-parametric tests agree in every case. Effort ratings are read as a cognitive-load measure (Sweller, 1988).
       </p>
 
       <div class="sub-h">Sample: 36 valid, 18 per group, levels balanced</div>
@@ -1022,7 +1018,7 @@
         <li><b>Use harder materials</b> — a more demanding paragraph (or more errors) removes the ceiling that compressed both score distributions.</li>
         <li><b>Add a delayed transfer test</b> (1 week later) to separate immediate carry-over from retention.</li>
         <li><b>Code errors by category</b> (agreement, articles, word choice, …) to identify which error types benefit most from AI support.</li>
-        <li><b>Analyse the open answers</b> — the two open questionnaire items and the interviews are collected but not yet thematically coded (Braun &amp; Clarke).</li>
+        <li><b>Analyse the open answers</b> — the two open questionnaire items and the interviews are collected but not yet thematically coded (Braun &amp; Clarke, 2006).</li>
       </ol>
 
       <div class="sub-h">Research ethics</div>
@@ -1069,38 +1065,10 @@
         The sources below underpin the experimental design, the choice of conditions and the measurement plan. The paragraph task and scoring follow XJTLU EAP course requirements.
       </p>
       <p style="margin-bottom:18px">
-        Subjective items were written by our group or adapted from the scales listed below. They have not been independently validated, as noted among the limitations in Section 10.
+        Subjective items were written by our group or adapted from the scales listed below. They have not been independently validated, as noted among the limitations in Section 10. Citations follow APA 7th edition (author–date).
       </p>
 
       <ol class="refs">
-        <li>
-          <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. https://doi.org/10.1017/S0272263106060141</span>
-          <span class="why">— Corrective feedback and L2 grammar learning; the main basis for using error correction as the task vehicle.</span>
-        </li>
-        <li>
-          <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. https://doi.org/10.1177/1362168813509907</span>
-          <span class="why">— Effects of feedback-driven revision on L2 writing accuracy; supports measuring what revision actually changes.</span>
-        </li>
-        <li>
-          <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. https://doi.org/10.3102/003465430298487</span>
-          <span class="why">— Feedback-level theory: why AI feedback should be judged by what learners do next, not by how they rate it.</span>
-        </li>
-        <li>
-          <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. https://doi.org/10.1207/S15326985EP3801_8</span>
-          <span class="why">— Mental-effort rating scale, adapted for the 1–9 effort item.</span>
-        </li>
-        <li>
-          <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. https://doi.org/10.1207/s15516709cog1202_4</span>
-          <span class="why">— Cognitive load theory; frames the effort cost of AI-assisted versus independent correction.</span>
-        </li>
-        <li>
-          <span class="src">Fowler, F. J. (2014). <i>Survey research methods</i> (5th ed.). SAGE.</span>
-          <span class="why">— Item wording and sources of self-report bias; defines the limits of what the confidence and effort ratings can support.</span>
-        </li>
-        <li>
-          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
-          <span class="why">— Reliability reporting standards; the fixed answer key was chosen partly to sidestep rater-reliability problems.</span>
-        </li>
         <li>
           <span class="src">Braun, V., &amp; Clarke, V. (2006). Using thematic analysis in psychology. <i>Qualitative Research in Psychology, 3</i>(2), 77–101. https://doi.org/10.1191/1478088706qp063oa</span>
           <span class="why">— Thematic coding procedure for the open-ended answers and interview transcripts (analysis pending).</span>
@@ -1108,6 +1076,34 @@
         <li>
           <span class="src">Creswell, J. W., &amp; Creswell, J. D. (2018). <i>Research design: Qualitative, quantitative, and mixed methods approaches</i> (5th ed.). SAGE.</span>
           <span class="why">— Overall framework for mixed-methods design and a checklist of validity threats.</span>
+        </li>
+        <li>
+          <span class="src">Ellis, R., Loewen, S., &amp; Erlam, R. (2006). Implicit and explicit corrective feedback and the acquisition of L2 grammar. <i>Studies in Second Language Acquisition, 28</i>(2), 339–368. https://doi.org/10.1017/S0272263106060141</span>
+          <span class="why">— Corrective feedback and L2 grammar learning; the main basis for using error correction as the task vehicle.</span>
+        </li>
+        <li>
+          <span class="src">Fowler, F. J. (2014). <i>Survey research methods</i> (5th ed.). SAGE.</span>
+          <span class="why">— Item wording and sources of self-report bias; defines the limits of what the confidence and effort ratings can support.</span>
+        </li>
+        <li>
+          <span class="src">Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. https://doi.org/10.3102/003465430298487</span>
+          <span class="why">— Feedback-level theory: why AI feedback should be judged by what learners do next, not by how they rate it.</span>
+        </li>
+        <li>
+          <span class="src">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <i>Journal of Chiropractic Medicine, 15</i>(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012</span>
+          <span class="why">— Reliability reporting standards; the fixed answer key was chosen partly to sidestep rater-reliability problems.</span>
+        </li>
+        <li>
+          <span class="src">Paas, F., Tuovinen, J. E., Tabbers, H., &amp; Van Gerven, P. W. M. (2003). Cognitive load measurement as a means to advance cognitive load theory. <i>Educational Psychologist, 38</i>(1), 63–71. https://doi.org/10.1207/S15326985EP3801_8</span>
+          <span class="why">— Mental-effort rating scale, adapted for the 1–9 effort item.</span>
+        </li>
+        <li>
+          <span class="src">Shintani, N., Ellis, R., &amp; Suzuki, W. (2014). Effects of written feedback and revision on second language writing accuracy. <i>Language Teaching Research, 18</i>(2), 217–239. https://doi.org/10.1177/1362168813509907</span>
+          <span class="why">— Effects of feedback-driven revision on L2 writing accuracy; supports measuring what revision actually changes.</span>
+        </li>
+        <li>
+          <span class="src">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285. https://doi.org/10.1207/s15516709cog1202_4</span>
+          <span class="why">— Cognitive load theory; frames the effort cost of AI-assisted versus independent correction.</span>
         </li>
       </ol>
     </div>
